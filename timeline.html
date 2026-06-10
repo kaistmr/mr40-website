@@ -168,6 +168,89 @@
       white-space: pre-line;
     }
 
+    /* ── VOD 링크 카드 (외부 다시보기 연결) ── */
+    .tl-vod {
+      display: block;
+      margin-top: 0.8rem;
+      border-radius: 0.6rem;
+      overflow: hidden;
+      border: 1px solid rgba(91, 140, 255, 0.25);
+      text-decoration: none;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .tl-vod:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .tl-vod-thumb {
+      position: relative;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .tl-vod-thumb img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .tl-vod-thumb::after {
+      content: "▶";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 3rem;
+      height: 3rem;
+      line-height: 3rem;
+      text-align: center;
+      text-indent: 0.2em;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.55);
+      color: #fff;
+      font-size: 1rem;
+      transition: background 0.3s ease;
+    }
+
+    .tl-vod:hover .tl-vod-thumb::after {
+      background: var(--accent);
+    }
+
+    /* 썸네일 로드 실패 시(js에서 hidden 부여) 텍스트 버튼만 남김 */
+    .tl-vod-thumb.hidden {
+      display: none;
+    }
+
+    .tl-vod-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 0.9rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(91, 140, 255, 0.08);
+      transition: color 0.6s ease, background 0.6s ease;
+    }
+
+    .tl-vod-label .ext {
+      margin-left: auto;
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    body[data-era="retro"] .tl-vod {
+      border-color: rgba(45, 212, 167, 0.35);
+      border-radius: 4px;
+    }
+
+    body[data-era="retro"] .tl-vod-label {
+      background: rgba(45, 212, 167, 0.08);
+    }
+
     /* ── 레트로 시대 카드 변형 (터미널 카드) ── */
     body[data-era="retro"] .tl-card {
       background: rgba(45, 212, 167, 0.05);
@@ -305,10 +388,23 @@
             '<p class="decade-sub">' + escapeHtml(DECADE_SUBS[d] || "") + "</p>" +
             "</div>";
         }
+        var vodHtml = "";
+        if (it.link && it.link.url) {
+          vodHtml = '<a class="tl-vod" href="' + escapeHtml(it.link.url) + '" target="_blank" rel="noopener">' +
+            (it.link.image
+              ? '<span class="tl-vod-thumb"><img src="' + escapeHtml(it.link.image) + '" alt="" loading="lazy" ' +
+                "onerror=\"this.parentNode.classList.add('hidden')\" /></span>"
+              : "") +
+            '<span class="tl-vod-label">' + escapeHtml(it.link.label || "바로 보기") +
+            '<span class="ext">새 탭에서 열림 ↗</span></span>' +
+            "</a>";
+        }
+
         html += '<div class="tl-item">' +
           '<div class="tl-card">' +
           '<div class="tl-date">' + escapeHtml(it.date || String(it.year || "")) + "</div>" +
           '<div class="tl-text">' + escapeHtml(it.text || "") + "</div>" +
+          vodHtml +
           "</div></div>";
       });
 

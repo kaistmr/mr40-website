@@ -417,6 +417,133 @@
     })();
   </script>
 
+  <!-- ══ 참가 신청 안내 팝업 (방문 시 1회) ══ -->
+  <style>
+    .welcome-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 3000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(4, 8, 20, 0.8);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      padding: 1.25rem;
+    }
+
+    .welcome-modal.open { display: flex; }
+
+    .welcome-card {
+      background: linear-gradient(160deg, #13204a 0%, #0e1838 100%);
+      border: 1px solid rgba(91, 140, 255, 0.3);
+      border-radius: 1.2rem;
+      max-width: 420px;
+      width: 100%;
+      padding: 2.2rem 1.8rem 1.8rem;
+      text-align: center;
+      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
+    }
+
+    .welcome-card .wm-emoji { font-size: 2.4rem; }
+
+    .welcome-card h2 {
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      margin: 0.7rem 0 0.4rem;
+    }
+
+    .welcome-card .wm-date {
+      font-size: 0.92rem;
+      color: var(--accent);
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .welcome-card p.wm-copy {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.4rem;
+    }
+
+    .wm-apply {
+      display: block;
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 9999px;
+      padding: 0.85rem;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(91, 140, 255, 0.35);
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .wm-apply:hover { opacity: 0.9; transform: scale(1.02); }
+
+    .wm-later {
+      display: block;
+      width: 100%;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-family: inherit;
+      cursor: pointer;
+      margin-top: 0.8rem;
+      padding: 0.4rem;
+    }
+
+    .wm-later:hover { color: var(--text); }
+  </style>
+
+  <div class="welcome-modal" id="welcome-modal" role="dialog" aria-modal="true" aria-labelledby="wm-title">
+    <div class="welcome-card">
+      <div class="wm-emoji">🎉</div>
+      <h2 id="wm-title">40주년 기념행사에 초대합니다</h2>
+      <p class="wm-date">2026년 11월 28일 (토)</p>
+      <p class="wm-copy">1986년부터 이어진 40년, 그 자리에 함께해 주세요.<br>동문·현역 누구나 환영합니다.</p>
+      <button class="wm-apply" id="wm-apply" type="button">참가 신청하기</button>
+      <button class="wm-later" id="wm-later" type="button">다음에 할게요</button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      "use strict";
+      var modal = document.getElementById("welcome-modal");
+
+      // 세션당 1회만 표시 (행사 종료 후에는 표시 안 함)
+      var eventOver = new Date(CONFIG.EVENT_DATE).getTime() <= Date.now();
+      if (!sessionStorage.getItem("mr40_welcome_shown") && !eventOver) {
+        modal.classList.add("open");
+        sessionStorage.setItem("mr40_welcome_shown", "1");
+      }
+
+      function close() { modal.classList.remove("open"); }
+
+      document.getElementById("wm-apply").addEventListener("click", function () {
+        if (CONFIG.EVENT_FORM_URL) {
+          window.open(CONFIG.EVENT_FORM_URL, "_blank", "noopener,noreferrer");
+          close();
+        } else {
+          // 폼이 아직 없으면 행사 안내 페이지로
+          location.href = "event.html";
+        }
+      });
+      document.getElementById("wm-later").addEventListener("click", close);
+      modal.addEventListener("click", function (e) { if (e.target === modal) close(); });
+      document.addEventListener("keydown", function (e) {
+        if (e.key === "Escape" && modal.classList.contains("open")) close();
+      });
+    })();
+  </script>
+
   <div id="toast"></div>
 </body>
 </html>

@@ -527,7 +527,7 @@
     function renderVideos(videos) {
       videoListEl.innerHTML = "";
       if (!videos || videos.length === 0) {
-        videoListEl.innerHTML = '<p class="gal-status" style="grid-column:1/-1;">영상 준비 중입니다. 디지털 변환 작업이 진행되고 있어요 🎞️</p>';
+        videoListEl.innerHTML = '<p class="gal-status" style="grid-column:1/-1;">영상은 디지털로 옮기는 중이에요 🎞️</p>';
         return;
       }
       videos.sort(function (a, b) { return (a.year || 0) - (b.year || 0); });

@@ -1,0 +1,86 @@
+<xml xmlns:v="urn:schemas-microsoft-com:vml"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+ xmlns:oa="urn:schemas-microsoft-com:office:activation">
+ <p:presentation sizeof="screen" gridspacingx="46448" gridspacingy="46448"
+  subsetembed="1">
+  <p:master id="159" slidesn="0,0" type="main" href="master159.htm"
+   xmlhref="master159.xml" template="고구려 벽화" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="171" slidesn="0,0" type="main" href="master171.htm"
+   xmlhref="master171.xml" template="1_고구려 벽화" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="172" slidesn="0,0" type="main" href="master172.htm"
+   xmlhref="master172.xml" template="2_고구려 벽화" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="173" slidesn="0,0" type="main" href="master173.htm"
+   xmlhref="master173.xml" template="3_고구려 벽화" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="174" slidesn="0,0" type="main" href="master174.htm"
+   xmlhref="master174.xml" template="4_고구려 벽화" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="175" slidesn="0,0" type="main" href="master175.htm"
+   xmlhref="master175.xml" template="5_고구려 벽화" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="176" slidesn="0,0" type="main" href="master176.htm"
+   xmlhref="master176.xml" template="6_고구려 벽화" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="177" slidesn="0,0" type="main" href="master177.htm"
+   xmlhref="master177.xml" template="7_고구려 벽화" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="178" slidesn="0,0" type="main" href="master178.htm"
+   xmlhref="master178.xml" template="8_고구려 벽화" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="179" slidesn="0,0" type="main" href="master179.htm"
+   xmlhref="master179.xml" template="9_고구려 벽화" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="180" slidesn="0,0" type="main" href="master180.htm"
+   xmlhref="master180.xml" template="10_고구려 벽화" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:slide id="1" slidesn="0,0" href="slide0001.htm" masterhref="master171.htm"/>
+  <p:slide id="2" slidesn="0,0" href="slide0002.htm" masterhref="master172.htm"/>
+  <p:slide id="3" slidesn="0,0" href="slide0003.htm" masterhref="master172.htm"/>
+  <p:slide id="4" slidesn="0,0" href="slide0004.htm" masterhref="master172.htm"/>
+  <p:slide id="5" slidesn="0,0" href="slide0005.htm" masterhref="master172.htm"/>
+  <p:slide id="6" slidesn="0,0" href="slide0006.htm" masterhref="master172.htm"/>
+  <p:slide id="7" slidesn="0,0" href="slide0007.htm" masterhref="master172.htm"/>
+  <p:viewstate type="slideView" restoredleft="163" restoredtop="946"
+   manualadjustleft="t" hideoutlineicons="t"/>
+  <p:pptdocumentsettings framecolors="WhiteTextOnBlack" hideslideanimation="t"
+   browsersupport="v4"/>
+ </p:presentation>
+ <o:shapedefaults v:ext="edit" spidmax="18436"/>
+</xml>

@@ -1,0 +1,43 @@
+<xml xmlns:v="urn:schemas-microsoft-com:vml"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+ xmlns:oa="urn:schemas-microsoft-com:office:activation">
+ <p:presentation sizeof="screen" gridspacingx="46448" gridspacingy="46448"
+  subsetembed="1">
+  <p:master id="15" slidesn="0,0" type="main" href="master15.htm"
+   xmlhref="master15.xml" template="도시" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="27" slidesn="0,0" type="main" href="master27.htm"
+   xmlhref="master27.xml" template="1_도시" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="28" slidesn="0,0" type="main" href="master28.htm"
+   xmlhref="master28.xml" template="2_도시" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="29" slidesn="0,0" type="main" href="master29.htm"
+   xmlhref="master29.xml" template="3_도시" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="1" slidesn="1C94676,525F91D0" type="notes" href="master01.htm"
+   layout="notes" slots="header,dateTime,slideImage,body,footer,slideNumber"/>
+  <p:slide id="2" slidesn="0,0" href="slide0002.htm"/>
+  <p:slide id="3" slidesn="0,0" href="slide0003.htm"/>
+  <p:slide id="6" slidesn="0,0" href="slide0006.htm"/>
+  <p:slide id="5" slidesn="0,0" href="slide0005.htm"/>
+  <p:viewstate type="slideView" restoredleft="156" restoredtop="946"
+   hideoutlineicons="t"/>
+  <p:pptdocumentsettings framecolors="WhiteTextOnBlack" hideslideanimation="t"
+   browsersupport="v4"/>
+ </p:presentation>
+ <o:shapedefaults v:ext="edit" spidmax="11269"/>
+</xml>

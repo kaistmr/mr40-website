@@ -1,0 +1,62 @@
+<xml xmlns:v="urn:schemas-microsoft-com:vml"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+ xmlns:oa="urn:schemas-microsoft-com:office:activation">
+ <p:presentation sizeof="screen" gridspacingx="46448" gridspacingy="46448"
+  subsetembed="1">
+  <p:master id="63" slidesn="0,0" type="main" href="master63.htm"
+   xmlhref="master63.xml" template="태양" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="75" slidesn="0,0" type="main" href="master75.htm"
+   xmlhref="master75.xml" template="1_태양" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="76" slidesn="0,0" type="main" href="master76.htm"
+   xmlhref="master76.xml" template="2_태양" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="77" slidesn="0,0" type="main" href="master77.htm"
+   xmlhref="master77.xml" template="3_태양" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="78" slidesn="0,0" type="main" href="master78.htm"
+   xmlhref="master78.xml" template="4_태양" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="79" slidesn="0,0" type="main" href="master79.htm"
+   xmlhref="master79.xml" template="5_태양" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="80" slidesn="0,0" type="main" href="master80.htm"
+   xmlhref="master80.xml" template="6_태양" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="1" slidesn="1CA6A12,31342F0" type="notes" href="master01.htm"
+   layout="notes" slots="header,dateTime,slideImage,body,footer,slideNumber"/>
+  <p:slide id="1" slidesn="0,0" href="slide0001.htm" masterhref="master75.htm"/>
+  <p:slide id="2" slidesn="0,0" href="slide0002.htm"/>
+  <p:slide id="3" slidesn="0,0" href="slide0003.htm"/>
+  <p:slide id="4" slidesn="0,0" href="slide0004.htm"/>
+  <p:slide id="5" slidesn="0,0" href="slide0005.htm"/>
+  <p:viewstate type="slideView" restoredleft="156" restoredtop="946"
+   hideoutlineicons="t"/>
+  <p:pptdocumentsettings framecolors="WhiteTextOnBlack" hideslideanimation="t"
+   browsersupport="v4"/>
+ </p:presentation>
+ <o:shapedefaults v:ext="edit" spidmax="14341"/>
+</xml>

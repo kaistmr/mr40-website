@@ -1,0 +1,67 @@
+<xml xmlns:v="urn:schemas-microsoft-com:vml"
+ xmlns:o="urn:schemas-microsoft-com:office:office"
+ xmlns:p="urn:schemas-microsoft-com:office:powerpoint"
+ xmlns:oa="urn:schemas-microsoft-com:office:activation">
+ <p:presentation sizeof="screen" gridspacingx="46448" gridspacingy="46448"
+  subsetembed="1">
+  <p:master id="15" slidesn="0,0" type="main" href="master15.htm"
+   xmlhref="master15.xml" template="광장" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="27" slidesn="0,0" type="main" href="master27.htm"
+   xmlhref="master27.xml" template="1_광장" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="28" slidesn="0,0" type="main" href="master28.htm"
+   xmlhref="master28.xml" template="2_광장" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="29" slidesn="0,0" type="main" href="master29.htm"
+   xmlhref="master29.xml" template="3_광장" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="30" slidesn="0,0" type="main" href="master30.htm"
+   xmlhref="master30.xml" template="4_광장" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="31" slidesn="0,0" type="main" href="master31.htm"
+   xmlhref="master31.xml" template="5_광장" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="32" slidesn="0,0" type="main" href="master32.htm"
+   xmlhref="master32.xml" template="6_광장" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:master id="33" slidesn="0,0" type="main" href="master33.htm"
+   xmlhref="master33.xml" template="7_광장" layout="title_body"
+   slots="title,body,dateTime,footer,slideNumber">
+   <p:schemes>
+   </p:schemes>
+  </p:master>
+  <p:slide id="1" slidesn="0,0" href="slide0001.htm" masterhref="master27.htm"/>
+  <p:slide id="3" slidesn="0,0" href="slide0003.htm"/>
+  <p:slide id="2" slidesn="0,0" href="slide0002.htm"/>
+  <p:slide id="4" slidesn="0,0" href="slide0004.htm"/>
+  <p:slide id="5" slidesn="0,0" href="slide0005.htm"/>
+  <p:slide id="6" slidesn="0,0" href="slide0006.htm" masterhref="master27.htm"/>
+  <p:viewstate type="slideView" restoredleft="156" restoredtop="946"
+   hideoutlineicons="t"/>
+  <p:pptdocumentsettings framecolors="WhiteTextOnBlack" hideslideanimation="t"
+   browsersupport="v4"/>
+ </p:presentation>
+ <o:shapedefaults v:ext="edit" spidmax="14339"/>
+</xml>

@@ -30,7 +30,9 @@ DUMPS = {
 }
 
 WEB_EXTS = {".htm", ".html", ".css", ".js", ".jpg", ".jpeg", ".png", ".gif",
-            ".bmp", ".swf", ".ico", ".mid", ".wav", ".cur"}
+            ".bmp", ".swf", ".ico", ".mid", ".wav", ".cur",
+            # 오피스 HTML 내보내기 보조 파일 (PPT/Word 페이지 렌더링에 필요)
+            ".xml", ".mso", ".wmf", ".thmx", ".emz", ".xls"}
 BIG_JPEG = 200 * 1024
 MAX_LONG = 1280
 SOUND_MAX = 5 * 1024 * 1024

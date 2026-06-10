@@ -1,0 +1,47 @@
+# MR 40주년 갤러리 큐레이션 목록
+# 형식: MR_ws 루트 기준 상대경로 (한 줄에 하나, 공백 포함 경로 그대로)
+# 원본 파일은 읽기 전용 — 절대 수정하지 않는다
+# 업데이트: 2026-06-10
+
+# 2001년
+cd files/2001 MR/photo/01.jpg
+cd files/2001 MR/photo/02.jpg
+cd files/2001 MR/photo/03.jpg
+
+# 2002년
+cd files/2002 MR/img/m_1w.jpg
+cd files/2002 MR/img/m_2p.jpg
+cd files/2002 MR/img/m_3m.jpg
+
+# 2004년
+cd files/2004 MR/사진/자켓 복사.jpg
+
+# 2005년
+cd files/2005 MR/after/bulletin_team.JPG
+cd files/2005 MR/after/photo_bsh.JPG
+cd files/2005 MR/after/photo_ksh.JPG
+cd files/2005 MR/works/kbird/slide001.jpg
+cd files/2005 MR/works/kbird/slide002.jpg
+cd files/2005 MR/works/kbird/slide003.jpg
+
+# 2007년
+cd files/2007 MR/photo/album/0001.jpg
+cd files/2007 MR/photo/album/0002.jpg
+cd files/2007 MR/photo/album/0003.jpg
+cd files/2007 MR/photo/album/0004.jpg
+cd files/2007 MR/photo/album/0005.jpg
+
+# 2011년
+cd files/2011 MR/11.03.04 - 11.03.05 MR봄엠티 계룡산/IMG_1805.JPG
+cd files/2011 MR/11.03.04 - 11.03.05 MR봄엠티 계룡산/IMG_1807.JPG
+cd files/2011 MR/11.03.04 - 11.03.05 MR봄엠티 계룡산/IMG_1808.JPG
+
+# 2012년
+cd files/2012 MR/2012년/11.10 총회준비/IMG_4170.JPG
+cd files/2012 MR/2012년/11.10 총회준비/IMG_4171.JPG
+cd files/2012 MR/2012년/11.10 총회준비/IMG_4172.JPG
+
+# Donated materials (스캔 사진)
+Donated materials/스캔 사진들/사진 스캔_페이지_001.jpg
+Donated materials/스캔 사진들/사진 스캔_페이지_014.jpg
+Donated materials/스캔 사진들/사진 스캔_페이지_028.jpg

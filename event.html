@@ -310,13 +310,15 @@
     var timer = setInterval(tick, 1000);
     tick();
 
-    // ── 참가 신청 ──
+    // ── 참가 신청 (SURVEYS의 참석 조사 우선, 없으면 EVENT_FORM_URL) ──
     document.getElementById("apply-btn").addEventListener("click", function () {
-      if (!CONFIG.EVENT_FORM_URL) {
-        showToast("참가 신청 폼이 곧 열립니다. 조금만 기다려 주세요!");
+      var attend = (CONFIG.SURVEYS || []).find(function (s) { return s.id === "attend" && s.active; });
+      var url = (attend && attend.url) || CONFIG.EVENT_FORM_URL;
+      if (!url) {
+        showToast("참석 조사가 곧 열립니다. 조금만 기다려 주세요!");
         return;
       }
-      window.open(CONFIG.EVENT_FORM_URL, "_blank", "noopener,noreferrer");
+      window.open(url, "_blank", "noopener,noreferrer");
     });
 
     // ── 정보 카드 ──

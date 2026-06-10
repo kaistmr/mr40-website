@@ -564,10 +564,12 @@
       document.getElementById("gate-screen").style.display = "none";
       document.getElementById("directory-screen").style.display = "block";
 
-      // FAB 설정
-      if (CONFIG.MEMBERS_FORM_URL) {
+      // FAB 설정 (전용 폼이 없으면 SURVEYS의 연락처 업데이트 설문 사용)
+      var contact = (CONFIG.SURVEYS || []).find(function (s) { return s.id === "contact" && s.active; });
+      var formUrl = CONFIG.MEMBERS_FORM_URL || (contact && contact.url);
+      if (formUrl) {
         var fab = document.getElementById("fab-register");
-        fab.href = CONFIG.MEMBERS_FORM_URL;
+        fab.href = formUrl;
         fab.classList.add("visible");
       }
 

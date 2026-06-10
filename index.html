@@ -643,25 +643,136 @@
     }
 
     .wm-later:hover { color: var(--text); }
+
+    /* 설문 목록 버튼 */
+    .wm-survey {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      width: 100%;
+      text-align: left;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(91, 140, 255, 0.25);
+      border-radius: 0.9rem;
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.6rem;
+      font-family: inherit;
+      color: var(--text);
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+
+    .wm-survey:hover {
+      background: rgba(91, 140, 255, 0.15);
+      border-color: var(--accent);
+      transform: scale(1.015);
+    }
+
+    .wm-survey .ws-icon { font-size: 1.4rem; }
+
+    .wm-survey .ws-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: block;
+    }
+
+    .wm-survey .ws-desc {
+      font-size: 0.76rem;
+      color: var(--muted);
+      display: block;
+      margin-top: 0.1rem;
+      line-height: 1.45;
+    }
+
+    .wm-survey .ws-soon {
+      margin-left: auto;
+      font-size: 0.68rem;
+      color: var(--muted);
+      border: 1px solid rgba(125, 141, 181, 0.4);
+      border-radius: 9999px;
+      padding: 0.15rem 0.55rem;
+      white-space: nowrap;
+    }
+
+    /* 팝업 다시 열기 버튼 */
+    .survey-fab {
+      position: fixed;
+      bottom: 1.4rem;
+      right: 1.4rem;
+      z-index: 1500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 9999px;
+      padding: 0.7rem 1.2rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(91, 140, 255, 0.4);
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .survey-fab:hover { transform: scale(1.05); opacity: 0.92; }
   </style>
 
   <div class="welcome-modal" id="welcome-modal" role="dialog" aria-modal="true" aria-labelledby="wm-title">
     <div class="welcome-card">
       <div class="wm-emoji">🎉</div>
-      <h2 id="wm-title">40주년 기념행사에 초대합니다</h2>
-      <p class="wm-date">2026년 11월 28일 (토)</p>
-      <p class="wm-copy">1986년부터 이어진 40년, 그 자리에 함께해 주세요.<br>동문·현역 누구나 환영합니다.</p>
-      <button class="wm-apply" id="wm-apply" type="button">참가 신청하기</button>
+      <h2 id="wm-title">40주년, 함께 준비해요</h2>
+      <p class="wm-date">2026년 11월 28일 (토) 기념행사</p>
+      <p class="wm-copy">잠깐 시간 내어 참여해 주시면 준비에 큰 힘이 됩니다.</p>
+      <div id="wm-surveys"></div>
       <button class="wm-later" id="wm-later" type="button">다음에 할게요</button>
     </div>
   </div>
+
+  <button class="survey-fab" id="survey-fab" type="button">📋 참여하기</button>
 
   <script>
     (function () {
       "use strict";
       var modal = document.getElementById("welcome-modal");
+      var listEl = document.getElementById("wm-surveys");
 
-      // 세션당 1회만 표시 (행사 종료 후에는 표시 안 함)
+      // 활성 설문 목록 렌더 (url 없으면 "준비 중" 배지로 표시만)
+      var surveys = (CONFIG.SURVEYS || []).filter(function (s) { return s.active; });
+
+      function renderSurveys() {
+        if (surveys.length === 0) {
+          listEl.innerHTML = '<button class="wm-apply" id="wm-apply" type="button">행사 안내 보기</button>';
+          document.getElementById("wm-apply").addEventListener("click", function () {
+            location.href = "event.html";
+          });
+          return;
+        }
+        listEl.innerHTML = surveys.map(function (s, i) {
+          return '<button class="wm-survey" data-idx="' + i + '" type="button">' +
+            '<span class="ws-icon">' + escapeHtml(s.icon || "📋") + "</span>" +
+            "<span><span class='ws-title'>" + escapeHtml(s.title) + "</span>" +
+            "<span class='ws-desc'>" + escapeHtml(s.desc || "") + "</span></span>" +
+            (s.url ? "" : '<span class="ws-soon">준비 중</span>') +
+            "</button>";
+        }).join("");
+      }
+
+      listEl.addEventListener("click", function (e) {
+        var btn = e.target.closest(".wm-survey");
+        if (!btn) return;
+        var s = surveys[parseInt(btn.getAttribute("data-idx"), 10)];
+        if (s && s.url) {
+          window.open(s.url, "_blank", "noopener,noreferrer");
+        } else {
+          showToast("이 설문은 곧 열립니다. 조금만 기다려 주세요!");
+        }
+      });
+
+      renderSurveys();
+
+      // 세션당 1회 자동 표시 (행사 종료 후에는 자동으로 안 뜸)
       var eventOver = new Date(CONFIG.EVENT_DATE).getTime() <= Date.now();
       if (!sessionStorage.getItem("mr40_welcome_shown") && !eventOver) {
         modal.classList.add("open");
@@ -670,14 +781,9 @@
 
       function close() { modal.classList.remove("open"); }
 
-      document.getElementById("wm-apply").addEventListener("click", function () {
-        if (CONFIG.EVENT_FORM_URL) {
-          window.open(CONFIG.EVENT_FORM_URL, "_blank", "noopener,noreferrer");
-          close();
-        } else {
-          // 폼이 아직 없으면 행사 안내 페이지로
-          location.href = "event.html";
-        }
+      // 닫은 뒤에도 우하단 버튼으로 언제든 다시 열기
+      document.getElementById("survey-fab").addEventListener("click", function () {
+        modal.classList.add("open");
       });
       document.getElementById("wm-later").addEventListener("click", close);
       modal.addEventListener("click", function (e) { if (e.target === modal) close(); });

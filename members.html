@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>주소록 — MR 40</title>
+  <!-- Pretendard 폰트 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 공통 스타일 -->
+  <link rel="stylesheet" href="assets/style.css" />
+  <!-- 설정 & 공통 스크립트 -->
+  <script src="config.js"></script>
+  <script src="assets/common.js"></script>
+
+  <style>
+    /* ── 접속 코드 게이트 ── */
+    #gate-screen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - var(--nav-h));
+      padding: 2rem 1.25rem;
+    }
+
+    .gate-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(91, 140, 255, 0.2);
+      border-radius: var(--radius);
+      padding: 2.5rem 2rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .gate-icon {
+      font-size: 2.5rem;
+      line-height: 1;
+      margin-bottom: 1rem;
+    }
+
+    .gate-title {
+      font-size: 1.5rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 0.75rem;
+    }
+
+    .gate-desc {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+    }
+
+    .gate-input-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .gate-input {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(91, 140, 255, 0.25);
+      border-radius: 0.6rem;
+      padding: 0.65rem 1rem;
+      color: var(--text);
+      font-size: 1rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .gate-input:focus {
+      border-color: var(--accent);
+      background: rgba(91, 140, 255, 0.08);
+    }
+
+    .gate-input::placeholder {
+      color: var(--muted);
+    }
+
+    .gate-btn {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 0.6rem;
+      padding: 0.65rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+
+    .gate-btn:hover { opacity: 0.88; }
+    .gate-btn:active { transform: scale(0.97); }
+
+    /* ── 주소록 화면 ── */
+    #directory-screen {
+      display: none;
+      padding-bottom: 5rem;
+    }
+
+    /* ── 검색바 (sticky, nav 바로 아래) ── */
+    .search-bar-wrap {
+      position: sticky;
+      top: var(--nav-h);
+      z-index: 100;
+      background: rgba(11, 21, 48, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(91, 140, 255, 0.1);
+      padding: 0.75rem 1.25rem;
+    }
+
+    .search-bar {
+      position: relative;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1rem;
+      color: var(--muted);
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(91, 140, 255, 0.2);
+      border-radius: 0.65rem;
+      padding: 0.7rem 2.8rem 0.7rem 2.5rem;
+      color: var(--text);
+      font-size: 0.95rem;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+      background: rgba(91, 140, 255, 0.07);
+    }
+
+    .search-input::placeholder { color: var(--muted); }
+
+    .search-clear {
+      position: absolute;
+      right: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 1rem;
+      cursor: pointer;
+      display: none;
+      padding: 0.15rem 0.3rem;
+      border-radius: 0.3rem;
+      transition: color 0.2s;
+    }
+
+    .search-clear:hover { color: var(--text); }
+    .search-clear.visible { display: block; }
+
+    /* ── 명부 헤더 ── */
+    .dir-header {
+      padding: 2.5rem 0 1.5rem;
+    }
+
+    .dir-title {
+      font-size: clamp(1.3rem, 4vw, 1.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text);
+      margin-bottom: 0.3rem;
+    }
+
+    .dir-subtitle {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    /* ── 카드 그리드 ── */
+    .member-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 700px) {
+      .member-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ── 회원 카드 ── */
+    .member-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.25rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
+    }
+
+    .member-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px rgba(91, 140, 255, 0.14);
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(91, 140, 255, 0.25);
+    }
+
+    .member-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .member-name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+
+    .cohort-badge {
+      background: rgba(91, 140, 255, 0.18);
+      color: var(--accent);
+      border: 1px solid rgba(91, 140, 255, 0.3);
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.15rem 0.55rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .org-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .org-badge {
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 0.4rem;
+      border: 1px solid;
+      cursor: pointer;
+      transition: opacity 0.15s;
+    }
+
+    .org-badge:hover { opacity: 0.75; }
+
+    /* 소속 배지 색상 팔레트 (다크 테마 친화) */
+    .org-c0  { background: rgba(239,68,68,0.15);  color: #fca5a5; border-color: rgba(239,68,68,0.3); }
+    .org-c1  { background: rgba(249,115,22,0.15); color: #fdba74; border-color: rgba(249,115,22,0.3); }
+    .org-c2  { background: rgba(234,179,8,0.15);  color: #fde047; border-color: rgba(234,179,8,0.3); }
+    .org-c3  { background: rgba(34,197,94,0.15);  color: #86efac; border-color: rgba(34,197,94,0.3); }
+    .org-c4  { background: rgba(20,184,166,0.15); color: #5eead4; border-color: rgba(20,184,166,0.3); }
+    .org-c5  { background: rgba(6,182,212,0.15);  color: #67e8f9; border-color: rgba(6,182,212,0.3); }
+    .org-c6  { background: rgba(59,130,246,0.15); color: #93c5fd; border-color: rgba(59,130,246,0.3); }
+    .org-c7  { background: rgba(99,102,241,0.15); color: #a5b4fc; border-color: rgba(99,102,241,0.3); }
+    .org-c8  { background: rgba(168,85,247,0.15); color: #d8b4fe; border-color: rgba(168,85,247,0.3); }
+    .org-c9  { background: rgba(236,72,153,0.15); color: #f9a8d4; border-color: rgba(236,72,153,0.3); }
+    .org-c10 { background: rgba(244,63,94,0.15);  color: #fda4af; border-color: rgba(244,63,94,0.3); }
+    .org-c11 { background: rgba(132,204,22,0.15); color: #bef264; border-color: rgba(132,204,22,0.3); }
+    .org-c12 { background: rgba(14,165,233,0.15); color: #7dd3fc; border-color: rgba(14,165,233,0.3); }
+    .org-c13 { background: rgba(217,70,239,0.15); color: #f0abfc; border-color: rgba(217,70,239,0.3); }
+    .org-c14 { background: rgba(251,146,60,0.15); color: #fed7aa; border-color: rgba(251,146,60,0.3); }
+
+    .interest-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.3rem;
+      margin-bottom: 0.6rem;
+      min-height: 1.5rem;
+    }
+
+    .interest-tag {
+      font-size: 0.72rem;
+      font-weight: 500;
+      padding: 0.18rem 0.5rem;
+      border-radius: 0.35rem;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      color: var(--muted);
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .interest-tag:hover {
+      background: rgba(91, 140, 255, 0.15);
+      color: var(--accent);
+      border-color: rgba(91, 140, 255, 0.3);
+    }
+
+    .member-quote {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.55;
+      margin-bottom: 0.75rem;
+    }
+
+    .copy-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: auto;
+      padding-top: 0.75rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .copy-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.5rem 0.5rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.5rem;
+      color: var(--muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    .copy-btn:hover {
+      background: rgba(91, 140, 255, 0.12);
+      color: var(--accent);
+      border-color: rgba(91, 140, 255, 0.3);
+    }
+
+    .copy-btn:active { transform: scale(0.97); }
+
+    /* ── 빈 상태 / 에러 상태 ── */
+    .state-notice {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem 1rem;
+      color: var(--muted);
+    }
+
+    .state-notice .state-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .state-notice p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .state-notice .hint {
+      font-size: 0.78rem;
+      margin-top: 0.5rem;
+      opacity: 0.65;
+    }
+
+    /* ── FAB ── */
+    #fab-register {
+      display: none;
+      position: fixed;
+      bottom: 1.75rem;
+      right: 1.75rem;
+      z-index: 200;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 9999px;
+      padding: 0.8rem 1.4rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(91, 140, 255, 0.4);
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
+    }
+
+    #fab-register:hover {
+      opacity: 0.9;
+      transform: scale(1.04);
+      box-shadow: 0 10px 32px rgba(91, 140, 255, 0.5);
+    }
+
+    #fab-register:active { transform: scale(0.97); }
+    #fab-register.visible { display: flex; }
+
+    /* ── 개인정보 주의 문구 ── */
+    .privacy-note {
+      text-align: center;
+      font-size: 0.75rem;
+      color: rgba(125, 141, 181, 0.5);
+      padding: 1.25rem 1.25rem 2rem;
+      border-top: 1px solid rgba(91, 140, 255, 0.08);
+      margin-top: 2rem;
+    }
+
+    /* ── 사이트 푸터 ── */
+    .site-footer {
+      border-top: 1px solid rgba(91, 140, 255, 0.12);
+      padding: 2rem 1.25rem;
+      text-align: center;
+    }
+
+    .site-footer .footer-name {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .site-footer .footer-note {
+      font-size: 0.75rem;
+      color: rgba(125, 141, 181, 0.55);
+    }
+  </style>
+</head>
+<body>
+  <script>injectNav("members.html");</script>
+
+  <!-- ══ 접속 코드 게이트 ══ -->
+  <div id="gate-screen">
+    <div class="gate-card">
+      <div class="gate-icon" aria-hidden="true">🔒</div>
+      <h1 class="gate-title">동문 주소록</h1>
+      <p class="gate-desc">
+        회원에게 공유된 접속 코드를 입력하세요.<br>
+        개인정보 보호를 위해 잠겨 있습니다.
+      </p>
+      <div class="gate-input-row">
+        <input
+          type="password"
+          id="code-input"
+          class="gate-input"
+          placeholder="접속 코드"
+          autocomplete="current-password"
+          aria-label="접속 코드 입력"
+        />
+        <button class="gate-btn" id="gate-submit-btn" onclick="checkCode()">확인</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ 주소록 화면 ══ -->
+  <div id="directory-screen">
+    <!-- 검색바 (sticky, nav 아래) -->
+    <div class="search-bar-wrap">
+      <div class="search-bar">
+        <span class="search-icon" aria-hidden="true">🔍</span>
+        <input
+          type="text"
+          id="search-input"
+          class="search-input"
+          placeholder="이름, 기수, 소속, 관심사 검색…"
+          aria-label="회원 검색"
+        />
+        <button
+          id="search-clear"
+          class="search-clear"
+          aria-label="검색 초기화"
+          onclick="clearSearch()"
+        >×</button>
+      </div>
+    </div>
+
+    <!-- 명부 헤더 -->
+    <div class="container">
+      <div class="dir-header">
+        <h2 class="dir-title">동문 주소록</h2>
+        <p class="dir-subtitle" id="member-count">불러오는 중…</p>
+      </div>
+
+      <!-- 카드 그리드 -->
+      <div class="member-grid" id="member-grid"></div>
+
+      <!-- 개인정보 주의 문구 -->
+      <p class="privacy-note">
+        본 주소록은 동문 네트워킹 목적으로만 사용해 주세요.
+      </p>
+    </div>
+
+    <!-- 사이트 푸터 -->
+    <footer class="site-footer">
+      <p class="footer-name">KAIST 마이크로 로봇 동아리 MR · Since 1986</p>
+      <p class="footer-note">© 2026 MR 40주년 준비위원회</p>
+    </footer>
+  </div>
+
+  <!-- ══ 정보 등록/수정 FAB ══ -->
+  <a id="fab-register" href="#" target="_blank" rel="noopener noreferrer" aria-label="정보 등록/수정">
+    <span aria-hidden="true">✏️</span>정보 등록/수정
+  </a>
+
+  <!-- ══ 토스트 ══ -->
+  <div id="toast"></div>
+
+  <!-- ══ 페이지 스크립트 ══ -->
+  <script>
+  (function () {
+    "use strict";
+
+    // ── 열 인덱스 (시트 순서에 맞게) ──
+    var COL_NAME     = 0;
+    var COL_COHORT   = 1;
+    var COL_ORG      = 2;
+    var COL_EMAIL    = 3;
+    var COL_PHONE    = 4;
+    var COL_INTEREST = 5;
+    var COL_QUOTE    = 6;
+
+    // ── 전체 회원 데이터 (검색에 사용) ──
+    var allRows = [];
+
+    // ── 소속 배지 색상 결정 (해시 기반) ──
+    function orgColorClass(text) {
+      var hash = 0;
+      for (var i = 0; i < text.length; i++) {
+        hash = text.charCodeAt(i) + ((hash << 5) - hash);
+      }
+      return "org-c" + (Math.abs(hash) % 15);
+    }
+
+    // ── 접속 코드 검증 ──
+    async function checkCode() {
+      var code = document.getElementById("code-input").value.trim();
+      if (!CONFIG.MEMBERS_CODE_HASH) {
+        showToast("접속 코드가 아직 설정되지 않았습니다.");
+        return;
+      }
+      if ((await sha256(code)) === CONFIG.MEMBERS_CODE_HASH) {
+        sessionStorage.setItem("mr40_auth", "1");
+        showDirectory();
+      } else {
+        showToast("코드가 올바르지 않습니다.");
+      }
+    }
+
+    // ── 주소록 화면 표시 ──
+    function showDirectory() {
+      document.getElementById("gate-screen").style.display = "none";
+      document.getElementById("directory-screen").style.display = "block";
+
+      // FAB 설정
+      if (CONFIG.MEMBERS_FORM_URL) {
+        var fab = document.getElementById("fab-register");
+        fab.href = CONFIG.MEMBERS_FORM_URL;
+        fab.classList.add("visible");
+      }
+
+      loadSheet(
+        CONFIG.MEMBERS_CSV_URL,
+        "mr40_members",
+        renderRows,
+        function (reason) {
+          var grid = document.getElementById("member-grid");
+          if (reason === "not-configured") {
+            grid.innerHTML =
+              '<div class="state-notice">' +
+              '<div class="state-icon" aria-hidden="true">📋</div>' +
+              '<p>주소록 데이터가 아직 연결되지 않았습니다.</p>' +
+              '<p class="hint">운영자: config.js에 시트 주소를 설정하세요</p>' +
+              '</div>';
+          } else {
+            grid.innerHTML =
+              '<div class="state-notice">' +
+              '<div class="state-icon" aria-hidden="true">⚠️</div>' +
+              '<p>데이터를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</p>' +
+              '</div>';
+          }
+          document.getElementById("member-count").textContent = "";
+        }
+      );
+    }
+
+    // ── 행 배열 렌더링 (캐시+갱신으로 두 번 호출될 수 있으므로 항상 초기화) ──
+    function renderRows(rows) {
+      allRows = rows;
+      applyFilter(document.getElementById("search-input").value);
+    }
+
+    // ── 필터 적용 후 카드 렌더링 ──
+    function applyFilter(term) {
+      var q = term.toLowerCase().trim();
+      var filtered = q
+        ? allRows.filter(function (r) {
+            return (
+              (r[COL_NAME]     && r[COL_NAME].toLowerCase().includes(q)) ||
+              (r[COL_COHORT]   && r[COL_COHORT].toLowerCase().includes(q)) ||
+              (r[COL_ORG]      && r[COL_ORG].toLowerCase().includes(q)) ||
+              (r[COL_INTEREST] && r[COL_INTEREST].toLowerCase().includes(q))
+            );
+          })
+        : allRows;
+
+      renderCards(filtered);
+
+      var countEl = document.getElementById("member-count");
+      if (allRows.length > 0) {
+        countEl.textContent = q
+          ? filtered.length + "명 검색됨 (전체 " + allRows.length + "명)"
+          : "총 " + allRows.length + "명";
+      }
+    }
+
+    // ── 카드 목록 렌더링 ──
+    function renderCards(rows) {
+      var grid = document.getElementById("member-grid");
+      // 항상 초기화 (캐시+갱신 이중 호출 대응)
+      grid.innerHTML = "";
+
+      if (rows.length === 0) {
+        grid.innerHTML =
+          '<div class="state-notice">' +
+          '<div class="state-icon" aria-hidden="true">🔍</div>' +
+          '<p>검색 결과가 없습니다.</p>' +
+          '</div>';
+        return;
+      }
+
+      var html = rows.map(function (r, idx) {
+        return buildCard(r, idx);
+      }).join("");
+      grid.innerHTML = html;
+
+      // copy 버튼 이벤트 위임 (data-* 속성 활용 — inline 핸들러에 데이터 삽입 없음)
+      grid.querySelectorAll(".copy-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          var text  = this.getAttribute("data-copy");
+          var label = this.getAttribute("data-label");
+          if (!text) return;
+          navigator.clipboard.writeText(text).then(function () {
+            showToast(label + " 복사됨");
+          }).catch(function () {
+            showToast("복사에 실패했습니다.");
+          });
+        });
+      });
+
+      // 태그/소속 클릭 — 검색어 설정
+      grid.querySelectorAll("[data-filter]").forEach(function (el) {
+        el.addEventListener("click", function () {
+          var term = this.getAttribute("data-filter");
+          var inp = document.getElementById("search-input");
+          inp.value = term;
+          inp.dispatchEvent(new Event("input"));
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        });
+      });
+    }
+
+    // ── 단일 카드 HTML 빌드 ──
+    function buildCard(r, idx) {
+      var name    = escapeHtml(r[COL_NAME]     || "");
+      var cohort  = escapeHtml(r[COL_COHORT]   || "");
+      var orgRaw  = r[COL_ORG]      || "";
+      var email   = r[COL_EMAIL]    || "";
+      var phone   = r[COL_PHONE]    || "";
+      var intRaw  = r[COL_INTEREST] || "";
+      var quote   = escapeHtml(r[COL_QUOTE]    || "");
+
+      // 기수 배지 — 숫자면 "xx학번", 아니면 그대로
+      var cohortDisplay = "";
+      if (cohort) {
+        cohortDisplay = /^\d+$/.test(cohort.replace(/\s/g, ""))
+          ? escapeHtml(cohort) + "학번"
+          : escapeHtml(cohort);
+      }
+
+      // 소속 배지들
+      var orgHtml = "";
+      if (orgRaw.trim()) {
+        orgHtml = orgRaw.split(/[,\/]/).map(function (o) {
+          var oTrim = o.trim();
+          if (!oTrim) return "";
+          var cls = orgColorClass(oTrim);
+          return (
+            '<span class="org-badge ' + cls + '" ' +
+            'data-filter="' + escapeHtml(oTrim) + '" ' +
+            'title="' + escapeHtml(oTrim) + '으로 필터">' +
+            escapeHtml(oTrim) +
+            "</span>"
+          );
+        }).join("");
+      }
+
+      // 관심사 태그들
+      var interestHtml = "";
+      if (intRaw.trim()) {
+        interestHtml = intRaw.split(/[,\/]/).map(function (t) {
+          var tTrim = t.trim();
+          if (!tTrim) return "";
+          return (
+            '<span class="interest-tag" ' +
+            'data-filter="' + escapeHtml(tTrim) + '" ' +
+            'title="' + escapeHtml(tTrim) + '으로 필터">' +
+            "#" + escapeHtml(tTrim) +
+            "</span>"
+          );
+        }).join("");
+      }
+
+      // 한마디
+      var quoteHtml = quote
+        ? '<p class="member-quote">"' + quote + '"</p>'
+        : "";
+
+      // 복사 버튼
+      var copyHtml = "";
+      var btns = [];
+      if (phone.trim()) {
+        btns.push(
+          '<button class="copy-btn" ' +
+          'data-copy="' + escapeHtml(phone.trim()) + '" ' +
+          'data-label="전화번호">' +
+          "📞 번호복사" +
+          "</button>"
+        );
+      }
+      if (email.trim()) {
+        btns.push(
+          '<button class="copy-btn" ' +
+          'data-copy="' + escapeHtml(email.trim()) + '" ' +
+          'data-label="이메일">' +
+          "✉️ 메일복사" +
+          "</button>"
+        );
+      }
+      if (btns.length > 0) {
+        copyHtml = '<div class="copy-row">' + btns.join("") + "</div>";
+      }
+
+      return (
+        '<div class="member-card">' +
+        '<div class="member-card-top">' +
+        '<span class="member-name">' + name + "</span>" +
+        (cohortDisplay ? '<span class="cohort-badge">' + cohortDisplay + "</span>" : "") +
+        "</div>" +
+        (orgHtml ? '<div class="org-badges">' + orgHtml + "</div>" : "") +
+        (interestHtml ? '<div class="interest-tags">' + interestHtml + "</div>" : "") +
+        quoteHtml +
+        copyHtml +
+        "</div>"
+      );
+    }
+
+    // ── 검색 초기화 ──
+    function clearSearch() {
+      var inp = document.getElementById("search-input");
+      inp.value = "";
+      inp.dispatchEvent(new Event("input"));
+      inp.focus();
+    }
+
+    // ── 검색 input 이벤트 ──
+    document.getElementById("search-input").addEventListener("input", function (e) {
+      var val = e.target.value;
+      var clearBtn = document.getElementById("search-clear");
+      if (val.length > 0) clearBtn.classList.add("visible");
+      else clearBtn.classList.remove("visible");
+      applyFilter(val);
+    });
+
+    // ── Enter 키로 접속 코드 제출 ──
+    document.getElementById("code-input").addEventListener("keydown", function (e) {
+      if (e.key === "Enter") checkCode();
+    });
+
+    // ── 페이지 로드 시 인증 상태 확인 ──
+    if (sessionStorage.getItem("mr40_auth") === "1") {
+      showDirectory();
+    }
+
+    // clearSearch를 전역으로 노출 (onclick 속성 대신 위임 사용하지만 호환성 유지)
+    window.checkCode   = checkCode;
+    window.clearSearch = clearSearch;
+  })();
+  </script>
+</body>
+</html>

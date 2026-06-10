@@ -1,0 +1,221 @@
+/* ============================================================
+   MR 40주년 — 공통 스타일시트
+   폰트: Pretendard (CDN), 다크-블루 테마
+   ============================================================ */
+
+/* ---------- CSS 변수 ---------- */
+:root {
+  --bg:      #0b1530;
+  --bg2:     #15275c;
+  --accent:  #5b8cff;
+  --text:    #ffffff;
+  --muted:   #7d8db5;
+  --radius:  1rem;
+  --nav-h:   60px;
+}
+
+[data-era="retro"] {
+  --bg:     #0a0e14;
+  --bg2:    #0a0e14;
+  --accent: #2dd4a7;
+  --text:   #e0ffe8;
+  --muted:  #5a8a72;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+/* ---------- 리셋 / 기본 ---------- */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Pretendard', 'Apple SD Gothic Neo', sans-serif;
+  background: linear-gradient(160deg, var(--bg) 0%, var(--bg2) 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  color: var(--text);
+  padding-top: var(--nav-h);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ---------- 상단 내비게이션 ---------- */
+.topnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  padding: 0 1.25rem;
+  gap: 1rem;
+  background: rgba(11, 21, 48, 0.72);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(91, 140, 255, 0.15);
+}
+
+.logo {
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.logo span {
+  color: var(--accent);
+}
+
+.nav-toggle {
+  display: none;
+  margin-left: auto;
+  background: none;
+  border: none;
+  color: var(--text);
+  font-size: 1.4rem;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0.25rem 0.5rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-left: auto;
+  flex-wrap: wrap;
+}
+
+.nav-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--muted);
+  padding: 0.35rem 0.65rem;
+  border-radius: 0.5rem;
+  transition: color 0.2s, background 0.2s;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: var(--text);
+  background: rgba(91, 140, 255, 0.12);
+}
+
+.nav-link.active {
+  color: var(--accent);
+  background: rgba(91, 140, 255, 0.18);
+  font-weight: 700;
+}
+
+/* ---------- 모바일 내비게이션 (< 768px) ---------- */
+@media (max-width: 767px) {
+  .nav-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: var(--nav-h);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    margin-left: 0;
+    background: rgba(11, 21, 48, 0.96);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(91, 140, 255, 0.2);
+    padding: 0.5rem 0;
+  }
+
+  .topnav.open .nav-links {
+    display: flex;
+  }
+
+  .nav-link {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0;
+    font-size: 0.95rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .nav-link:last-child {
+    border-bottom: none;
+  }
+}
+
+/* ---------- 카드 ---------- */
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(91, 140, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ---------- 토스트 ---------- */
+#toast {
+  position: fixed;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%) translateY(1rem);
+  background: rgba(91, 140, 255, 0.92);
+  color: #fff;
+  padding: 0.6rem 1.4rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  pointer-events: none;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s, transform 0.25s, visibility 0.25s;
+  z-index: 9999;
+}
+
+#toast.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ---------- 공통 유틸 ---------- */
+.container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.section {
+  padding: 4rem 0;
+}
+
+.text-accent {
+  color: var(--accent);
+}
+
+.text-muted {
+  color: var(--muted);
+}

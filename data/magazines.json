@@ -1,0 +1,58 @@
+[
+ {
+  "title": "회지 준비호",
+  "year": 1994,
+  "file": "",
+  "cover": "",
+  "note": "고해상도 원본 디지털화 진행 중"
+ },
+ {
+  "title": "큰 마음 작은 이야기",
+  "year": 1996,
+  "file": "pdfs/1996_큰마음작은이야기.pdf",
+  "cover": "covers/1996_큰마음작은이야기.jpg"
+ },
+ {
+  "title": "형 배고파요",
+  "year": 1998,
+  "file": "pdfs/1998_형배고파요.pdf",
+  "cover": "covers/1998_형배고파요.jpg"
+ },
+ {
+  "title": "MR 회지 2호",
+  "year": null,
+  "file": "",
+  "cover": "",
+  "note": "고해상도 원본 디지털화 진행 중"
+ },
+ {
+  "title": "제4회 마이크로 로봇 대회",
+  "year": null,
+  "file": "pdfs/제4회_마이크로로봇대회.pdf",
+  "cover": "covers/제4회_마이크로로봇대회.jpg"
+ },
+ {
+  "title": "제5회 마이크로 로봇 대회",
+  "year": null,
+  "file": "pdfs/제5회_마이크로로봇대회.pdf",
+  "cover": "covers/제5회_마이크로로봇대회.jpg"
+ },
+ {
+  "title": "제5회 동아리 연합회",
+  "year": null,
+  "file": "pdfs/제5회_동아리연합회.pdf",
+  "cover": "covers/제5회_동아리연합회.jpg"
+ },
+ {
+  "title": "2002 로봇 축구 대회",
+  "year": 2002,
+  "file": "pdfs/2002_로봇축구대회.pdf",
+  "cover": "covers/2002_로봇축구대회.jpg"
+ },
+ {
+  "title": "MR 주제가 악보",
+  "year": null,
+  "file": "pdfs/MR_주제가.pdf",
+  "cover": "covers/MR_주제가.jpg"
+ }
+]

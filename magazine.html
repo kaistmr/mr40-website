@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>회지 — MR 40</title>
+  <!-- Pretendard 폰트 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 공통 스타일 -->
+  <link rel="stylesheet" href="assets/style.css" />
+  <!-- 설정 & 공통 스크립트 -->
+  <script src="config.js"></script>
+  <script src="assets/common.js"></script>
+
+  <style>
+    /* ── 페이지 헤더 ── */
+    .mag-header {
+      padding: 3rem 0 2rem;
+      text-align: center;
+    }
+
+    .mag-title {
+      font-size: clamp(1.6rem, 5vw, 2.5rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.6rem;
+    }
+
+    .mag-subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    /* ── 책장 그리드 ── */
+    .shelf {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 1.25rem;
+      padding-bottom: 4rem;
+    }
+
+    @media (min-width: 768px) {
+      .shelf {
+        grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+        gap: 1.5rem;
+      }
+    }
+
+    .book {
+      display: flex;
+      flex-direction: column;
+      border-radius: 0.7rem;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer;
+      text-align: left;
+      padding: 0;
+      font-family: inherit;
+      color: inherit;
+    }
+
+    .book:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 36px rgba(91, 140, 255, 0.18);
+    }
+
+    .book-cover {
+      aspect-ratio: 3 / 4;
+      background: rgba(255, 255, 255, 0.04);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .book-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* 표지 없는 항목 (디지털화 진행 중) */
+    .book-cover .cover-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      color: var(--muted);
+      font-size: 2rem;
+    }
+
+    .book-cover .cover-placeholder small {
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+    }
+
+    .book.disabled {
+      cursor: default;
+      opacity: 0.65;
+    }
+
+    .book.disabled:hover {
+      transform: none;
+      box-shadow: none;
+    }
+
+    .book-meta {
+      padding: 0.8rem 0.9rem 1rem;
+    }
+
+    .book-meta h3 {
+      font-size: 0.92rem;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 0.2rem;
+    }
+
+    .book-meta .book-year {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .book-meta .book-note {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ── 상태 메시지 ── */
+    .mag-status {
+      text-align: center;
+      color: var(--muted);
+      padding: 4rem 1rem;
+    }
+
+    /* ── 사이트 푸터 ── */
+    .site-footer {
+      border-top: 1px solid rgba(91, 140, 255, 0.12);
+      padding: 2rem 1.25rem;
+      text-align: center;
+    }
+
+    .site-footer .footer-name {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .site-footer .footer-note {
+      font-size: 0.75rem;
+      color: rgba(125, 141, 181, 0.55);
+    }
+  </style>
+</head>
+<body>
+  <script>injectNav("magazine.html");</script>
+
+  <header class="mag-header container">
+    <h1 class="mag-title">회지 아카이브 <span class="text-accent">📖</span></h1>
+    <p class="mag-subtitle">선배들이 남긴 기록 — 회지와 대회 자료집을 그대로 펼쳐 보세요</p>
+  </header>
+
+  <div class="container">
+    <div class="shelf" id="shelf"></div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-name">KAIST 마이크로 로봇 동아리 MR · Since 1986</p>
+    <p class="footer-note">© 2026 MR 40주년 준비위원회</p>
+  </footer>
+
+  <script>
+  (function () {
+    "use strict";
+
+    var shelfEl = document.getElementById("shelf");
+
+    function render(items) {
+      shelfEl.innerHTML = "";
+      if (!items || items.length === 0) {
+        shelfEl.innerHTML = '<p class="mag-status" style="grid-column:1/-1;">등록된 회지가 없습니다.</p>';
+        return;
+      }
+
+      var html = "";
+      items.forEach(function (m, i) {
+        var hasFile = !!m.file;
+        var coverHtml = m.cover
+          ? '<img src="' + escapeHtml(m.cover) + '" loading="lazy" alt="' + escapeHtml(m.title || "") + ' 표지" />'
+          : '<div class="cover-placeholder">📚<small>' + escapeHtml(m.note || "준비 중") + "</small></div>";
+
+        html += '<button class="book' + (hasFile ? "" : " disabled") + '" data-idx="' + i + '" type="button">' +
+          '<div class="book-cover">' + coverHtml + "</div>" +
+          '<div class="book-meta">' +
+          "<h3>" + escapeHtml(m.title || "제목 없음") + "</h3>" +
+          (m.year ? '<span class="book-year">' + escapeHtml(String(m.year)) + "</span>" : "") +
+          (m.note && m.cover ? '<p class="book-note">' + escapeHtml(m.note) + "</p>" : "") +
+          "</div></button>";
+      });
+      shelfEl.innerHTML = html;
+
+      shelfEl.addEventListener("click", function (e) {
+        var book = e.target.closest(".book");
+        if (!book) return;
+        var item = items[parseInt(book.getAttribute("data-idx"), 10)];
+        if (!item || !item.file) {
+          showToast("디지털화 작업이 진행 중입니다. 조금만 기다려 주세요!");
+          return;
+        }
+        // 브라우저 내장 PDF 뷰어로 새 탭에서 열기
+        window.open(encodeURI(item.file), "_blank", "noopener");
+      });
+    }
+
+    fetch("data/magazines.json")
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(render)
+      .catch(function () {
+        shelfEl.innerHTML = '<p class="mag-status" style="grid-column:1/-1;">회지 데이터를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</p>';
+      });
+  })();
+  </script>
+</body>
+</html>

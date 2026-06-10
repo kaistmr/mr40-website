@@ -55,7 +55,8 @@ def main():
             tout = Path(td) / "out.png"
             img.save(tin)
             r = subprocess.run(
-                [str(BIN), "-i", str(tin), "-o", str(tout), "-n", "realesrgan-x4plus"],
+                [str(BIN), "-i", str(tin), "-o", str(tout), "-n", "realesrgan-x4plus",
+                 "-m", str(BIN.parent / "models")],
                 capture_output=True)
             if r.returncode != 0 or not tout.exists():
                 print(f"  ! ESRGAN 실패 {it['src']}")

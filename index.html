@@ -300,7 +300,7 @@
     <div class="container">
       <p class="dday-label">D-Day</p>
       <p class="dday-title">40주년 기념식까지</p>
-      <p class="dday-date">2026년 11월 28일</p>
+      <p class="dday-date"></p>
       <div id="dday-content">
         <!-- JS가 채운다 -->
         <div class="dday-grid" aria-live="polite" aria-atomic="true">
@@ -380,8 +380,13 @@
       var elHrs  = document.getElementById("dd-hours");
       var elMins = document.getElementById("dd-mins");
       var elSecs = document.getElementById("dd-secs");
+      var elDate = document.querySelector(".dday-date");
 
       function pad(n) { return String(Math.floor(n)).padStart(2, "0"); }
+
+      // 날짜 표기를 CONFIG에서 설정
+      elDate.textContent =
+        target.getFullYear() + "년 " + (target.getMonth() + 1) + "월 " + target.getDate() + "일";
 
       function tick() {
         var now  = Date.now();
@@ -407,8 +412,8 @@
         elSecs.textContent = pad(secs);
       }
 
-      tick();
       var timer = setInterval(tick, 1000);
+      tick();
     })();
   </script>
 

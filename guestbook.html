@@ -358,7 +358,6 @@
 
     // ── 단일 카드 HTML ──
     function buildCard(r) {
-      var timestamp = escapeHtml(r[COL_TIMESTAMP] || "");
       var name      = escapeHtml((r[COL_NAME]    || "").trim() || "익명");
       var cohort    = escapeHtml((r[COL_COHORT]  || "").trim());
       var message   = escapeHtml((r[COL_MESSAGE] || "").trim());

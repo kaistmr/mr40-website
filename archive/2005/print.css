@@ -1,0 +1,29 @@
+@charset "utf-8";
+
+* {}
+
+body {
+	background: white;
+	color: black;
+	margin: 1.5cm;
+}
+
+h1 {
+	text-indent: 0pt;
+	background: transparent;
+	font-size: 14pt;
+	text-align: center;
+}
+
+#page {
+	width: 100%;
+	background: transparent;
+}
+
+#menu {
+	display: none;
+}
+
+#content {
+	background: transparent;
+}

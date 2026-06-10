@@ -1,0 +1,286 @@
+@charset "utf-8";
+
+/******* Global Styles *******/
+
+* {
+	margin: 0; padding: 0;
+}
+
+body {
+	font-family: Verdana, ?‹ì?, sans-serif;
+	font-size: 0.75em;
+	background: white url(images/main_bg.png) top left no-repeat;
+	color: #333;
+}
+
+
+h1 { display: none; }
+
+h2 {
+	border-left: 4px solid #eee;
+	padding-left: 4px;
+	margin: 0.3em;
+}
+
+h3 {
+	font-size: 1.2em;
+	color: #55627d;
+}
+
+h4 {
+	font-size: 1.1em;
+}
+
+p {
+	margin: 0.4em;
+	line-height: 160%;
+}
+
+ul {
+	list-style: none;
+}
+
+li {
+	padding-left: 20px;
+	margin-bottom: 0.3em;
+	background: url(images/bullet_list.gif) no-repeat left -2px;
+}
+
+blockquote {
+	padding-left: 25px;
+	padding-top: 4px;
+	background: url(images/bullet_quotation.png) no-repeat left top;
+}
+
+blockquote p:last-child {
+	background: url(images/bullet_quotation2.png) no-repeat right bottom;
+	padding-bottom: 5px;
+}
+
+img {
+	padding: 5px;
+	border: 1px solid #ccc;
+}
+
+a {
+	color: #2d58a6;
+}
+
+a.external {
+	padding-right: 18px;
+	background: url(images/link.gif) no-repeat right center;
+}
+
+a.format-pdf {
+	padding-right: 18px;
+	padding-top: 1px;
+	background: url(images/pdf.png) no-repeat right center;
+}
+
+a.format-wmv {
+	padding-right: 18px;
+	padding-top: 1px;
+	background: url(images/wmv.png) no-repeat right center;
+}
+
+a:hover {
+	color: #3b72d6;
+	text-decoration: none;
+}
+
+table {
+	border-collapse: collapse;
+	margin: 0.4em;
+}
+
+table caption {
+	margin: 0.3em;
+	font-weight: bold;
+	font-size: 1.2em;
+	color: #55627d;
+}
+
+th, td {
+	padding: 0.3em;
+	border: 1px solid #ccc;
+}
+
+#navigation {
+	position: relative;
+	top: 40px;
+	margin-left: 220px;
+	border-top: 1px solid #ccc;
+}
+
+#navigation ul {
+	list-style: none;
+	margin: 0; padding: 0;
+}
+
+#navigation li {
+	float: left;
+	margin: 0; padding: 0;
+	background: none;
+}
+
+#navigation a {
+	display: block;
+	padding: 6px 8px 6px 8px;
+	margin: 0px 0px 0px 10px;
+	text-decoration: none;
+	background-color: white;
+	color: #999;
+}
+
+#navigation .selected a {
+	background-color: #f8f8f8;
+	border-bottom: 1px solid #ddd;
+}
+
+#navigation a:hover {
+	color: #333;
+	border-bottom: 1px solid #ddd;
+}
+
+#content {
+	clear: left;
+	position: relative;
+	margin-left: 220px;
+	top: 60px;
+}
+
+#content div {
+	margin-left: 0.4em;
+}
+
+ul.items {
+	list-style: none;
+	margin: 0.5em;
+}
+
+ul.items li {
+	padding: 0;
+	margin: 3px;
+	background: none;
+}
+
+ul.items a {
+	display: block;
+	background: url(images/link_bar.gif) no-repeat left top;
+	padding-left: 22px;
+	padding-top: 6px;
+	height: 20px;
+	text-decoration: none;
+	width: 328px;
+}
+
+ul.items a:hover {
+	background: url(images/link_bar.gif) no-repeat left 100%;
+}
+
+.tooltip {
+	position: absolute;
+	background: #555;
+	color: #ddd;
+	padding: 0.3em;
+	visibility: hidden;
+}
+
+/** accordions **/
+
+.stretcher {
+	background: transparent url(images/bg_grad1.gif) repeat-x left top;
+	padding: 0;
+	width: 500px;
+}
+
+.stretcher h3, .stretcher h4, .stretcher blockquote, .stretcher ul {
+	margin: 10px;
+}
+
+.stretcher>p {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+a.toggler {
+	background: url(images/link_star.gif) no-repeat left center;
+	padding-left: 20px;
+}
+
+img.right { float: right; margin: 5px; }
+img.left { float: left; margin: 5px; }
+
+/******** Page-specific Styles ********/
+/** activity.php **/
+
+#page-activity table {
+	border-collapse: separate;
+	border-spacing: 1px;
+	width: 500px;
+}
+
+#page-activity th, td { border: none; padding: 0.2em; font-weight: normal; }
+
+#page-activity td { border-bottom: 1px solid #ddd; }
+
+#page-activity th.date {
+	background-color: #f2f2f2;
+	width: 19%;
+	text-align: left;
+	padding-left: 1.0em;
+	color: #666;
+}
+
+#page-activity th[scope=col] {
+	background-color: #dfe8f8;
+	color: black;
+}
+
+#page-activity th[scope=col].date {
+	background-color: #d4dded;
+}
+
+/** articles.php **/
+
+ul.items a span.author{
+	font-size: 0.9em;
+	color: #666;
+	padding-left: 12px;
+}
+
+#page-articles #author {
+	background: url(images/bg_grad1.gif) repeat-x left top;
+	padding: 10px;
+	width: 80%;
+}
+
+#page-articles #article {
+	border: 1px solid #ddd;
+	padding: 10px;
+	width: 80%;
+}
+
+#page-articles #article p {
+text-indent: 1em;
+}
+
+/** works.php **/
+
+#page-works #content {
+	width: 500px;
+}
+
+/** photo.php **/
+
+.photo {
+	float: left;
+	width: 110px;
+	margin: 5px;
+}
+
+.photo img {
+	-moz-opacity: 0.6;
+	opacity: 0.6;
+	filter: alpha(opacity=60);
+}

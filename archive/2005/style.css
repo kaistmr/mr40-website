@@ -1,0 +1,102 @@
+@charset "utf-8";
+
+* { /**/ } /* for Opera's bug */
+
+* {
+	font-family: Tahoma, 돋움, sans-serif;
+}
+
+html {
+	/* IE Only */
+	scrollbar-face-color:#666;
+	scrollbar-shadow-color:#555;
+	scrollbar-highlight-color:#555;
+	scrollbar-3dlight-color:#666;
+	scrollbar-darkshadow-color:#666;
+	scrollbar-track-color:#666;
+	scrollbar-arrow-color:#6cf;
+}
+
+body {
+	background: #666;
+	text-align: center;
+	vertical-align: center;
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+}
+
+img { border: none; }
+
+#page {
+	padding: 0px;
+	background: transparent url(images/page_bg.gif) no-repeat;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 916px;
+	height: 526px;
+	margin: -263px 0px 0px -458px;
+	text-align: left;
+}
+
+#content {
+	position: relative;
+	left: 16px;
+	top: 17px;
+	margin: 0px;
+	width: 780px;
+	height: 460px;
+	padding: 10px;
+	background: #eee url(images/content_bg.jpg) no-repeat left bottom;
+	color: black;
+}
+
+h1 {
+	background: url(images/title.gif) no-repeat center center;
+	width: 289px;
+	height: 82px;
+	padding: 0px;
+	margin: 0px auto;
+	text-indent: -5000em;
+}
+
+#menu {
+	float: right;
+	width: 100px;
+	margin: 0px !important;
+	padding: 0px;
+	margin-left: -3px;
+}
+
+#menu ul {
+	list-style: none;
+	position: relative;
+	top: 120px;
+	margin: 0px;
+	padding: 0px;
+	width: 100px;
+}
+
+#menu li { margin: 0px; padding: 0px; }
+
+#menu a {
+	display: block;
+	padding: 3px 3px 3px 7px;
+	width: 62px;
+	height: 22px;
+	background: #d9d9d9 url(./images/menuitem.gif) no-repeat left 0px;
+	margin-bottom: 1px;
+}
+
+#menu a:hover {
+	background-position: left -28px;
+}
+
+#content-view {
+	height: 380px;
+	border: none;
+	width: 780px;
+	margin: 0px;
+	padding: 0px;
+}

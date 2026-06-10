@@ -459,25 +459,35 @@
     var lbImg = document.getElementById("lb-img");
     var lbCaption = document.getElementById("lb-caption");
 
-    function fullSrc(p) {
-      // R2가 연결되면 원본급, 아니면 썸네일로 표시
+    // 라이트박스 이미지 소스 우선순위:
+    // R2 원본(설정 시) → full/ 폴더(업스케일본을 같은 파일명으로 넣으면 자동 사용) → 썸네일
+    function srcChain(p) {
+      var key = encodeURIComponent(p.thumb);
+      var chain = [];
       if (CONFIG.R2_BASE_URL) {
-        return CONFIG.R2_BASE_URL.replace(/\/$/, "") + "/full/" + encodeURIComponent(p.thumb);
+        chain.push(CONFIG.R2_BASE_URL.replace(/\/$/, "") + "/full/" + key);
       }
-      return "thumbs/" + encodeURIComponent(p.thumb);
+      chain.push("full/" + key);
+      chain.push("thumbs/" + key);
+      return chain;
     }
 
     function showAt(idx) {
       var n = viewPhotos.length;
       lbIndex = ((idx % n) + n) % n; // 순환 탐색
       var p = viewPhotos[lbIndex];
-      lbImg.src = fullSrc(p);
-      lbImg.alt = "MR " + yearLabel(p.year) + " 사진";
-      // R2 원본 로드 실패 시 로컬 썸네일로 폴백
+      var chain = srcChain(p);
+      var step = 0;
       lbImg.onerror = function () {
-        lbImg.onerror = null;
-        lbImg.src = "thumbs/" + encodeURIComponent(p.thumb);
+        step += 1;
+        if (step < chain.length) {
+          lbImg.src = chain[step];
+        } else {
+          lbImg.onerror = null;
+        }
       };
+      lbImg.src = chain[0];
+      lbImg.alt = "MR " + yearLabel(p.year) + " 사진";
       lbCaption.textContent = yearLabel(p.year) + " · " + (lbIndex + 1) + " / " + n;
     }
 

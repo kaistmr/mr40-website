@@ -10,8 +10,8 @@ function escapeHtml(s) {
 function injectNav(active) {
   const items = [
     ["index.html", "홈"], ["timeline.html", "연혁"], ["members.html", "주소록"],
-    ["gallery.html", "사진관"], ["magazine.html", "회지"], ["guestbook.html", "방명록"],
-    ["event.html", "행사안내"],
+    ["gallery.html", "사진관"], ["magazine.html", "회지"], ["archive.html", "옛홈피"],
+    ["guestbook.html", "방명록"], ["event.html", "행사안내"],
   ];
   const links = items.map(([href, label]) =>
     `<a href="${escapeHtml(href)}" class="nav-link${escapeHtml(href) === escapeHtml(active) ? " active" : ""}">${escapeHtml(label)}</a>`).join("");

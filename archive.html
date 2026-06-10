@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>옛 홈페이지 — MR 40</title>
+  <!-- Pretendard 폰트 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 공통 스타일 -->
+  <link rel="stylesheet" href="assets/style.css" />
+  <!-- 설정 & 공통 스크립트 -->
+  <script src="config.js"></script>
+  <script src="assets/common.js"></script>
+
+  <style>
+    .ar-header {
+      padding: 3rem 0 2rem;
+      text-align: center;
+    }
+
+    .ar-title {
+      font-size: clamp(1.6rem, 5vw, 2.5rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.6rem;
+    }
+
+    .ar-subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .ar-note {
+      display: inline-block;
+      margin-top: 0.9rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+      border: 1px dashed rgba(125, 141, 181, 0.4);
+      border-radius: 0.6rem;
+      padding: 0.45rem 0.9rem;
+      line-height: 1.6;
+    }
+
+    /* 옛 모니터 느낌 카드 */
+    .ar-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+      padding-bottom: 4rem;
+    }
+
+    @media (min-width: 640px) { .ar-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (min-width: 960px) { .ar-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    .ar-card {
+      display: block;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .ar-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 36px rgba(45, 212, 167, 0.15);
+    }
+
+    .ar-screen {
+      background: #0a0e14;
+      border-bottom: 1px solid rgba(45, 212, 167, 0.25);
+      padding: 1.4rem 1.2rem;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    .ar-screen .ar-year {
+      color: #2dd4a7;
+      font-size: 1.8rem;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+    }
+
+    .ar-screen .ar-prompt {
+      color: rgba(45, 212, 167, 0.7);
+      font-size: 0.72rem;
+      margin-top: 0.35rem;
+      letter-spacing: 0.08em;
+    }
+
+    .ar-screen .blink { animation: blink 1.2s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+
+    .ar-body { padding: 1rem 1.2rem 1.2rem; }
+
+    .ar-body h3 {
+      font-size: 0.98rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .ar-body p {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .site-footer {
+      border-top: 1px solid rgba(91, 140, 255, 0.12);
+      padding: 2rem 1.25rem;
+      text-align: center;
+    }
+
+    .site-footer .footer-name {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .site-footer .footer-note {
+      font-size: 0.75rem;
+      color: rgba(125, 141, 181, 0.55);
+    }
+  </style>
+</head>
+<body>
+  <script>injectNav("archive.html");</script>
+
+  <header class="ar-header container">
+    <h1 class="ar-title">옛 홈페이지 보관소 <span class="text-accent">🖥️</span></h1>
+    <p class="ar-subtitle">그 시절 MR 홈페이지를 그대로 보존했습니다 — 클릭하면 그때 그 화면이 열립니다</p>
+    <span class="ar-note">⚠️ 20년 전 웹 기술로 만들어진 페이지라 일부 메뉴·플래시는 동작하지 않을 수 있어요.<br>모든 페이지는 당시 모습 그대로이며, 새 탭에서 열립니다.</span>
+  </header>
+
+  <div class="container">
+    <div class="ar-grid">
+      <a class="ar-card" href="archive/2001/index.htm" target="_blank" rel="noopener">
+        <div class="ar-screen"><div class="ar-year">2001</div><div class="ar-prompt">&gt; LOADING MR HOMEPAGE... <span class="blink">▌</span></div></div>
+        <div class="ar-body"><h3>2001년 홈페이지</h3><p>새천년의 MR — 동아리 소개와 활동 기록</p></div>
+      </a>
+      <a class="ar-card" href="archive/2002/main.htm" target="_blank" rel="noopener">
+        <div class="ar-screen"><div class="ar-year">2002</div><div class="ar-prompt">&gt; LOADING MR HOMEPAGE... <span class="blink">▌</span></div></div>
+        <div class="ar-body"><h3>2002년 홈페이지</h3><p>당시 앨범 1,700여 장이 담긴 가장 풍성한 기록</p></div>
+      </a>
+      <a class="ar-card" href="archive/2005/index.html" target="_blank" rel="noopener">
+        <div class="ar-screen"><div class="ar-year">2005</div><div class="ar-prompt">&gt; LOADING MR HOMEPAGE... <span class="blink">▌</span></div></div>
+        <div class="ar-body"><h3>2005년 홈페이지</h3><p>MR Story in KAIST — 당시 활동과 사람들</p></div>
+      </a>
+      <a class="ar-card" href="archive/2007/index.html" target="_blank" rel="noopener">
+        <div class="ar-screen"><div class="ar-year">2007</div><div class="ar-prompt">&gt; LOADING MR HOMEPAGE... <span class="blink">▌</span></div></div>
+        <div class="ar-body"><h3>2007년 홈페이지</h3><p>활동 소개 중심의 콤팩트한 홈페이지</p></div>
+      </a>
+      <a class="ar-card" href="archive/2008/MR/index.htm" target="_blank" rel="noopener">
+        <div class="ar-screen"><div class="ar-year">2008</div><div class="ar-prompt">&gt; LOADING MR HOMEPAGE... <span class="blink">▌</span></div></div>
+        <div class="ar-body"><h3>2008년 홈페이지</h3><p>사진 자료가 풍부한 기록</p></div>
+      </a>
+      <a class="ar-card" href="archive/2009/2009MR.htm" target="_blank" rel="noopener">
+        <div class="ar-screen"><div class="ar-year">2009</div><div class="ar-prompt">&gt; LOADING MR HOMEPAGE... <span class="blink">▌</span></div></div>
+        <div class="ar-body"><h3>2009년 홈페이지</h3><p>문서 자료와 함께 보존된 홈페이지</p></div>
+      </a>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p class="footer-name">KAIST 마이크로 로봇 동아리 MR · Since 1986</p>
+    <p class="footer-note">© 2026 MR 40주년 준비위원회</p>
+  </footer>
+</body>
+</html>

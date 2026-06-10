@@ -1,0 +1,245 @@
+@charset "utf-8";
+
+* { }
+
+* {
+	font-family: 돋움, Tahoma, sans-serif;
+}
+
+html {
+	/* IE Only */
+	scrollbar-face-color:#e2e2e2;
+	scrollbar-shadow-color:#bbb;
+	scrollbar-highlight-color:#bbb;
+	scrollbar-3dlight-color:#eee;
+	scrollbar-darkshadow-color:#eee;
+	scrollbar-track-color:#eee;
+	scrollbar-arrow-color:#06c;
+}
+
+body {
+	background: #eee;
+	margin: 0px;
+	padding: 0px;
+	width: 760px;
+}
+
+img { border: none; }
+
+h3 {
+	font-size: 13pt;
+	margin: 6pt;
+}
+
+#subindex {
+	margin: 0px;
+}
+
+#subindex ul {
+	width: 400px;
+	margin: 0px;
+	padding: 0px 0px 0px 12px;
+	font-size: 9pt;
+	list-style: none;
+}
+
+#subindex li {
+	margin: 0px;
+}
+
+#subindex a {
+	display: block;
+	color: #666;
+	padding: 8px 0px 0px 20px;
+	height: 20px;
+	font-size: 10pt;
+	text-decoration: none;
+	background: url(images/subindex_list.gif) no-repeat left 0px;
+	width: 80%;
+}
+
+#subindex a:hover {
+	background-position: 0px -28px;
+	color: #06c;
+}
+
+#subindex .author {
+	font-size: 8pt;
+}
+
+#description {
+	float: right;
+	width: 300px;
+	margin: 0px;
+}
+
+#description p {
+	font-family: 돋움, UnDotum, sans-serif;
+	font-size: 10pt;
+	line-height: 150%;
+	margin: 3px;
+	color: #333;
+}
+
+/* Title */
+#logo {
+	margin-top: 60px;
+	text-align: center;
+}
+
+.info {
+	font-size: 8pt;
+	color: #69c;
+	text-align: center;
+}
+
+/* history */
+
+#history {
+	text-align: center;
+}
+
+#history table {
+	border: none;
+	width: 90%;
+	text-align: left;
+	margin: 0px auto;
+	border-collapse: collapse;
+}
+
+#history th {
+	font-size: 9pt;
+	background: #ddd;
+	padding: 4px 0px 0px 2px;
+	border: none;
+	text-align: center;
+}
+
+#history td {
+	font-size: 9pt;
+	font-family: 돋움, Tahoma, sans-serif;
+	border-bottom: 1px solid #ddd;
+	padding: 3px 2px 2px 0px;
+}
+
+#history td.date {
+	color: #36c;
+	width: 12%;
+	text-align: center;
+}
+
+/* Essay */
+
+h2 {
+	text-indent: -500em;
+	width: 120px;
+	height: 30px;
+	padding: 0px;
+}
+
+#essays h2 {
+	background: url(images/essay_head.gif) no-repeat;
+}
+
+#essays h3 {
+	font-size: 12pt;
+	text-align: center;
+}
+
+#essays p {
+	font-size: 10pt;
+	line-height: 130%;
+	text-align: justify;
+	margin: 8pt;
+}
+
+#essays .author {
+	font-size: 8pt;
+	text-align: right;
+	color: #666;
+}
+
+/* Photos, Works */
+
+#photos h2 {
+	background: url(images/photos_head.gif) no-repeat;
+}
+
+#photos h3, #works h3 {
+	font-size: 12pt;
+	text-align: center;
+}
+
+#photos .thumbnails, #works .thumbnails { margin: 0px auto; }
+
+#photos img, #works img { border: none; margin: 0px; }
+
+#photos .photo, #works .photo {
+	float: left;
+	width: 100px;
+	height: 75px;
+	padding: 4px;
+	margin: 5px;
+	background: #ddd;
+	border: 1px solid #bbb;
+}
+
+#photos .photo a, #works .photo a {
+	display: block;
+	width: 100px;
+	height: 75px;
+	filter: alpha(opacity=50);
+	opacity: 0.5;
+	-moz-opacity: 0.5;
+}
+
+#photos .photo a:hover, #works .photo a:hover {
+	filter: alpha(opacity=100);
+	opacity: 1.0;
+	-moz-opacity: 1.0;
+}
+
+/* Works */
+
+#works h2 {
+	background: url(images/works_head.gif) no-repeat;
+}
+
+/* After */
+
+#after #team_photo {
+	text-align: center;
+}
+
+#after img {
+	border: none;
+	margin: 10px;
+}
+
+#after .people {
+	width: 75%;
+	margin: 0px auto;
+	padding: 12px 0px 0px 12px;
+	background: transparent url(images/after_bg.jpg) no-repeat;
+}
+
+#after p.role {
+	color: #777;
+	text-align: right;
+}
+
+#after p {
+	font-size: 10pt;
+}
+
+#after .special {
+	width: 75%;
+	margin: 0px auto;
+}
+
+#after .special h3 {
+	font-family: Tahoma, sans-serif;
+	font-size: 11pt;
+	color: #969;
+	text-align: center;
+}

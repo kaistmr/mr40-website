@@ -1,0 +1,75 @@
+<!--Shinobu's BGM Player 1 HTML File (BGM Select Sub Page)-->
+<!--Copyleft (C) 2000 - 2001 by Shinobu All Rights Unreversed-->
+<!--추신 : 위의 카피래프트 부분을 삭제하지 마십시오.-->
+
+<!--smileru.pe.kr에서 버튼및 약간의 표현소스 수정하였습니다.-->
+<html>
+
+<head><meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<title>Select MUSIC! - Smileru's Home</title>
+<style type='text/css'>
+p,br,body,td,select,input,form,textarea,option {font-size:9pt; font-family:굴림; line-height:130%; color:black }
+A:link    {color:#3300ff}
+A:visited {color:#3300ff}
+
+    a.cls0:link { text-decoration: none; color:#000000; font-size:7pt; font-family:Tahoma;}
+	a.cls0:visited { text-decoration: none; color:#000000; font-size:7pt; font-family:Tahoma;}
+	a.cls0:hover { text-decoration: none; color:#ffffff; font-size:7pt; font-family:Tahoma;}
+    a.cls1:link { text-decoration: none; color:#000000; font-size:9pt; font-family:굴림;}
+	a.cls1:visited { text-decoration: none; color:#000000; font-size:9pt; font-family:굴림;}
+	a.cls1:hover { text-decoration: underline; color:orange; font-size:9pt; font-family:굴림;}
+	a.cls2:link { text-decoration: none; color:black; font-size:9pt; font-family:굴림;}
+	a.cls2:visited { text-decoration: none; color:black; font-size:9pt; font-family:굴림;}
+	a.cls2:hover { text-decoration: underline; color:black; font-size:9pt; font-family:굴림;}
+	a.cls3:link { text-decoration: none; color:red; font-size:11pt; font-family:Comic Sans MS;}
+	a.cls3:visited { text-decoration: none; color:red; font-size:11pt; font-family:Comic Sans MS;}
+	a.cls3:hover { text-decoration: underline; color:red; font-size:11pt; font-family:Comic Sans MS;}
+
+</style>
+<style type="text/css"> 
+body{
+	scrollbar-face-color:#f3f3f3;
+	scrollbar-highlight-color: #ffffff;
+	scrollbar-3dlight-color: #ffffff;
+	scrollbar-shadow-color: #ffffff;
+	scrollbar-darkshadow-color: #ffffff;
+	scrollbar-track-color: #ffffff;
+	scrollbar-arrow-color: #f3f3f3;
+} 
+</style> 
+<style> a {behavior:url(onfocus.htc)}</style> 
+</head>
+
+<body bgcolor="white" bgcolor=cccccc  LEFTMARGIN=0 TOPMARGIN=0 MARGINWIDTH=0 MARGINHEIGHT=0>
+<table border="1" cellpadding="5" cellspacing="0" width="320">
+    <tr>
+        <td width="320" bgcolor="eaeaea" align=center height=40><img src="logo02.gif" border=0></td>
+    </tr>
+    <tr>
+        <td width="320" height=338 background="back01.jpg" valign=top>
+            <p><center><!--<img src="talk02.gif">--></center><br><script language="JavaScript">
+<!-- JavaScript
+//bgm.html에 대한 위치(?)를 설정하는 변수이다
+//만약에 bgm_sele.html을 iframe나 다른 프레임에 넣으려면 이 부분을 수정해야 한다
+//수정 예 (iframe 태그의 경우) : parent만
+//        (다른 프레임에 넣을 경우) : parent.<BGM.html>이 있는 프레임 이름
+var e = window.opener;
+var e1 = "window.opener";
+//이 부분은 건들지 마세요
+for (i=0; i <= e.songName.length -1; i++) {
+	idx = i + 1
+	var sele_m = '<font color="black">' + idx + '. ' + '</font><a href="#" class=cls1 OnClick="' + e1 + '.chooseSong('
+	sele_m = sele_m + i + ')">' + e.songName[i] + '</font></a><br>\n'
+	document.write(sele_m);
+}
+// - JavaScript - -->
+            </script></span></p>
+        </td>
+    </tr>
+    <tr>
+        <td width="320" bgcolor="#eaeaea" align=center valign=middle height=40><!--<img src="../smileru_sb.gif" align=bottom>--><a href="#" OnClick = "window.close();"><img src="close.gif" border=0></a>&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+</table>
+</body>
+
+</html>

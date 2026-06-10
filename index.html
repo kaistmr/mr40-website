@@ -365,11 +365,154 @@
     </div>
   </section>
 
+  <!-- ══ 로고 변천 & 후원사 ══ -->
+  <style>
+    .brand-section {
+      padding: 3.5rem 0 4rem;
+      border-top: 1px solid rgba(91, 140, 255, 0.1);
+    }
+
+    .brand-heading {
+      text-align: center;
+      font-size: 1.3rem;
+      font-weight: 900;
+      margin-bottom: 0.4rem;
+    }
+
+    .brand-sub {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 1.75rem;
+    }
+
+    .logo-strip {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .logo-chip {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.8rem;
+      padding: 0.7rem;
+      width: 104px;
+      text-align: center;
+    }
+
+    .logo-chip img {
+      width: 100%;
+      height: 64px;
+      object-fit: contain;
+      border-radius: 0.4rem;
+      background: #fff;
+    }
+
+    .logo-chip.dark img { background: transparent; }
+
+    .logo-chip .logo-era {
+      display: block;
+      font-size: 0.68rem;
+      color: var(--muted);
+      margin-top: 0.45rem;
+      font-weight: 600;
+    }
+
+    .sponsor-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .sponsor-card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.8rem;
+      padding: 0.9rem 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+    }
+
+    .sponsor-card img {
+      height: 36px;
+      object-fit: contain;
+    }
+
+    .sponsor-card .sp-name {
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .sponsor-empty {
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.8;
+      border: 1px dashed rgba(125, 141, 181, 0.35);
+      border-radius: 0.9rem;
+      padding: 1.5rem;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+  </style>
+
+  <section class="brand-section">
+    <div class="container">
+      <h2 class="brand-heading">로고로 보는 MR <span aria-hidden="true">🎨</span></h2>
+      <p class="brand-sub">시대마다 새로 그려진 동아리의 얼굴들</p>
+      <div class="logo-strip">
+        <div class="logo-chip"><img src="assets/logos/2004_logo1.jpg" alt="MR 옛 로고 1" loading="lazy" /><span class="logo-era">2000년대</span></div>
+        <div class="logo-chip"><img src="assets/logos/2004_logo2.jpg" alt="MR 옛 로고 2" loading="lazy" /><span class="logo-era">2000년대</span></div>
+        <div class="logo-chip"><img src="assets/logos/2004_logo3.jpg" alt="MR 옛 로고 3" loading="lazy" /><span class="logo-era">2000년대</span></div>
+        <div class="logo-chip"><img src="assets/logos/2004_logo4.jpg" alt="MR 옛 로고 4" loading="lazy" /><span class="logo-era">2000년대</span></div>
+        <div class="logo-chip dark"><img src="assets/logos/mr_logo_white.png" alt="MR 현행 로고" loading="lazy" /><span class="logo-era">현재</span></div>
+      </div>
+
+      <h2 class="brand-heading">함께하는 분들 <span aria-hidden="true">🤝</span></h2>
+      <p class="brand-sub">40주년 행사를 후원해 주시는 분들</p>
+      <div class="sponsor-list" id="sponsor-list"></div>
+    </div>
+  </section>
+
   <!-- ══ 푸터 ══ -->
   <footer class="site-footer">
     <p class="footer-name">KAIST 마이크로 로봇 동아리 MR · Since 1986</p>
     <p class="footer-note">© 2026 MR 40주년 준비위원회</p>
   </footer>
+
+  <!-- ══ 후원사 JS (data/sponsors.json: [{"name":"","logo":"assets/logos/xx.png","url":""}]) ══ -->
+  <script>
+    (function () {
+      "use strict";
+      var listEl = document.getElementById("sponsor-list");
+
+      function renderSponsors(items) {
+        if (!items || items.length === 0) {
+          listEl.innerHTML = '<div class="sponsor-empty">후원사를 모시고 있습니다.<br>동문 개인 후원과 기업 후원 모두 환영해요 — 문의는 동아리 메일로 부탁드립니다.</div>';
+          return;
+        }
+        listEl.innerHTML = items.map(function (s) {
+          var inner = (s.logo ? '<img src="' + escapeHtml(s.logo) + '" alt="' + escapeHtml(s.name || "") + '" loading="lazy" />' : "") +
+            '<span class="sp-name">' + escapeHtml(s.name || "") + "</span>";
+          return s.url
+            ? '<a class="sponsor-card" href="' + escapeHtml(s.url) + '" target="_blank" rel="noopener">' + inner + "</a>"
+            : '<div class="sponsor-card">' + inner + "</div>";
+        }).join("");
+      }
+
+      fetch("data/sponsors.json")
+        .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .then(renderSponsors)
+        .catch(function () { renderSponsors([]); });
+    })();
+  </script>
 
   <!-- ══ D-day JS (페이지 전용) ══ -->
   <script>

@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+* {}
+
+body {
+	background: transparent;
+	margin: 0px; padding: 0px;
+}
+
+#subindex a {
+	text-decoration: underline;
+	color: blue;
+}
+
+#description p {
+	color: black;
+}

@@ -1,0 +1,147 @@
+@charset "utf-8";
+
+body {
+	font-size: 1.0em;
+	font-family: 윤고딕, 맑은고딕, 돋움, sans-serif;
+	background: none;
+	color: black;
+}
+
+#head {
+	border-bottom: 1px solid black;
+}
+
+h1:before {
+	content: "MR 2006 회지 - ";
+}
+
+h1 {
+	font-size: 0.8em;
+	font-weight: normal;
+	text-align: left;
+	color: black;
+	margin: 0.6em;
+}
+
+#navigation { display: none; }
+
+h2 {
+	text-align: center;
+	font-size: 1.2em;
+}
+
+p {
+	margin: 0.3em;
+	line-height: 160%;
+	color: black;
+}
+
+li {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+table {
+	border-collapse: collapse;
+	margin: 1.2em;
+}
+
+table caption {
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+th, td {
+	padding: 0.3em;
+}
+
+th {
+	border: 1px solid black;
+}
+
+td {
+	border: 1px dotted black;
+}
+
+blockquote {
+	padding-left: 25px;
+	padding-top: 4px;
+	background: url(images/bullet_quotation.png) no-repeat left top;
+}
+
+blockquote p:last-child {
+	background: url(images/bullet_quotation2.png) no-repeat right bottom;
+	padding-bottom: 5px;
+}
+
+a {
+	color: #444;
+	text-decoration: underline;
+}
+
+img.right { float: right; margin: 12pt; }
+img.left { float: left; margin: 12pt; }
+
+/** index.php **/
+
+.toggler { display: none; }
+
+.stretcher {
+	height: 100%;
+	padding: 1em;
+	visibility: visible;
+}
+
+/** activity.php **/
+
+#page-activity table {
+	width: 90%;
+}
+
+#page-activity th {
+	border: none;
+	border-bottom: 1px solid black;
+	font-weight: normal;
+}
+
+#page-activity th[scope=col] {
+	font-weight: bold;
+}
+
+#page-activity .date { width: 20%; }
+
+#page-activity td {
+	border: none;
+	border-bottom: 1px dotted black;
+}
+
+/** articles.php **/
+
+#author {
+	padding: 1em;
+	border-top: 1px dashed #666;
+	border-bottom: 1px dashed #666;
+	text-align: center;
+}
+
+#article {
+	font-family: -윤명조120, 윤디자인웹명조, 바탕, sans-serif;
+	padding: 0.8em;
+}
+
+#article p {
+	margin: 0.3em;
+}
+
+/** photo.php **/
+
+.photo {
+	float: left;
+	width: 110px;
+	margin: 5px
+}
+
+.photo img {
+	padding: 5px;
+	border: 1px solid #999;
+}

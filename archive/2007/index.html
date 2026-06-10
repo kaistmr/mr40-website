@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html lang="ko">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+	<link rel="stylesheet" type="text/css" media="print" href="print.css" />
+	<script type="text/javascript" src="mootools.js"></script>
+</head>
+<body id="page-home">
+<div id="wrap">
+	<div id="head">
+		<h1>첫 페이지</h1>
+	</div>
+	<div id="navigation">
+		<ul>
+			<li id="nav-home" class="selected"><a href="index.html">첫 화면</a></li>
+			<li id="nav-activity"><a href="activity/index.html">주요 활동</a></li>
+			<li id="nav-articles"><a href="articles/index.html">컬럼</a></li>
+			<li id="nav-works"><a href="works/index.html">작품</a></li>
+			<li id="nav-photo"><a href="photo/index.html">사진</a></li>
+		</ul>
+	</div>
+	<div id="content">
+		<h2>미스터 21주년 회지</h2>
+		<p>미스터 21주년 웹 회지에 오신 것을 환영합니다!</p>
+		<p><a class="toggler" href="index.html#help">회지 도움말</a></p>
+		<div class="stretcher">
+			<h3>회지 도움말</h3>
+			<h4>인쇄하기</h4>
+			<p>이번 회지는 웹브라우저로 인쇄시 깔끔하게 내용만 출력하도록 제작되었습니다. '인쇄 미리보기'로 확인해보세요.</p>
+			<h4>사진 및 동영상 보기</h4>
+			<p>사진 메뉴에서 앨범을 고르시면 썸네일들이 나타납니다. 썸네일은 원본 사진 파일과 링크되어 있고, 동영상인 경우는 썸네일 대신 아이콘으로 표시됩니다.</p>
+			<h4>회지를 보는 최적 환경</h4>
+			<p>웹 회지가 깨지거나 이상해보인다면 웹브라우저를 확인해주시기 바랍니다.</p>
+			<p>현재 회지는 <a class="external" href="http://www.microsoft.com/windows/ie/default.mspx">Internet Explorer 7</a> 이상, <a class="external" href="http://www.mozilla.or.kr">Firefox 1.5</a> 이상, <a class="external" href="http://www.opera.com">Opera 9</a> 이상의 환경에서 가장 잘 보입니다.</p>
+			<p>IE7의 경우 정품 인증을 받은 Windows XP SP2 이상 사용자만 설치하실 수 있고, Firefox와 Opera는 어느 운영체제에서도 사용할 수 있는 무료 소프트웨어입니다.</p>
+			<h4>글씨가 너무 크거나 작아요!</h4>
+			<p>웹회지는 브라우저의 글자 크기 설정에 따라 맞추어 보이도록 제작되었습니다. 웹브라우저의 글자 크기 설정을 확인해보세요.</p>
+		</div>
+		<p><a class="toggler" href="index.html#about">제작진 이야기</a></p>
+		<div class="stretcher">
+			<h3>회지 제작진 소개</h3>
+			<h4>06학번 라웅배</h4>
+			<ul>
+				<li>회지 팀장</li>
+			</ul>
+			<blockquote>
+				<p>	안녕하세요. 06학번 라웅배입니다.</p>
+				<p>이번에 새로 회지팀장을 맡게 되었습니다.</P><p>
+				새내기로 들어왔던 시절이 엊그제 같은데 벌써 2회째 총회를 맞게 되네요^^</p>
+				<p>미스터 여러분 모두 감사합니다. :)</p>
+			</blockquote>
+			<h4>05학번 김준기</h4>
+			<ul>
+				<li>회지 고문 당담</li>
+				<li>홈페이지 : <a class="external" href="http://daybreaker.info">http://daybreaker.info</a></li>
+			</ul>
+			<blockquote>
+				<p>스크립트쪽은 어려워서 힘들어하던 웅배군을 열심히 도와주신 김준기 선배님 감사합니다 :)</p><p>- 라웅배</p>
+			</blockquote>
+		</div>
+	</div>
+	<script type="text/javascript">
+	// <![CDATA[
+	window.onload = function() {
+		var togglers = $$('a.toggler');
+		var stretchers = $$('.stretcher');
+		stretchers.each(function(item) {
+			item.setStyles({'height': '0', 'overflow': 'hidden'});
+		});
+		var accordion = new Fx.Accordion(togglers, stretchers, { opacity: false, start: false});
+		accordion.showThisHideOpen(0);
+	}
+	// ]]>
+	</script>
+</div>
+</body>
+</html>
+

@@ -2,9 +2,8 @@
  {
   "title": "회지 준비호",
   "year": 1994,
-  "file": "",
-  "cover": "",
-  "note": "고해상도 원본 디지털화 진행 중"
+  "file": "pdfs/1994_회지준비호.pdf",
+  "cover": "covers/1994_회지준비호.jpg"
  },
  {
   "title": "큰 마음 작은 이야기",
@@ -21,9 +20,8 @@
  {
   "title": "MR 회지 2호",
   "year": null,
-  "file": "",
-  "cover": "",
-  "note": "고해상도 원본 디지털화 진행 중"
+  "file": "pdfs/MR_회지2호.pdf",
+  "cover": "covers/MR_회지2호.jpg"
  },
  {
   "title": "제4회 마이크로 로봇 대회",

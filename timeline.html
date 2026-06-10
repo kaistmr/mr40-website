@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>연혁 — MR 40</title>
+  <!-- Pretendard 폰트 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 공통 스타일 -->
+  <link rel="stylesheet" href="assets/style.css" />
+  <!-- 설정 & 공통 스크립트 -->
+  <script src="config.js"></script>
+  <script src="assets/common.js"></script>
+
+  <style>
+    /* 시대 전환이 부드럽게 보이도록 색 전환 트랜지션 */
+    body {
+      transition: color 0.6s ease;
+    }
+
+    /* 그라데이션은 transition이 안 되므로 고정 배경 레이어 2장을 페이드 */
+    .era-bg {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      transition: opacity 0.8s ease;
+    }
+
+    .era-bg-modern {
+      background: linear-gradient(160deg, #0b1530 0%, #15275c 100%);
+      opacity: 1;
+    }
+
+    .era-bg-retro {
+      background: #0a0e14;
+      opacity: 0;
+    }
+
+    body[data-era="retro"] .era-bg-modern { opacity: 0; }
+    body[data-era="retro"] .era-bg-retro  { opacity: 1; }
+
+    /* ── 페이지 헤더 ── */
+    .tl-header {
+      padding: 3rem 0 1rem;
+      text-align: center;
+    }
+
+    .tl-title {
+      font-size: clamp(1.6rem, 5vw, 2.5rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      margin-bottom: 0.6rem;
+    }
+
+    .tl-subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .tl-hint {
+      display: inline-block;
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      color: var(--accent);
+      border: 1px solid rgba(91, 140, 255, 0.3);
+      border-radius: 9999px;
+      padding: 0.3rem 0.9rem;
+    }
+
+    body[data-era="retro"] .tl-hint {
+      border-color: rgba(45, 212, 167, 0.4);
+    }
+
+    /* ── 타임라인 줄기 ── */
+    .timeline {
+      position: relative;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 5rem;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: calc(1.25rem + 5px);
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent), rgba(255, 255, 255, 0.08));
+      opacity: 0.45;
+    }
+
+    /* ── 연대 헤더 ── */
+    .decade {
+      position: relative;
+      padding-left: 2.5rem;
+      margin: 3.5rem 0 1.5rem;
+    }
+
+    .decade::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 16px var(--accent);
+    }
+
+    .decade h2 {
+      font-size: clamp(1.5rem, 4.5vw, 2.1rem);
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      color: var(--accent);
+      transition: color 0.6s ease;
+    }
+
+    .decade .decade-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.2rem;
+    }
+
+    /* ── 항목 카드 ── */
+    .tl-item {
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .tl-item::before {
+      content: "";
+      position: absolute;
+      left: 3px;
+      top: 1.15rem;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--muted);
+    }
+
+    .tl-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 0.8rem;
+      padding: 0.9rem 1.1rem;
+      transition: background 0.6s ease, border-color 0.6s ease;
+    }
+
+    .tl-date {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.04em;
+      transition: color 0.6s ease;
+    }
+
+    .tl-text {
+      font-size: 0.95rem;
+      line-height: 1.65;
+      margin-top: 0.2rem;
+      white-space: pre-line;
+    }
+
+    /* ── 레트로 시대 카드 변형 (터미널 카드) ── */
+    body[data-era="retro"] .tl-card {
+      background: rgba(45, 212, 167, 0.05);
+      border-color: rgba(45, 212, 167, 0.25);
+      border-radius: 4px;
+    }
+
+    body[data-era="retro"] .timeline::before {
+      background: linear-gradient(to bottom, rgba(45, 212, 167, 0.5), rgba(45, 212, 167, 0.05));
+    }
+
+    /* 레트로 진입 배너 */
+    .retro-gate {
+      text-align: center;
+      margin: 4rem 0 1rem;
+      padding-left: 2.5rem;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.8rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+
+    .retro-gate .blink {
+      animation: blink 1.2s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    /* ── 마무리(창립) 배지 ── */
+    .tl-origin {
+      text-align: center;
+      padding: 3rem 0 2rem;
+      font-family: 'Courier New', Courier, monospace;
+      color: var(--accent);
+    }
+
+    .tl-origin .origin-year {
+      font-size: 2.5rem;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+    }
+
+    .tl-origin .origin-label {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 0.3rem;
+    }
+
+    /* ── 상태 메시지 ── */
+    .tl-status {
+      text-align: center;
+      color: var(--muted);
+      padding: 4rem 1rem;
+    }
+
+    /* ── 사이트 푸터 ── */
+    .site-footer {
+      border-top: 1px solid rgba(91, 140, 255, 0.12);
+      padding: 2rem 1.25rem;
+      text-align: center;
+    }
+
+    .site-footer .footer-name {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .site-footer .footer-note {
+      font-size: 0.75rem;
+      color: rgba(125, 141, 181, 0.55);
+    }
+  </style>
+</head>
+<body>
+  <div class="era-bg era-bg-modern"></div>
+  <div class="era-bg era-bg-retro"></div>
+
+  <script>injectNav("timeline.html");</script>
+
+  <header class="tl-header container">
+    <h1 class="tl-title">40년의 발자취 <span class="text-accent">⏳</span></h1>
+    <p class="tl-subtitle">2024년부터 1986년 창단까지, 시간을 거슬러 올라가는 여행</p>
+    <span class="tl-hint">↓ 아래로 스크롤할수록 과거로 갑니다</span>
+  </header>
+
+  <main class="timeline" id="timeline"></main>
+
+  <footer class="site-footer">
+    <p class="footer-name">KAIST 마이크로 로봇 동아리 MR · Since 1986</p>
+    <p class="footer-note">© 2026 MR 40주년 준비위원회</p>
+  </footer>
+
+  <script>
+  (function () {
+    "use strict";
+
+    var tlEl = document.getElementById("timeline");
+
+    function decadeOf(year) {
+      return Math.floor(year / 10) * 10;
+    }
+
+    var DECADE_SUBS = {
+      2020: "AI와 함께하는 새로운 도전",
+      2010: "로봇 캠프와 교육의 시대",
+      2000: "전국 대회를 휩쓸던 시절",
+      1990: "MIROSOT 세계 무대의 주역",
+      1980: "모든 것이 시작된 곳",
+    };
+
+    function render(items) {
+      // 최신 → 과거 (역순 스크롤)
+      items.sort(function (a, b) { return (b.year || 0) - (a.year || 0); });
+
+      var html = "";
+      var curDecade = null;
+      var retroGateShown = false;
+
+      items.forEach(function (it) {
+        var d = decadeOf(it.year || 0);
+        if (d !== curDecade) {
+          curDecade = d;
+          // 1990년대 진입 직전에 레트로 게이트 배너
+          if (d < 2000 && !retroGateShown) {
+            retroGateShown = true;
+            html += '<div class="retro-gate">─── ENTERING 20TH CENTURY <span class="blink">▌</span> ───</div>';
+          }
+          html += '<div class="decade" data-decade="' + d + '">' +
+            "<h2>" + d + "년대</h2>" +
+            '<p class="decade-sub">' + escapeHtml(DECADE_SUBS[d] || "") + "</p>" +
+            "</div>";
+        }
+        html += '<div class="tl-item">' +
+          '<div class="tl-card">' +
+          '<div class="tl-date">' + escapeHtml(it.date || String(it.year || "")) + "</div>" +
+          '<div class="tl-text">' + escapeHtml(it.text || "") + "</div>" +
+          "</div></div>";
+      });
+
+      // 창단 배지
+      html += '<div class="tl-origin">' +
+        '<div class="origin-year">1986</div>' +
+        '<div class="origin-label">&gt; KAIST MICRO ROBOT — 모든 이야기의 시작_</div>' +
+        "</div>";
+
+      tlEl.innerHTML = html;
+      observeDecades();
+    }
+
+    // ── 연대 감지 → 레트로 전환 ──
+    // 화면에 보이는 연대 마커들 중 가장 아래(=가장 과거)를 기준으로 시대 결정.
+    // 1990년대(>= 진입) 이전 구간이 보이면 retro.
+    function observeDecades() {
+      var markers = Array.prototype.slice.call(document.querySelectorAll(".decade"));
+      if (!("IntersectionObserver" in window) || markers.length === 0) return;
+
+      // 각 연대 헤더가 뷰포트 상단을 지나는 순간을 추적
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          var d = parseInt(entry.target.getAttribute("data-decade"), 10);
+          if (entry.isIntersecting) {
+            // 이 연대 구간에 진입
+            entry.target._active = true;
+          } else {
+            entry.target._active = false;
+          }
+        });
+
+        // 화면 안에 보이는 연대 중 가장 과거 연대 찾기
+        var visible = markers.filter(function (m) { return m._active; });
+        var oldest = null;
+        if (visible.length > 0) {
+          oldest = Math.min.apply(null, visible.map(function (m) {
+            return parseInt(m.getAttribute("data-decade"), 10);
+          }));
+        } else {
+          // 마커가 하나도 안 보이면 스크롤 위치 기준: 지나친 마커 중 마지막
+          var passed = markers.filter(function (m) {
+            return m.getBoundingClientRect().top < window.innerHeight * 0.4;
+          });
+          if (passed.length > 0) {
+            oldest = parseInt(passed[passed.length - 1].getAttribute("data-decade"), 10);
+          }
+        }
+
+        if (oldest !== null) {
+          if (oldest < 2000) {
+            document.body.setAttribute("data-era", "retro");
+          } else {
+            document.body.removeAttribute("data-era");
+          }
+        }
+      }, { rootMargin: "-10% 0px -30% 0px" });
+
+      markers.forEach(function (m) { observer.observe(m); });
+    }
+
+    fetch("data/timeline.json")
+      .then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+      .then(render)
+      .catch(function () {
+        tlEl.innerHTML = '<p class="tl-status">연혁 데이터를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.</p>';
+      });
+  })();
+  </script>
+</body>
+</html>

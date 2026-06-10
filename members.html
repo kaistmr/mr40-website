@@ -652,6 +652,7 @@
           var text  = this.getAttribute("data-copy");
           var label = this.getAttribute("data-label");
           if (!text) return;
+          if (!navigator.clipboard) { showToast("복사를 지원하지 않는 환경입니다."); return; }
           navigator.clipboard.writeText(text).then(function () {
             showToast(label + " 복사됨");
           }).catch(function () {
@@ -675,7 +676,7 @@
     // ── 단일 카드 HTML 빌드 ──
     function buildCard(r, idx) {
       var name    = escapeHtml(r[COL_NAME]     || "");
-      var cohort  = escapeHtml(r[COL_COHORT]   || "");
+      var cohortRaw = (r[COL_COHORT] || "").trim();
       var orgRaw  = r[COL_ORG]      || "";
       var email   = r[COL_EMAIL]    || "";
       var phone   = r[COL_PHONE]    || "";
@@ -683,12 +684,9 @@
       var quote   = escapeHtml(r[COL_QUOTE]    || "");
 
       // 기수 배지 — 숫자면 "xx학번", 아니면 그대로
-      var cohortDisplay = "";
-      if (cohort) {
-        cohortDisplay = /^\d+$/.test(cohort.replace(/\s/g, ""))
-          ? escapeHtml(cohort) + "학번"
-          : escapeHtml(cohort);
-      }
+      var cohortDisplay = cohortRaw
+        ? (/^\d+$/.test(cohortRaw.replace(/\s/g, "")) ? escapeHtml(cohortRaw) + "학번" : escapeHtml(cohortRaw))
+        : "";
 
       // 소속 배지들
       var orgHtml = "";

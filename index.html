@@ -287,6 +287,7 @@
     <p class="hero-sub">
       1986년 창설부터 2026년 오늘까지, 40년의 기록과 사람들을<br class="hidden-xs"> 한 자리에 모았습니다.
     </p>
+    <div class="hero-surveys" id="hero-surveys"></div>
     <a class="scroll-cue" href="#dday" aria-label="아래로 스크롤">
       <span>scroll</span>
       <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -694,6 +695,44 @@
       white-space: nowrap;
     }
 
+    /* 히어로 설문 링크 (상시 노출) */
+    .hero-surveys {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.1rem;
+    }
+
+    .hero-survey-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: rgba(91, 140, 255, 0.14);
+      border: 1px solid rgba(91, 140, 255, 0.4);
+      color: var(--text);
+      border-radius: 9999px;
+      padding: 0.5rem 1.05rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .hero-survey-pill:hover {
+      background: rgba(91, 140, 255, 0.3);
+      transform: scale(1.04);
+    }
+
+    .hero-survey-pill .hp-soon {
+      font-size: 0.66rem;
+      color: var(--muted);
+      border: 1px solid rgba(125, 141, 181, 0.4);
+      border-radius: 9999px;
+      padding: 0.1rem 0.45rem;
+    }
+
     /* 팝업 다시 열기 버튼 */
     .survey-fab {
       position: fixed;
@@ -762,13 +801,32 @@
       listEl.addEventListener("click", function (e) {
         var btn = e.target.closest(".wm-survey");
         if (!btn) return;
-        var s = surveys[parseInt(btn.getAttribute("data-idx"), 10)];
+        openSurvey(surveys[parseInt(btn.getAttribute("data-idx"), 10)]);
+      });
+
+      function openSurvey(s) {
         if (s && s.url) {
           window.open(s.url, "_blank", "noopener,noreferrer");
         } else {
           showToast("이 설문은 곧 열립니다. 조금만 기다려 주세요!");
         }
-      });
+      }
+
+      // 히어로 하단 상시 노출 링크 ("다음에 할게요" 이후에도 계속 접근 가능)
+      var heroEl = document.getElementById("hero-surveys");
+      if (surveys.length > 0) {
+        heroEl.innerHTML = surveys.map(function (s, i) {
+          return '<button class="hero-survey-pill" data-idx="' + i + '" type="button">' +
+            escapeHtml(s.icon || "📋") + " " + escapeHtml(s.title) +
+            (s.url ? "" : ' <span class="hp-soon">준비 중</span>') +
+            "</button>";
+        }).join("");
+        heroEl.addEventListener("click", function (e) {
+          var btn = e.target.closest(".hero-survey-pill");
+          if (!btn) return;
+          openSurvey(surveys[parseInt(btn.getAttribute("data-idx"), 10)]);
+        });
+      }
 
       renderSurveys();
 

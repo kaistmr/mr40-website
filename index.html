@@ -13,15 +13,405 @@
   <!-- 설정 & 공통 스크립트 -->
   <script src="config.js"></script>
   <script src="assets/common.js"></script>
+
+  <style>
+    /* ── 히어로 ── */
+    .hero {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(100vh - var(--nav-h));
+      text-align: center;
+      padding: 4rem 1.25rem 5rem;
+      overflow: hidden;
+    }
+
+    /* 미묘한 그리드 라인 */
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        repeating-linear-gradient(0deg,   transparent, transparent 79px, rgba(91,140,255,0.06) 80px),
+        repeating-linear-gradient(90deg,  transparent, transparent 79px, rgba(91,140,255,0.06) 80px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* 중앙 글로우 블롭 */
+    .hero::after {
+      content: "";
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: min(700px, 120vw);
+      height: min(400px, 80vw);
+      background: radial-gradient(ellipse at center, rgba(91,140,255,0.18) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .hero > * { position: relative; z-index: 1; }
+
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-headline {
+      font-size: clamp(2.4rem, 8vw, 5rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.08;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-headline .highlight {
+      color: var(--accent);
+    }
+
+    .hero-sub {
+      font-size: clamp(0.95rem, 2vw, 1.15rem);
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+    }
+
+    .scroll-cue {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      color: var(--muted);
+      font-size: 0.8rem;
+      letter-spacing: 0.05em;
+      animation: bounce 2s ease-in-out infinite;
+    }
+
+    .scroll-cue svg {
+      width: 1.25rem;
+      height: 1.25rem;
+      stroke: var(--muted);
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(6px); }
+    }
+
+    /* ── D-day 카운터 ── */
+    .dday-section {
+      padding: 3.5rem 0;
+      text-align: center;
+      border-top: 1px solid rgba(91,140,255,0.12);
+      border-bottom: 1px solid rgba(91,140,255,0.12);
+    }
+
+    .dday-label {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+
+    .dday-title {
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+
+    .dday-date {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    .dday-grid {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .dday-unit {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.35rem;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(91,140,255,0.18);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.4rem;
+      min-width: 5rem;
+    }
+
+    .dday-num {
+      font-size: clamp(2rem, 6vw, 2.75rem);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      color: var(--accent);
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .dday-sep {
+      font-size: 2rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1;
+      padding-bottom: 1.5rem;
+      align-self: center;
+    }
+
+    .dday-caption {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .dday-thanks {
+      font-size: clamp(1.2rem, 3vw, 1.8rem);
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    /* ── 섹션 카드 그리드 ── */
+    .cards-section {
+      padding: 4rem 0;
+    }
+
+    .cards-heading {
+      font-size: clamp(1.25rem, 3.5vw, 1.75rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 2rem;
+      color: var(--text);
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 600px) {
+      .cards-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 900px) {
+      .cards-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    .section-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      text-decoration: none;
+    }
+
+    .section-card .card-icon {
+      font-size: 2rem;
+      line-height: 1;
+      margin-bottom: 0.25rem;
+    }
+
+    .section-card .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .section-card .card-title .lock {
+      font-size: 0.75rem;
+      color: var(--muted);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 0.3rem;
+      padding: 0.1rem 0.35rem;
+      letter-spacing: 0.04em;
+    }
+
+    .section-card .card-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── 푸터 ── */
+    .site-footer {
+      border-top: 1px solid rgba(91,140,255,0.12);
+      padding: 2.5rem 1.25rem;
+      text-align: center;
+    }
+
+    .site-footer .footer-name {
+      font-size: 0.875rem;
+      font-weight: 700;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      margin-bottom: 0.4rem;
+    }
+
+    .site-footer .footer-note {
+      font-size: 0.75rem;
+      color: rgba(125, 141, 181, 0.55);
+    }
+  </style>
 </head>
 <body>
   <script>injectNav("index.html");</script>
 
-  <main class="container section" style="display:flex; flex-direction:column; align-items:center; justify-content:center; min-height:calc(100vh - var(--nav-h)); text-align:center; gap:1rem;">
-    <h1 style="font-size:clamp(2rem, 6vw, 3.5rem); font-weight:800; letter-spacing:-0.03em;">
-      MR <span class="text-accent">40</span>
+  <!-- ══ 히어로 ══ -->
+  <section class="hero">
+    <p class="hero-eyebrow">KAIST MICRO ROBOT · 1986 → 2026</p>
+    <h1 class="hero-headline">
+      로봇과 함께한<br><span class="highlight">마흔 해</span>
     </h1>
-    <p style="font-size:1.125rem; color:var(--muted);">준비 중</p>
-  </main>
+    <p class="hero-sub">
+      1986년 창설부터 2026년 오늘까지, 40년의 기록과 사람들을<br class="hidden-xs"> 한 자리에 모았습니다.
+    </p>
+    <a class="scroll-cue" href="#dday" aria-label="아래로 스크롤">
+      <span>scroll</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="6 9 12 15 18 9"></polyline>
+      </svg>
+    </a>
+  </section>
+
+  <!-- ══ D-day 카운터 ══ -->
+  <section id="dday" class="dday-section">
+    <div class="container">
+      <p class="dday-label">D-Day</p>
+      <p class="dday-title">40주년 기념식까지</p>
+      <p class="dday-date">2026년 11월 28일</p>
+      <div id="dday-content">
+        <!-- JS가 채운다 -->
+        <div class="dday-grid" aria-live="polite" aria-atomic="true">
+          <div class="dday-unit"><span class="dday-num" id="dd-days">--</span><span class="dday-caption">일</span></div>
+          <span class="dday-sep" aria-hidden="true">:</span>
+          <div class="dday-unit"><span class="dday-num" id="dd-hours">--</span><span class="dday-caption">시간</span></div>
+          <span class="dday-sep" aria-hidden="true">:</span>
+          <div class="dday-unit"><span class="dday-num" id="dd-mins">--</span><span class="dday-caption">분</span></div>
+          <span class="dday-sep" aria-hidden="true">:</span>
+          <div class="dday-unit"><span class="dday-num" id="dd-secs">--</span><span class="dday-caption">초</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 섹션 카드 ══ -->
+  <section class="cards-section">
+    <div class="container">
+      <h2 class="cards-heading">둘러보기</h2>
+      <div class="cards-grid">
+
+        <a href="timeline.html" class="section-card card">
+          <span class="card-icon" aria-hidden="true">🗓️</span>
+          <p class="card-title">연혁</p>
+          <p class="card-desc">1986년부터 2026년까지, 40년의 발자취</p>
+        </a>
+
+        <a href="members.html" class="section-card card">
+          <span class="card-icon" aria-hidden="true">👥</span>
+          <p class="card-title">
+            주소록
+            <span class="lock" title="접속 코드 필요">🔒 코드 필요</span>
+          </p>
+          <p class="card-desc">선배·동기·후배를 다시 만나는 곳</p>
+        </a>
+
+        <a href="gallery.html" class="section-card card">
+          <span class="card-icon" aria-hidden="true">📷</span>
+          <p class="card-title">사진관</p>
+          <p class="card-desc">8천 장의 사진과 영상으로 보는 MR</p>
+        </a>
+
+        <a href="magazine.html" class="section-card card">
+          <span class="card-icon" aria-hidden="true">📖</span>
+          <p class="card-title">회지</p>
+          <p class="card-desc">큰 마음 작은 이야기 — 회지 아카이브</p>
+        </a>
+
+        <a href="guestbook.html" class="section-card card">
+          <span class="card-icon" aria-hidden="true">✉️</span>
+          <p class="card-title">방명록</p>
+          <p class="card-desc">동문들의 축하 한마디</p>
+        </a>
+
+        <a href="event.html" class="section-card card">
+          <span class="card-icon" aria-hidden="true">🎉</span>
+          <p class="card-title">행사안내</p>
+          <p class="card-desc">2026.11.28 — 40주년 기념행사</p>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ 푸터 ══ -->
+  <footer class="site-footer">
+    <p class="footer-name">KAIST 마이크로 로봇 동아리 MR · Since 1986</p>
+    <p class="footer-note">© 2026 MR 40주년 준비위원회</p>
+  </footer>
+
+  <!-- ══ D-day JS (페이지 전용) ══ -->
+  <script>
+    (function () {
+      var target = new Date(CONFIG.EVENT_DATE);
+      var grid   = document.getElementById("dday-content");
+      var elDays = document.getElementById("dd-days");
+      var elHrs  = document.getElementById("dd-hours");
+      var elMins = document.getElementById("dd-mins");
+      var elSecs = document.getElementById("dd-secs");
+
+      function pad(n) { return String(Math.floor(n)).padStart(2, "0"); }
+
+      function tick() {
+        var now  = Date.now();
+        var diff = target.getTime() - now;
+
+        if (diff <= 0) {
+          // 행사 이후 — 감사 메시지로 교체
+          grid.innerHTML =
+            '<p class="dday-thanks">함께해 주셔서 감사합니다 ❤️</p>';
+          clearInterval(timer);
+          return;
+        }
+
+        var totalSecs = Math.floor(diff / 1000);
+        var days  = Math.floor(totalSecs / 86400);
+        var hrs   = Math.floor((totalSecs % 86400) / 3600);
+        var mins  = Math.floor((totalSecs % 3600)  / 60);
+        var secs  = totalSecs % 60;
+
+        elDays.textContent = String(days);
+        elHrs.textContent  = pad(hrs);
+        elMins.textContent = pad(mins);
+        elSecs.textContent = pad(secs);
+      }
+
+      tick();
+      var timer = setInterval(tick, 1000);
+    })();
+  </script>
+
+  <div id="toast"></div>
 </body>
 </html>

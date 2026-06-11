@@ -771,6 +771,119 @@
 
   <button class="survey-fab" id="survey-fab" type="button">📋 참여하기</button>
 
+  <!-- ══ 주제가 플레이어 (달리는 마우스) ══ -->
+  <style>
+    .music-fab {
+      position: fixed;
+      bottom: 1.4rem;
+      left: 1.4rem;
+      z-index: 1500;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(11, 21, 48, 0.85);
+      border: 1px solid rgba(91, 140, 255, 0.45);
+      color: var(--text);
+      border-radius: 9999px;
+      padding: 0.6rem 1.05rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      font-family: inherit;
+      cursor: pointer;
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .music-fab:hover { border-color: var(--accent); transform: scale(1.04); }
+
+    .music-fab .eq {
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 12px;
+    }
+
+    .music-fab .eq span {
+      width: 3px;
+      background: var(--accent);
+      height: 4px;
+      border-radius: 1px;
+    }
+
+    .music-fab.playing .eq span {
+      animation: eq-bounce 0.9s ease-in-out infinite;
+    }
+
+    .music-fab.playing .eq span:nth-child(2) { animation-delay: 0.2s; }
+    .music-fab.playing .eq span:nth-child(3) { animation-delay: 0.45s; }
+
+    @keyframes eq-bounce {
+      0%, 100% { height: 4px; }
+      50% { height: 12px; }
+    }
+
+    .music-fab .music-title { white-space: nowrap; }
+
+    @media (max-width: 480px) {
+      .music-fab .music-title { display: none; } /* 모바일은 아이콘만 */
+    }
+  </style>
+
+  <audio id="theme-audio" src="assets/audio/달리는_마우스.mp3" loop preload="none"></audio>
+  <button class="music-fab" id="music-fab" type="button" aria-label="주제가 재생/정지">
+    <span class="eq" aria-hidden="true"><span></span><span></span><span></span></span>
+    <span class="music-title">♪ 달리는 마우스</span>
+  </button>
+
+  <script>
+    (function () {
+      "use strict";
+      var audio = document.getElementById("theme-audio");
+      var fab = document.getElementById("music-fab");
+      var OFF_KEY = "mr40_music_off";
+
+      function setUi(playing) {
+        fab.classList.toggle("playing", playing);
+      }
+
+      function start() {
+        audio.volume = 0.55;
+        audio.play().then(function () { setUi(true); }).catch(function () {});
+      }
+
+      function stop() {
+        audio.pause();
+        setUi(false);
+      }
+
+      fab.addEventListener("click", function () {
+        if (audio.paused) {
+          localStorage.removeItem(OFF_KEY);
+          start();
+        } else {
+          localStorage.setItem(OFF_KEY, "1");
+          stop();
+        }
+      });
+
+      // 디폴트 재생: 사용자가 끈 적이 없으면 자동재생 시도,
+      // 브라우저가 막으면 첫 클릭/터치 때 시작 (정책상 소리 자동재생은 제스처 필요)
+      if (!localStorage.getItem(OFF_KEY)) {
+        start();
+        var unlock = function () {
+          if (audio.paused && !localStorage.getItem(OFF_KEY)) start();
+          document.removeEventListener("click", unlock);
+          document.removeEventListener("touchstart", unlock);
+          document.removeEventListener("keydown", unlock);
+        };
+        document.addEventListener("click", unlock);
+        document.addEventListener("touchstart", unlock);
+        document.addEventListener("keydown", unlock);
+      }
+    })();
+  </script>
+
   <script>
     (function () {
       "use strict";

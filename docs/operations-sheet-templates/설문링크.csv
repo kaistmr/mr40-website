@@ -1,0 +1,4 @@
+id,icon,title,desc,url,active,prefill_generation_key
+attend,🎉,참석 조사,참석 여부와 동반 인원을 알려주세요.,,true,
+voice,💬,총회 한마디 & 동잠 구매,총회 의견과 동잠 수요를 알려주세요.,,true,
+contact,📇,연락처 업데이트,주소록에 실릴 정보를 갱신해 주세요.,,true,

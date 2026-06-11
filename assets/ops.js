@@ -11,7 +11,8 @@
     var cached = [];
     try { cached = JSON.parse(localStorage.getItem(key) || "[]"); } catch (e) {}
     if (!url) {
-      memory[name] = Promise.resolve(cached);
+      localStorage.removeItem(key);
+      memory[name] = Promise.resolve([]);
       return memory[name];
     }
     var separator = url.indexOf("?") === -1 ? "?" : "&";
@@ -43,9 +44,42 @@
 
   function eventMap(items) {
     return (items || []).reduce(function (result, item) {
-      if (item.key) result[item.key.trim()] = (item.value || "").trim();
+      if (item.key) {
+        var key = item.key.trim();
+        var value = (item.value || "").trim();
+        result[key] = result[key] && value ? result[key] + "\n" + value : value;
+      }
       return result;
     }, {});
+  }
+
+  function lines(value) {
+    if (Array.isArray(value)) {
+      return value.map(String).map(function (item) { return item.trim(); }).filter(Boolean);
+    }
+    return String(value || "").split(/\r?\n/).map(function (item) {
+      return item.trim();
+    }).filter(Boolean);
+  }
+
+  function program(value) {
+    if (Array.isArray(value)) {
+      return value.map(function (item) {
+        return {
+          time: String(item.time || "").trim(),
+          what: String(item.what || "").trim(),
+          note: String(item.note || "").trim(),
+        };
+      }).filter(function (item) { return item.time || item.what || item.note; });
+    }
+    return lines(value).map(function (line) {
+      var parts = line.split("|");
+      return {
+        time: (parts[0] || "").trim(),
+        what: (parts[1] || "").trim(),
+        note: parts.slice(2).join("|").trim(),
+      };
+    }).filter(function (item) { return item.time || item.what || item.note; });
   }
 
   function number(value, fallback) {
@@ -57,6 +91,8 @@
     rows: rows,
     active: active,
     eventMap: eventMap,
+    lines: lines,
+    program: program,
     number: number,
   };
 })();

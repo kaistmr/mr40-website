@@ -55,13 +55,22 @@ const CONFIG = {
   EVENT_DATE: "2026-11-28T15:00:00+09:00",
   EVENT_PLACE: "롯데시티호텔 대전",
   EVENT_DETAILS: {
+    durationHours: 6,
     address: "",
-    fee: "",
+    rooms: ["크리스탈볼룸", "루비룸 (1층)"],
+    audience: ["MR 동문 (역대 전 기수)", "현역 부원", "지도교수 및 내빈", "가족 동반 환영"],
+    fee: ["성인 10~15만원", "학부생 5만원", "유아동 3만원"],
     refundPolicy: "",
     attendanceCount: "",
     liveUrl: "",
     replayUrl: "",
     photoUploadUrl: "",
+    program: [
+      { time: "15:00", what: "1부 · 개회와 축사", note: "지도교수님·동문 선배·회장 인사" },
+      { time: "16:00", what: "1부 · 로봇 토크 콘서트", note: "선배 연사들과 함께하는 기술·추억 토크 (약 80분)" },
+      { time: "18:00", what: "2부 · 40년사 영상과 사진", note: "연대별(80·90·00·10) 선배들의 이야기" },
+      { time: "20:00", what: "3부 · 선후배 대화의 시간", note: "경품 추첨과 마무리" },
+    ],
   },
   PAYMENTS: {
     cardUrl: "",

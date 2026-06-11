@@ -1,0 +1,2 @@
+active,title,body,link,label,starts_at,ends_at
+false,예시 공지,이 행을 수정하고 active를 true로 바꾸세요.,https://example.com,자세히,2026-06-12T09:00:00+09:00,2026-06-30T23:59:59+09:00

@@ -415,6 +415,33 @@ iframe:focus-visible {
   line-height: 1.65;
 }
 
+/* 시니어 접근성: 배지·날짜·보조 설명도 14px 아래로 내려가지 않는다. */
+.section-card .card-title .lock,
+.logo-chip .logo-era,
+.wm-survey .ws-desc,
+.wm-survey .ws-soon,
+.hero-survey-pill .hp-soon,
+.ev-cta .cta-note,
+.program-row .what small,
+.ev-tbd,
+.org-badge,
+.interest-tag,
+.copy-btn,
+.state-notice .hint,
+.privacy-note,
+.tl-date,
+.tl-vod-label .ext,
+.book-meta .book-year,
+.book-meta .book-note,
+.gb-cohort-badge,
+.gb-date,
+.ar-note,
+.ar-screen .ar-prompt,
+.bottom-nav a {
+  font-size: 0.875rem !important;
+  line-height: 1.45;
+}
+
 .footer-home {
   margin-bottom: 0.75rem;
 }

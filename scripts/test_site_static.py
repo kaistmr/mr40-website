@@ -1,4 +1,5 @@
 import re
+import csv
 import unittest
 from pathlib import Path
 
@@ -61,6 +62,21 @@ class TestSiteStatic(unittest.TestCase):
         for name in ["404.html", "survey.html", "stats.html", "day.html"]:
             with self.subTest(page=name):
                 self.assertTrue((ROOT / name).is_file())
+
+    def test_operations_sheet_templates_keep_expected_headers(self):
+        expected = {
+            "공지.csv": ["active", "title", "body", "link", "label", "starts_at", "ends_at"],
+            "행사정보.csv": ["key", "value"],
+            "후원사.csv": ["name", "logo", "url", "sort", "active"],
+            "영상목록.csv": ["id", "title", "year", "desc", "active"],
+            "설문링크.csv": ["id", "icon", "title", "desc", "url", "active", "prefill_generation_key"],
+            "통계.csv": ["group", "label", "value", "sort", "public"],
+        }
+        template_dir = ROOT / "docs" / "operations-sheet-templates"
+        for filename, headers in expected.items():
+            with self.subTest(template=filename):
+                with (template_dir / filename).open(encoding="utf-8", newline="") as handle:
+                    self.assertEqual(next(csv.reader(handle)), headers)
 
 
 if __name__ == "__main__":

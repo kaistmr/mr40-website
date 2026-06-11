@@ -319,23 +319,8 @@
   (function () {
     "use strict";
 
-    // ─────────────────────────────────────────────
-    // 행사 정보 (확정되면 이 상수만 수정하면 됩니다)
-    // 시간·장소가 미정인 항목은 비워두면 "추후 공지"로 표시됩니다.
-    // ─────────────────────────────────────────────
-    var EVENT_INFO = [
-      { title: "📍 장소", lines: ["롯데시티호텔 대전", "크리스탈볼룸 · 루비룸 (1층)"] },
-      { title: "👥 대상", lines: ["MR 동문 (역대 전 기수)", "현역 부원", "지도교수 및 내빈", "가족 동반 환영"] },
-      { title: "💰 참가비", lines: ["성인 10~15만원", "학부생 5만원", "유아동 3만원"] },
-    ];
-
-    // 0610 회의 기준 식순 — 세부 시각은 확정되는 대로 조정
-    var PROGRAM = [
-      { time: "15:00", what: "1부 · 개회와 축사", note: "지도교수님·동문 선배·회장 인사" },
-      { time: "16:00", what: "1부 · 로봇 토크 콘서트", note: "선배 연사들과 함께하는 기술·추억 토크 (약 80분)" },
-      { time: "18:00", what: "2부 · 40년사 영상과 사진", note: "연대별(80·90·00·10) 선배들의 이야기" },
-      { time: "20:00", what: "3부 · 선후배 대화의 시간", note: "경품 추첨과 마무리" },
-    ];
+    var details = CONFIG.EVENT_DETAILS || {};
+    var eventData = {};
 
     // ── 날짜·장소 표기 (config.js 연동) ──
     var target = new Date(CONFIG.EVENT_DATE);
@@ -379,27 +364,42 @@
 
     // ── 정보 카드 ──
     var infoEl = document.getElementById("ev-info");
-    var infoHtml = "";
-    EVENT_INFO.forEach(function (card) {
-      var body = card.lines.length
-        ? "<ul>" + card.lines.map(function (l) { return "<li>" + escapeHtml(l) + "</li>"; }).join("") + "</ul>"
-        : "<p>추후 공지</p>";
-      infoHtml += '<div class="ev-card card"><h3>' + escapeHtml(card.title) + "</h3>" + body + "</div>";
-    });
-    infoEl.innerHTML = infoHtml;
+    function renderInfo(data) {
+      var place = data.place || CONFIG.EVENT_PLACE;
+      var placeLines = [];
+      if (place && place !== "미정") placeLines.push(place);
+      placeLines = placeLines.concat(MR40Ops.lines(data.rooms || details.rooms));
+      if (data.address || details.address) placeLines.push(data.address || details.address);
+      var cards = [
+        { title: "📍 장소", lines: placeLines },
+        { title: "👥 대상", lines: MR40Ops.lines(data.audience || details.audience) },
+        { title: "💰 참가비", lines: MR40Ops.lines(data.fee || details.fee) },
+      ];
+      infoEl.innerHTML = cards.map(function (card) {
+        var body = card.lines.length
+          ? "<ul>" + card.lines.map(function (line) { return "<li>" + escapeHtml(line) + "</li>"; }).join("") + "</ul>"
+          : "<p>추후 공지</p>";
+        return '<div class="ev-card card"><h3>' + escapeHtml(card.title) + "</h3>" + body + "</div>";
+      }).join("");
+    }
+    renderInfo({});
 
     // ── 프로그램 ──
     var progEl = document.getElementById("program-list");
-    if (PROGRAM.length === 0) {
-      progEl.innerHTML = '<p class="ev-tbd">세부 프로그램은 확정되는 대로 공지됩니다. 🗓️</p>';
-    } else {
-      progEl.innerHTML = PROGRAM.map(function (p) {
+    function renderProgram(value) {
+      var program = MR40Ops.program(value);
+      if (program.length === 0) {
+        progEl.innerHTML = '<p class="ev-tbd">세부 프로그램은 확정되는 대로 공지됩니다.</p>';
+        return;
+      }
+      progEl.innerHTML = program.map(function (p) {
         return '<div class="program-row"><span class="time">' + escapeHtml(p.time) + "</span>" +
           '<span class="what">' + escapeHtml(p.what) +
           (p.note ? "<small>" + escapeHtml(p.note) + "</small>" : "") +
           "</span></div>";
       }).join("");
     }
+    renderProgram(details.program);
 
     function setLink(id, url, label) {
       var el = document.getElementById(id);
@@ -411,13 +411,19 @@
     }
 
     document.getElementById("calendar-btn").addEventListener("click", function () {
-      var end = new Date(target.getTime() + 4 * 60 * 60 * 1000);
+      var durationHours = MR40Ops.number(eventData.duration_hours, details.durationHours || 6);
+      var end = new Date(target.getTime() + durationHours * 60 * 60 * 1000);
+      var locationText = [
+        eventData.place || CONFIG.EVENT_PLACE,
+        eventData.rooms || MR40Ops.lines(details.rooms).join(" · "),
+        eventData.address || details.address,
+      ].filter(Boolean).join(" ");
       function icsDate(date) { return date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, ""); }
       var lines = [
         "BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//MR40//KO", "BEGIN:VEVENT",
         "UID:mr40-2026@mr40", "DTSTAMP:" + icsDate(new Date()), "DTSTART:" + icsDate(target),
         "DTEND:" + icsDate(end), "SUMMARY:MR 창립 40주년 기념행사",
-        "LOCATION:" + String(CONFIG.EVENT_PLACE || "").replace(/[,;]/g, " "), "END:VEVENT", "END:VCALENDAR"
+        "LOCATION:" + locationText.replace(/[,;]/g, " "), "END:VEVENT", "END:VCALENDAR"
       ];
       var blob = new Blob([lines.join("\r\n")], { type: "text/calendar;charset=utf-8" });
       var link = document.createElement("a");
@@ -427,14 +433,18 @@
 
     MR40Ops.rows("event").then(function (rows) {
       var data = MR40Ops.eventMap(rows);
+      eventData = data;
       var place = data.place || CONFIG.EVENT_PLACE;
       if (place && place !== "미정") document.getElementById("ev-place").textContent = place;
+      renderInfo(data);
+      renderProgram(data.program || details.program);
       setLink("kakao-map", data.kakao_map || CONFIG.MAP_LINKS.kakao, "카카오맵으로 보기");
       setLink("naver-map", data.naver_map || CONFIG.MAP_LINKS.naver, "네이버지도로 보기");
       setLink("card-payment", data.card_payment || CONFIG.PAYMENTS.cardUrl, "카드 결제");
       setLink("transfer-payment", data.transfer_payment || CONFIG.PAYMENTS.transferUrl, "간편 송금");
-      var fee = data.fee || CONFIG.EVENT_DETAILS.fee;
-      if (fee) document.getElementById("payment-copy").textContent = "참가비 " + fee + " · 결제자명은 참석 조사 이름과 같게 입력해 주세요.";
+      var fee = MR40Ops.lines(data.fee || details.fee);
+      if (fee.length) document.getElementById("payment-copy").textContent =
+        "참가비 " + fee.join(" / ") + " · 결제자명은 참석 조사 이름과 같게 입력해 주세요.";
       var refund = data.refund_policy || CONFIG.EVENT_DETAILS.refundPolicy;
       if (refund) document.getElementById("refund-copy").textContent = refund;
       var attendance = data.attendance_count || CONFIG.EVENT_DETAILS.attendanceCount;

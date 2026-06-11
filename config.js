@@ -52,8 +52,8 @@ const CONFIG = {
   // 주소록 접속 코드의 SHA-256 해시 (코드 변경: 새 코드를 해시해서 교체)
   MEMBERS_CODE_HASH: "eb9ccc68c4b8f5cbbd365d73ce2be9c0da9e56ec89b44feec7ce9bd7524209b9",
   // 행사 정보
-  EVENT_DATE: "2026-11-28T17:00:00+09:00",
-  EVENT_PLACE: "미정",
+  EVENT_DATE: "2026-11-28T15:00:00+09:00",
+  EVENT_PLACE: "롯데시티호텔 대전",
   EVENT_DETAILS: {
     address: "",
     fee: "",

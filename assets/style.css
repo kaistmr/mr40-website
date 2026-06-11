@@ -201,6 +201,64 @@ a {
   transform: translateX(-50%) translateY(0);
 }
 
+/* ---------- 주제가 플레이어 (전 페이지 공통, common.js가 주입) ---------- */
+.music-fab {
+  position: fixed;
+  bottom: 1.4rem;
+  left: 1.4rem;
+  z-index: 1500;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(11, 21, 48, 0.85);
+  border: 1px solid rgba(91, 140, 255, 0.45);
+  color: var(--text);
+  border-radius: 9999px;
+  padding: 0.6rem 1.05rem;
+  font-size: 0.82rem;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.music-fab:hover {
+  border-color: var(--accent);
+  transform: scale(1.04);
+}
+
+.music-fab .eq {
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 12px;
+}
+
+.music-fab .eq span {
+  width: 3px;
+  background: var(--accent);
+  height: 4px;
+  border-radius: 1px;
+}
+
+.music-fab.playing .eq span {
+  animation: eq-bounce 0.9s ease-in-out infinite;
+}
+
+.music-fab.playing .eq span:nth-child(2) { animation-delay: 0.2s; }
+.music-fab.playing .eq span:nth-child(3) { animation-delay: 0.45s; }
+
+@keyframes eq-bounce {
+  0%, 100% { height: 4px; }
+  50% { height: 12px; }
+}
+
+@media (max-width: 480px) {
+  .music-fab .music-title { display: none; } /* 모바일은 아이콘만 */
+}
+
 /* ---------- 공통 유틸 ---------- */
 .container {
   width: 100%;

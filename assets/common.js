@@ -60,3 +60,82 @@ async function sha256(text) {
   const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
   return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
+
+// [6] 주제가 플레이어 — 전 페이지 공통
+// 재생 위치를 localStorage에 저장해 페이지를 옮겨도 이어 듣는다.
+// (브라우저 자동재생 정책상 새 페이지에서는 첫 클릭/터치 때 이어 붙는다)
+(function () {
+  const SRC = "assets/audio/달리는_마우스.mp3";
+  const OFF_KEY = "mr40_music_off";
+  const POS_KEY = "mr40_music_pos";
+
+  function init() {
+    const audio = document.createElement("audio");
+    audio.src = SRC;
+    audio.loop = true;
+    audio.preload = "metadata";
+    audio.volume = 0.55;
+
+    const fab = document.createElement("button");
+    fab.className = "music-fab";
+    fab.type = "button";
+    fab.setAttribute("aria-label", "주제가 재생/정지");
+    fab.innerHTML =
+      '<span class="eq" aria-hidden="true"><span></span><span></span><span></span></span>' +
+      '<span class="music-title">♪ 달리는 마우스</span>';
+    document.body.appendChild(audio);
+    document.body.appendChild(fab);
+
+    function setUi(playing) { fab.classList.toggle("playing", playing); }
+
+    function start() {
+      audio.play().then(() => setUi(true)).catch(() => {});
+    }
+
+    // 저장된 위치에서 이어 재생
+    audio.addEventListener("loadedmetadata", () => {
+      const pos = parseFloat(localStorage.getItem(POS_KEY) || "0");
+      if (pos > 0 && pos < audio.duration) audio.currentTime = pos;
+    });
+
+    // 위치 저장 (재생 중 주기적으로 + 페이지 이탈 시)
+    audio.addEventListener("timeupdate", () => {
+      if (!audio.paused) localStorage.setItem(POS_KEY, String(audio.currentTime));
+    });
+    window.addEventListener("pagehide", () => {
+      if (!audio.paused) localStorage.setItem(POS_KEY, String(audio.currentTime));
+    });
+
+    fab.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (audio.paused) {
+        localStorage.removeItem(OFF_KEY);
+        start();
+      } else {
+        localStorage.setItem(OFF_KEY, "1");
+        audio.pause();
+        setUi(false);
+      }
+    });
+
+    // 끈 적 없으면 자동재생 시도 → 막히면 첫 상호작용 때 시작
+    if (!localStorage.getItem(OFF_KEY)) {
+      start();
+      const unlock = () => {
+        if (audio.paused && !localStorage.getItem(OFF_KEY)) start();
+        document.removeEventListener("click", unlock);
+        document.removeEventListener("touchstart", unlock);
+        document.removeEventListener("keydown", unlock);
+      };
+      document.addEventListener("click", unlock);
+      document.addEventListener("touchstart", unlock);
+      document.addEventListener("keydown", unlock);
+    }
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();

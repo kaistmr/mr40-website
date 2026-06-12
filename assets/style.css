@@ -384,6 +384,17 @@ iframe:focus-visible {
   .hidden-xs { display: none; }
 }
 
+/* 모바일 하단 탭바(64px)와 플로팅 버튼 겹침 방지 — 탭바와 같은 브레이크포인트 */
+@media (max-width: 767px) {
+  .music-fab { bottom: 5.2rem; }
+  .survey-fab,
+  #fab-register,
+  #fab-guestbook {
+    bottom: 5.2rem !important;
+    z-index: 1500;
+  }
+}
+
 /* ---------- 공통 유틸 ---------- */
 .container {
   width: 100%;

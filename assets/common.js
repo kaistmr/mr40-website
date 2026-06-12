@@ -17,7 +17,7 @@ function injectNav(active) {
     `<a href="${escapeHtml(href)}" class="nav-link${escapeHtml(href) === escapeHtml(active) ? " active" : ""}">${escapeHtml(label)}</a>`).join("");
   document.body.insertAdjacentHTML("afterbegin", `
     <nav class="topnav">
-      <a href="index.html" class="logo" aria-label="MR40 처음으로">MR<span>40</span></a>
+      <a href="index.html" class="logo" aria-label="MR40 처음으로"><img class="logo-mark" src="assets/logos/mr_logo_2026.png" alt="" />MR<span>40</span></a>
       <div class="nav-actions">
         <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-nav" aria-label="메뉴">☰</button>
       </div>

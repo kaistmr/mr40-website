@@ -17,6 +17,8 @@ const CONFIG = {
   // 구글폼 주소
   MEMBERS_FORM_URL: "",
   GUESTBOOK_FORM_URL: "",
+  // 방명록 사이트 내 작성 — Apps Script 웹앱(/exec) 주소. 채우면 구글폼 대신 내부 폼 사용.
+  GUESTBOOK_POST_URL: "",
   EVENT_FORM_URL: "",
 
   // 40주년 설문 3종 — url을 채우면 첫 화면 팝업과 각 페이지에 표시됩니다.

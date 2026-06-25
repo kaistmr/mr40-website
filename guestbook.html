@@ -215,6 +215,66 @@
     #fab-guestbook:active { transform: scale(0.97); }
     #fab-guestbook.visible { display: flex; }
 
+    /* ── 사이트 내 작성 모달 ── */
+    .gb-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.2rem;
+      background: rgba(0, 0, 0, 0.55);
+    }
+    .gb-modal[hidden] { display: none; }
+    .gb-form {
+      width: 100%;
+      max-width: 440px;
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+    }
+    .gb-form h2 { font-size: 1.15rem; font-weight: 800; }
+    .gb-form-hint { font-size: 0.83rem; color: var(--muted); margin-bottom: 0.3rem; }
+    .gb-form label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .gb-form input,
+    .gb-form textarea {
+      font-family: inherit;
+      font-size: 0.95rem;
+      color: var(--text);
+      background: rgba(125, 141, 181, 0.1);
+      border: 1px solid rgba(125, 141, 181, 0.35);
+      border-radius: 0.6rem;
+      padding: 0.6rem 0.7rem;
+      resize: vertical;
+    }
+    .gb-form input:focus,
+    .gb-form textarea:focus { outline: 2px solid var(--accent); border-color: transparent; }
+    .gb-req { color: var(--accent); }
+    .gb-hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+    .gb-form-actions { display: flex; gap: 0.6rem; margin-top: 0.6rem; }
+    .gb-cancel, .gb-submit {
+      flex: 1;
+      padding: 0.7rem;
+      border-radius: 9999px;
+      font-family: inherit;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+    }
+    .gb-cancel { background: rgba(125, 141, 181, 0.18); color: var(--text); }
+    .gb-submit { background: var(--accent); color: #fff; }
+    .gb-submit:disabled { opacity: 0.55; cursor: default; }
+
     /* ── 메시지 카운트 ── */
     .gb-count {
       font-size: 0.875rem;
@@ -279,6 +339,25 @@
   <button id="fab-guestbook" aria-label="축하 한마디 남기기">
     <span aria-hidden="true">✍️</span>한마디 남기기
   </button>
+
+  <!-- ══ 사이트 내 작성 모달 (GUESTBOOK_POST_URL 설정 시 사용) ══ -->
+  <div class="gb-modal" id="gb-modal" role="dialog" aria-modal="true" aria-labelledby="gb-modal-title" hidden>
+    <form class="gb-form card" id="gb-form" novalidate>
+      <h2 id="gb-modal-title">축하 한마디 남기기</h2>
+      <p class="gb-form-hint">40주년 축하 인사나 총회에서 하고 싶은 말을 남겨주세요.</p>
+      <label>이름 <input type="text" id="gb-name" maxlength="40" autocomplete="name" /></label>
+      <label>기수 <input type="text" id="gb-cohort" maxlength="20" placeholder="예: 12기 / 95학번" /></label>
+      <label>메시지 <span class="gb-req">*</span>
+        <textarea id="gb-message" rows="4" maxlength="1000" required></textarea>
+      </label>
+      <!-- 봇 차단용 허니팟 (사람에겐 안 보임) -->
+      <input type="text" id="gb-hp" class="gb-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <div class="gb-form-actions">
+        <button type="button" class="gb-cancel" id="gb-cancel">취소</button>
+        <button type="submit" class="gb-submit" id="gb-submit">남기기</button>
+      </div>
+    </form>
+  </div>
 
   <!-- ══ 토스트 ══ -->
   <div id="toast"></div>
@@ -424,16 +503,71 @@
     );
 
     // ── 작성 버튼 동작 ──
+    var postUrl = safeUrl(CONFIG.GUESTBOOK_POST_URL);
+    var modal = document.getElementById("gb-modal");
+    var form = document.getElementById("gb-form");
+
     function openForm() {
-      if (!CONFIG.GUESTBOOK_FORM_URL) {
-        showToast("방명록 작성 폼이 아직 연결되지 않았습니다.");
+      if (postUrl) {                          // 사이트 내 작성(Apps Script 웹앱)
+        modal.removeAttribute("hidden");
+        document.getElementById("gb-message").focus();
         return;
       }
-      window.open(CONFIG.GUESTBOOK_FORM_URL, "_blank", "noopener,noreferrer");
+      if (CONFIG.GUESTBOOK_FORM_URL) {         // 구글폼 폴백
+        window.open(safeUrl(CONFIG.GUESTBOOK_FORM_URL), "_blank", "noopener,noreferrer");
+        return;
+      }
+      showToast("방명록 작성이 아직 연결되지 않았습니다.");
     }
+    function closeForm() { modal.setAttribute("hidden", ""); }
 
     document.getElementById("write-btn").addEventListener("click", openForm);
     document.getElementById("fab-guestbook").addEventListener("click", openForm);
+    document.getElementById("gb-cancel").addEventListener("click", closeForm);
+    modal.addEventListener("click", function (e) { if (e.target === modal) closeForm(); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && !modal.hasAttribute("hidden")) closeForm();
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      if (document.getElementById("gb-hp").value) { closeForm(); return; } // 봇(허니팟)
+      var name = document.getElementById("gb-name").value.trim().slice(0, 40);
+      var cohort = document.getElementById("gb-cohort").value.trim().slice(0, 20);
+      var message = document.getElementById("gb-message").value.trim();
+      if (message.length < 2) { showToast("메시지를 입력해 주세요."); return; }
+      message = message.slice(0, 1000);
+
+      var submitBtn = document.getElementById("gb-submit");
+      submitBtn.disabled = true;
+
+      // CORS 회피: text/plain + no-cors (응답은 못 읽으므로 낙관적 처리)
+      fetch(postUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
+        body: JSON.stringify({ name: name, cohort: cohort, message: message })
+      }).then(function () {
+        prependCard(name, cohort, message);
+        showToast("한마디 남겨주셔서 고마워요! 💙");
+        form.reset();
+        closeForm();
+      }).catch(function () {
+        showToast("전송에 실패했어요. 잠시 후 다시 시도해 주세요.");
+      }).then(function () {
+        submitBtn.disabled = false;
+      });
+    });
+
+    // 낙관적 카드 추가 (게시 CSV에 반영되기 전까지 즉시 노출)
+    function prependCard(name, cohort, message) {
+      var container = document.getElementById("gb-masonry");
+      var notice = container.querySelector(".state-notice");
+      if (notice) container.innerHTML = "";
+      var now = new Date();
+      var stamp = now.getFullYear() + ". " + (now.getMonth() + 1) + ". " + now.getDate();
+      container.insertAdjacentHTML("afterbegin", buildCard([stamp, name || "익명", cohort, message]));
+    }
 
     // FAB는 항상 표시 (방명록 폼 URL 유무에 상관없이 기능 존재 안내)
     document.getElementById("fab-guestbook").classList.add("visible");

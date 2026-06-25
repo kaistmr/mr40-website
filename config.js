@@ -1,6 +1,6 @@
 // MR 40주년 사이트 설정 — 운영자는 이 파일만 수정하면 됩니다.
 const CONFIG = {
-  SITE_URL: "https://mosw626.github.io/mr40-website/",
+  SITE_URL: "https://kaistmr.github.io/mr40-website/",
   OG_IMAGE: "assets/og-image.png",
 
   // 구글시트 '웹에 게시' CSV 주소 (미발급 시 "" — 페이지에 안내 표시됨)
@@ -30,22 +30,25 @@ const CONFIG = {
       url: "https://forms.gle/hGYwQG2PQu6HvUaT6",
       // 이벤터스로 신청·결제 일원화되어 내림 (신청 경로 중복 방지)
       active: false,
+      prefill_generation_key: "",
     },
     {
-      id: "voice",
-      icon: "💬",
-      title: "총회 한마디 & 동잠 구매",
-      desc: "총회에서 하고 싶은 말, 동아리 잠바 구매 수요",
+      id: "jacket",
+      icon: "🧥",
+      title: "동잠(단체복) 주문",
+      desc: "사이즈 · 수량 · 손목 각인 이름. 입금은 주문 수합 후 별도 안내드립니다.",
       url: "",
-      active: true,
+      active: false,
+      prefill_generation_key: "",
     },
     {
       id: "contact",
       icon: "📇",
-      title: "연락처 업데이트",
-      desc: "주소록에 실릴 내 연락처·근황 갱신",
+      title: "동문 근황 · 연락처 업데이트",
+      desc: "주소록에 실릴 연락처와 졸업 후 진로·경력을 갱신해 주세요.",
       url: "",
-      active: true,
+      active: false,
+      prefill_generation_key: "",
     },
   ],
   // Cloudflare R2 공개 버킷 베이스 URL (예: https://pub-xxx.r2.dev)

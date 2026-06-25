@@ -1,4 +1,4 @@
 id,icon,title,desc,url,active,prefill_generation_key
-attend,🎉,참석 조사,참석 여부와 동반 인원을 알려주세요.,,true,
-voice,💬,총회 한마디 & 동잠 구매,총회 의견과 동잠 수요를 알려주세요.,,true,
-contact,📇,연락처 업데이트,주소록에 실릴 정보를 갱신해 주세요.,,true,
+attend,🎉,참석 조사,참석 여부와 동반 인원을 알려주세요.,,false,
+jacket,🧥,동잠(단체복) 주문,사이즈·수량·손목 각인 이름. 입금은 추후 별도 안내.,,false,
+contact,📇,동문 근황 · 연락처 업데이트,주소록 연락처와 졸업 후 진로·경력을 갱신해 주세요.,,false,

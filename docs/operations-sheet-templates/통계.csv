@@ -1,3 +1,7 @@
 group,label,value,sort,public
+최종 학력,학사,0,10,false
+최종 학력,석사,0,20,false
+최종 학력,박사,0,30,false
+최종 학력,포닥,0,40,false
 분야별 현황,교수·연구,0,10,false
 분야별 현황,창업·스타트업,0,20,false

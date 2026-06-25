@@ -5,7 +5,6 @@ const CONFIG = {
 
   // 구글시트 '웹에 게시' CSV 주소 (미발급 시 "" — 페이지에 안내 표시됨)
   MEMBERS_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTOJwiWrRbj2_fFav3sga3dNum3iCjtwn0WdJeOoY-H3sM3EYGmx24WGgqSk9LBg22W-1WPyBJ03Mww/pub?gid=738005260&single=true&output=csv",
-  GUESTBOOK_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTASpV4q3KQ5i8Eoj3Q_efQFNvBWcyc1c-NLvH0gQMP4UyKDtd3TmovpTglcI8_NGlU0qJz9nD26K4U/pub?output=csv",
   OPS_SHEETS: {
     notices: "",
     event: "",
@@ -16,9 +15,6 @@ const CONFIG = {
   },
   // 구글폼 주소
   MEMBERS_FORM_URL: "",
-  GUESTBOOK_FORM_URL: "",
-  // 방명록 사이트 내 작성 — Apps Script 웹앱(/exec) 주소. 채우면 구글폼 대신 내부 폼 사용.
-  GUESTBOOK_POST_URL: "https://script.google.com/macros/s/AKfycbzeNd0a4jcUQ1_ZFt74ae3g9_mELMEZCEzfvU4pdw78p-bdY2KrU6t3UyoHZMQl4ToHjQ/exec",
   EVENT_FORM_URL: "",
 
   // 40주년 설문 3종 — url을 채우면 첫 화면 팝업과 각 페이지에 표시됩니다.

@@ -15,7 +15,6 @@ PUBLIC_PAGES = [
     "gallery.html",
     "magazine.html",
     "archive.html",
-    "guestbook.html",
     "event.html",
     "survey.html",
     "stats.html",

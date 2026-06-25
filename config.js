@@ -76,10 +76,10 @@ const CONFIG = {
     // provider: "direct"(페이앱+송금링크) | "eventus"(이벤터스로 일원화) | "off"(결제 숨김)
     // 이벤터스로 확정되면 provider를 "eventus"로 바꾸고 eventusUrl만 채우면
     // 사이트의 직접결제 UI가 자동으로 이벤터스 버튼으로 교체됩니다.
-    provider: "direct",
+    provider: "eventus",
     cardUrl: "",
     transferUrl: "",
-    eventusUrl: "",
+    eventusUrl: "https://event-us.kr/n6cfygv1/event/129241",
   },
   MAP_LINKS: {
     kakao: "",

@@ -28,7 +28,8 @@ const CONFIG = {
       title: "참석 조사",
       desc: "기념행사 참석 여부 · 동반자 · 숙박 조건",
       url: "https://forms.gle/hGYwQG2PQu6HvUaT6",
-      active: true,
+      // 이벤터스로 신청·결제 일원화되어 내림 (신청 경로 중복 방지)
+      active: false,
     },
     {
       id: "voice",

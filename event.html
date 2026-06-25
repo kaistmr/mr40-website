@@ -461,8 +461,14 @@
         setLink("transfer-payment", data.transfer_payment || CONFIG.PAYMENTS.transferUrl, "간편 송금");
       }
       var fee = MR40Ops.lines(data.fee || details.fee);
-      if (fee.length) document.getElementById("payment-copy").textContent =
-        "참가비 " + fee.join(" / ") + " · 결제자명은 참석 조사 이름과 같게 입력해 주세요.";
+      if (payProvider === "eventus" && eventusUrl) {
+        document.getElementById("payment-copy").textContent =
+          (fee.length ? "참가비 " + fee.join(" / ") + " · " : "") +
+          "신청과 결제를 이벤터스에서 한 번에 진행합니다.";
+      } else if (fee.length) {
+        document.getElementById("payment-copy").textContent =
+          "참가비 " + fee.join(" / ") + " · 결제자명은 신청자 이름과 같게 입력해 주세요.";
+      }
       var refund = data.refund_policy || CONFIG.EVENT_DETAILS.refundPolicy;
       if (refund) document.getElementById("refund-copy").textContent = refund;
       var attendance = data.attendance_count || CONFIG.EVENT_DETAILS.attendanceCount;

@@ -134,12 +134,22 @@ function enhanceCommonContent() {
     p.className = "footer-home";
     p.innerHTML = '<a href="index.html">← 처음으로</a>';
     footer.insertBefore(p, footer.firstChild);
-    if (CONFIG.CONTACT && safeUrl(CONFIG.CONTACT.openChat) && !footer.querySelector(".footer-contact")) {
-      const contact = document.createElement("p");
-      contact.className = "footer-contact";
-      contact.innerHTML = '<a href="' + escapeHtml(safeUrl(CONFIG.CONTACT.openChat)) +
-        '" target="_blank" rel="noopener">문의 오픈채팅</a>';
-      footer.insertBefore(contact, footer.firstChild);
+    if (CONFIG.CONTACT && !footer.querySelector(".footer-contact")) {
+      const channels = [];
+      if (safeUrl(CONFIG.CONTACT.openChat)) {
+        channels.push('<a href="' + escapeHtml(safeUrl(CONFIG.CONTACT.openChat)) +
+          '" target="_blank" rel="noopener">문의 오픈채팅</a>');
+      }
+      if (CONFIG.CONTACT.email && safeUrl("mailto:" + CONFIG.CONTACT.email)) {
+        channels.push('<a href="' + escapeHtml(safeUrl("mailto:" + CONFIG.CONTACT.email)) +
+          '">' + escapeHtml(CONFIG.CONTACT.email) + '</a>');
+      }
+      if (channels.length) {
+        const contact = document.createElement("p");
+        contact.className = "footer-contact";
+        contact.innerHTML = channels.join(" · ");
+        footer.insertBefore(contact, footer.firstChild);
+      }
     }
   });
 

@@ -293,6 +293,7 @@
     <p class="hero-sub">
       1986년 창설부터 2026년 오늘까지, 40년의 기록과 사람들을<br class="hidden-xs"> 한 자리에 모았습니다.
     </p>
+    <div class="hero-cta" id="hero-cta"></div>
     <div class="hero-surveys" id="hero-surveys"></div>
     <a class="scroll-cue" href="#dday">
       <span>아래로 보기</span>
@@ -806,6 +807,33 @@
     }
 
     .survey-fab:hover { transform: scale(1.05); opacity: 0.92; }
+
+    /* 히어로 메인 CTA — 참가 신청(이벤터스) */
+    .hero-cta { margin-top: 1.8rem; }
+
+    .hero-apply {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 9999px;
+      padding: 1rem 2.4rem;
+      font-size: 1.18rem;
+      font-weight: 800;
+      font-family: inherit;
+      text-decoration: none;
+      box-shadow: 0 10px 34px rgba(91, 140, 255, 0.45);
+      transition: transform 0.2s, opacity 0.2s;
+    }
+
+    .hero-apply:hover { transform: scale(1.04); opacity: 0.94; }
+
+    .hero-apply-note {
+      margin-top: 0.6rem;
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
   </style>
 
   <div class="welcome-modal" id="welcome-modal" role="dialog" aria-modal="true" aria-labelledby="wm-title">
@@ -880,6 +908,21 @@
         openSurvey(surveys[parseInt(btn.getAttribute("data-idx"), 10)]);
       });
 
+      // 히어로 메인 CTA — 이벤터스 참가 신청 (가장 크게 노출)
+      var ctaEl = document.getElementById("hero-cta");
+      function renderHeroApply(provider, url) {
+        var u = safeUrl(url);
+        var over = new Date(CONFIG.EVENT_DATE).getTime() <= Date.now();
+        if (!over && provider === "eventus" && u) {
+          ctaEl.innerHTML =
+            '<a class="hero-apply" href="' + escapeHtml(u) + '" target="_blank" rel="noopener">🎉 40주년 행사 참가 신청</a>' +
+            '<p class="hero-apply-note">신청과 참가비 결제를 이벤터스에서 한 번에 진행합니다.</p>';
+        } else {
+          ctaEl.innerHTML = "";
+        }
+      }
+      renderHeroApply((CONFIG.PAYMENTS || {}).provider, (CONFIG.PAYMENTS || {}).eventusUrl);
+
       renderSurveys();
       renderHeroSurveys();
       MR40Ops.rows("surveys").then(function (sheetSurveys) {
@@ -891,6 +934,7 @@
       });
       MR40Ops.rows("event").then(function (eventRows) {
         var data = MR40Ops.eventMap(eventRows);
+        renderHeroApply(data.payment_provider || CONFIG.PAYMENTS.provider, data.eventus_url || CONFIG.PAYMENTS.eventusUrl);
         [
           ["wm-card-payment", data.card_payment || CONFIG.PAYMENTS.cardUrl, "카드 결제"],
           ["wm-transfer-payment", data.transfer_payment || CONFIG.PAYMENTS.transferUrl, "간편 송금"],

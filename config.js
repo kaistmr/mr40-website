@@ -92,6 +92,7 @@ const CONFIG = {
   CONTACT: {
     phone: "",
     sms: "",
+    email: "ys.an@kaist.ac.kr",
     openChat: "",
     label: "준비위원회",
   },

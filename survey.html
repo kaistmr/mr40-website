@@ -156,6 +156,8 @@
     var sms = CONFIG.CONTACT && safeUrl("sms:" + (CONFIG.CONTACT.sms || CONFIG.CONTACT.phone || ""));
     if (CONFIG.CONTACT && CONFIG.CONTACT.phone) links.push('<a href="' + phone + '">전화 ' + escapeHtml(CONFIG.CONTACT.phone) + '</a>');
     if (CONFIG.CONTACT && (CONFIG.CONTACT.sms || CONFIG.CONTACT.phone)) links.push('<a href="' + sms + '">문자 보내기</a>');
+    var email = CONFIG.CONTACT && safeUrl("mailto:" + (CONFIG.CONTACT.email || ""));
+    if (CONFIG.CONTACT && CONFIG.CONTACT.email) links.push('<a href="' + email + '">' + escapeHtml(CONFIG.CONTACT.email) + '</a>');
     if (links.length) document.getElementById("contact-links").innerHTML = links.join(" · ");
   })();
   </script>

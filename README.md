@@ -3,6 +3,9 @@
 KAIST 동아리 **MR**(Microrobot Research, 1986~) 창립 40주년 기념 사이트입니다.
 서버·데이터베이스 비용 없이 **GitHub Pages + Google Sheets + YouTube**로 운영됩니다.
 
+- **저장소**: <https://github.com/kaistmr/mr40-website>
+- **라이브 사이트**: <https://kaistmr.github.io/mr40-website/>
+
 ## 🚀 구성
 
 | 페이지 | 내용 | 데이터 출처 |
@@ -110,6 +113,7 @@ python3 patch_archive_compat.py   # 모던 브라우저 호환 패치
 ## 💻 개발자 정보
 
 - **스택**: HTML + Tailwind CSS(CDN) + Vanilla JS — 빌드 과정 없음, push만 하면 배포
+- **배포**: `kaistmr/mr40-website` 의 `main` 브랜치 루트 → GitHub Pages 자동 빌드 (https://kaistmr.github.io/mr40-website/)
 - **공통 코드**: `assets/common.js`(네비·CSV·토스트·해시), `assets/style.css`(테마 변수)
 - **테마**: CSS 변수 기반. `[data-era="retro"]`로 타임라인 레트로 구간 전환
 - **테스트**: `cd scripts && python3 -m unittest test_build_gallery test_site_static -v && node test_ops.js`

@@ -156,6 +156,9 @@
       max-height: 82vh;
       border-radius: 0.5rem;
       box-shadow: 0 12px 60px rgba(0, 0, 0, 0.6);
+      /* 가장자리 정의용 1px 흰색 윤곽(다크 배경) — img라 box-shadow 대신 outline 사용 */
+      outline: 1px solid rgba(255, 255, 255, 0.1);
+      outline-offset: -1px;
     }
 
     .lb-caption {
@@ -348,7 +351,7 @@
     <!-- 사진 탭 -->
     <section id="panel-photos" role="tabpanel" aria-labelledby="tab-photos">
       <div class="year-chips" id="year-chips"></div>
-      <div class="photo-grid" id="photo-grid"></div>
+      <div class="photo-grid" id="photo-grid" data-stagger data-stagger-max="6"></div>
     </section>
 
     <!-- 영상 탭 -->

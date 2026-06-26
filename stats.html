@@ -19,11 +19,12 @@
     .stats-head p { color: var(--muted); }
     .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 1rem; margin-bottom: 3rem; }
     .stat-card { text-align: center; }
-    .stat-value { display: block; color: var(--accent); font-size: 2.2rem; font-weight: 900; }
+    .stat-value { display: block; color: var(--accent); font-size: 2.2rem; font-weight: 900; font-variant-numeric: tabular-nums; }
     .stat-label { color: var(--muted); line-height: 1.5; }
     .group { margin-top: 2.5rem; }
     .group h2 { margin-bottom: 1rem; }
     .bar-row { display: grid; grid-template-columns: minmax(90px, 1fr) 3fr auto; gap: .75rem; align-items: center; margin: .8rem 0; }
+    .bar-row strong { font-variant-numeric: tabular-nums; }
     .bar-track { height: 18px; background: rgba(255,255,255,.08); border-radius: 9999px; overflow: hidden; }
     .bar-fill { height: 100%; background: var(--accent); border-radius: inherit; }
     .pending { color: var(--muted); text-align: center; padding: 2rem; }
@@ -33,7 +34,7 @@
   <script>injectNav("stats.html");</script>
   <main class="stats-main">
     <header class="stats-head"><h1>숫자로 보는 <span class="text-accent">MR</span></h1><p>공개 가능한 집계 수치만 표시합니다.</p></header>
-    <section class="stats-grid" id="site-stats" aria-label="사이트 보유 자료"></section>
+    <section class="stats-grid" id="site-stats" aria-label="사이트 보유 자료" data-stagger></section>
     <div id="people-stats"><p class="pending card">동문 통계를 준비하고 있습니다.</p></div>
   </main>
   <footer class="site-footer"><p class="footer-name">KAIST MR · Microrobot Research · Since 1986</p><p class="footer-note">© 2026 MR 40주년 준비위원회</p></footer>

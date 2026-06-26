@@ -84,6 +84,9 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      /* 표지 가장자리를 카드 배경과 분리하는 1px 흰색 윤곽(다크 테마) */
+      outline: 1px solid rgba(255, 255, 255, 0.1);
+      outline-offset: -1px;
     }
 
     /* 표지 없는 항목 (디지털화 진행 중) */
@@ -174,7 +177,7 @@
   </header>
 
   <div class="container">
-    <div class="shelf" id="shelf"></div>
+    <div class="shelf" id="shelf" data-stagger></div>
   </div>
 
   <footer class="site-footer">

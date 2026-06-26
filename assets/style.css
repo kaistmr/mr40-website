@@ -44,6 +44,13 @@ body {
   color: var(--text);
   padding-top: var(--nav-h);
   -webkit-font-smoothing: antialiased;
+  /* 본문 단락의 외톨이 줄(orphan)을 줄인다 */
+  text-wrap: pretty;
+}
+
+/* 제목은 줄 길이를 고르게 분배해 어색한 줄바꿈을 막는다 */
+h1, h2, h3 {
+  text-wrap: balance;
 }
 
 a {
@@ -208,6 +215,13 @@ button, [role="button"], input, select, textarea {
 
 button {
   min-height: 44px;
+  /* 누를 때만 작동하는 촉각 피드백 — transform만 명시(절대 all 금지) */
+  transition-property: transform;
+  transition-duration: 0.12s;
+}
+
+button:active {
+  transform: scale(0.96);
 }
 
 button:focus-visible,
@@ -448,4 +462,29 @@ iframe:focus-visible {
 .site-notice a {
   font-weight: 800;
   text-decoration: underline;
+}
+
+/* ---------- 진입 스태거 (공통) ----------
+   common.js의 initStaggerReveal()가 [data-stagger] 컨테이너에 .stagger를 부여하고,
+   뷰포트 진입 시 .in-view를 더해 직계 자식을 순차 등장시킨다.
+   숨김·애니메이션을 모두 이 미디어쿼리 안에만 둬 모션 비선호·JS 비활성 시엔 항상 보인다.
+   진입이 끝나면 JS가 .stagger를 떼어 카드의 hover transform을 원복한다. */
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes mr-rise {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* 기본(무제한): 직계 자식 전부를 페인트 전에 숨겨 깜빡임 없이 등장시킨다. */
+  [data-stagger]:not([data-stagger-max]).stagger > * { opacity: 0; }
+
+  /* 제한(data-stagger-max="N"): JS가 앞쪽 N개에만 .mr-hide를 부여한다.
+     사진관·주소록처럼 카드가 수백 장인 그리드에서 첫 줄만 가볍게 연출하기 위함. */
+  [data-stagger][data-stagger-max].stagger > .mr-hide { opacity: 0; }
+
+  [data-stagger]:not([data-stagger-max]).stagger.in-view > *,
+  [data-stagger][data-stagger-max].stagger.in-view > .mr-hide {
+    animation: mr-rise 0.5s cubic-bezier(0.2, 0, 0, 1) both;
+    animation-delay: var(--mr-delay, 0s);
+  }
 }

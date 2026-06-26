@@ -279,6 +279,20 @@
       font-size: 0.75rem;
       color: rgba(125, 141, 181, 0.55);
     }
+
+    /* ── 진입 스태거 애니메이션 ──
+       모션 선호 사용자에게만 적용. 숨김 상태도 이 미디어쿼리 안에만 둬서
+       reduced-motion·JS 비활성 시 콘텐츠가 영영 가려지지 않게 한다. */
+    /* 히어로: 로드 즉시 의미 단위별 ~100ms 간격 등장.
+       (히어로 요소엔 hover transform이 없어 fill:both가 안전. mr-rise 키프레임은 style.css 공통)
+       카드 그리드는 .cards-grid[data-stagger] + common.js의 initStaggerReveal()로 처리. */
+    @media (prefers-reduced-motion: no-preference) {
+      .hero-eyebrow  { opacity: 0; animation: mr-rise 0.55s cubic-bezier(0.2, 0, 0, 1) both 0.05s; }
+      .hero-headline { opacity: 0; animation: mr-rise 0.55s cubic-bezier(0.2, 0, 0, 1) both 0.15s; }
+      .hero-sub      { opacity: 0; animation: mr-rise 0.55s cubic-bezier(0.2, 0, 0, 1) both 0.25s; }
+      #hero-cta      { opacity: 0; animation: mr-rise 0.55s cubic-bezier(0.2, 0, 0, 1) both 0.35s; }
+      #hero-surveys  { opacity: 0; animation: mr-rise 0.55s cubic-bezier(0.2, 0, 0, 1) both 0.45s; }
+    }
   </style>
 </head>
 <body>
@@ -328,7 +342,7 @@
   <section class="cards-section">
     <div class="container">
       <h2 class="cards-heading">둘러보기</h2>
-      <div class="cards-grid">
+      <div class="cards-grid" data-stagger>
 
         <a href="timeline.html" class="section-card card">
           <span class="card-icon" aria-hidden="true">🗓️</span>

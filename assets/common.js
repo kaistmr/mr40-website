@@ -182,6 +182,68 @@ if (document.readyState === "loading") {
   enhanceCommonContent();
 }
 
+// [3.5] 진입 스태거 — [data-stagger] 컨테이너의 직계 자식을 뷰포트 진입 시 순차 등장시킨다.
+//      동적으로 채워지는 그리드(fetch 후 innerHTML)도 MutationObserver로 처리한다.
+function initStaggerReveal() {
+  // 모션 비선호·미지원 환경에서는 .stagger를 켜지 않아 콘텐츠가 항상 보인다(숨김 CSS는 .stagger에만 걸림).
+  if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (!("IntersectionObserver" in window)) return;
+
+  var STEP = 0.07, CAP = 8, LIFE = 1800; // 자식당 70ms 간격(최대 8칸), 진입 후 1.8s에 정리
+
+  document.querySelectorAll("[data-stagger]").forEach(function (box) {
+    box.classList.add("stagger"); // JS가 켤 때만 숨김 시작 → no-JS면 항상 보임
+    // data-stagger-max="N": 앞쪽 N개만 연출(없으면 전체). 사진관·주소록의 대량 그리드용.
+    var max = parseInt(box.getAttribute("data-stagger-max"), 10);
+    var limited = !isNaN(max);
+    var cleanupTimer = null;
+
+    // 연출 대상에 지연(--mr-delay)을 입히고, 제한 모드면 .mr-hide로 숨김을 표시한다.
+    function prep() {
+      var kids = box.children;
+      var n = limited ? Math.min(max, kids.length) : kids.length;
+      for (var i = 0; i < n; i++) {
+        if (limited) kids[i].classList.add("mr-hide");
+        kids[i].style.setProperty("--mr-delay", (Math.min(i, CAP) * STEP) + "s");
+      }
+    }
+    function scheduleCleanup() {
+      clearTimeout(cleanupTimer);
+      cleanupTimer = setTimeout(function () {
+        box.classList.remove("stagger", "in-view"); // 정리 → 카드 hover transform 복구
+        var kids = box.children;
+        for (var i = 0; i < kids.length; i++) {
+          kids[i].style.removeProperty("--mr-delay");
+          kids[i].classList.remove("mr-hide");
+        }
+        mo.disconnect();
+      }, LIFE);
+    }
+
+    // 늦게 채워지는 자식(fetch 렌더)도 즉시 숨김 표시(페인트 전) → 진입 시 함께 등장.
+    // cleanup은 첫 진입에서 한 번만 예약한다(검색·필터 재렌더 때 반복 애니메이션 방지).
+    var mo = new MutationObserver(prep);
+    mo.observe(box, { childList: true });
+
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        prep();
+        box.classList.add("in-view");
+        io.disconnect();
+        scheduleCleanup();
+      });
+    }, { threshold: 0.1 });
+    io.observe(box);
+  });
+}
+
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initStaggerReveal);
+} else {
+  initStaggerReveal();
+}
+
 // [4] 토스트
 function showToast(msg) {
   let t = document.getElementById("toast");

@@ -43,15 +43,15 @@
       : '<p>준비 중</p>';
     var cards = [
       ["오시는 길", data.address || CONFIG.EVENT_DETAILS.address],
-      ["주차", data.parking],
-      ["좌석 안내", data.seating],
-      ["비상 연락처", data.emergency || CONFIG.CONTACT.phone],
+      ["주차", data.parking || CONFIG.EVENT_DETAILS.parking],
+      ["좌석 안내", data.seating || CONFIG.EVENT_DETAILS.seating],
+      ["비상 연락처", data.emergency || CONFIG.EVENT_DETAILS.emergency || CONFIG.CONTACT.phone],
     ];
     document.getElementById("day-grid").innerHTML =
       '<section class="day-card card"><h2>식순</h2>' + programHtml + '</section>' +
       cards.map(function (card) {
       return '<section class="day-card card"><h2>' + card[0] + '</h2><p>' + escapeHtml(card[1] || "준비 중") + '</p></section>';
-    }).join("") + '<section class="day-card card"><h2>지도 앱</h2><p>장소가 확정되면 지도 앱으로 바로 길을 찾을 수 있습니다.</p><div class="day-links">' +
+    }).join("") + '<section class="day-card card"><h2>지도 앱</h2><p>지도 앱으로 행사장(롯데시티호텔 대전)까지 바로 길을 찾을 수 있습니다.</p><div class="day-links">' +
       (safeUrl(data.kakao_map || CONFIG.MAP_LINKS.kakao) ? '<a href="' + safeUrl(data.kakao_map || CONFIG.MAP_LINKS.kakao) + '" target="_blank" rel="noopener">카카오맵</a>' : '<span>카카오맵 준비 중</span>') +
       (safeUrl(data.naver_map || CONFIG.MAP_LINKS.naver) ? '<a href="' + safeUrl(data.naver_map || CONFIG.MAP_LINKS.naver) + '" target="_blank" rel="noopener">네이버지도</a>' : '<span>네이버지도 준비 중</span>') +
       '</div></section>';

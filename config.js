@@ -62,6 +62,10 @@ const CONFIG = {
     rooms: ["크리스탈볼룸", "루비룸 (1층)"],
     audience: ["MR 동문 (역대 전 기수)", "현역 부원", "지도교수 및 내빈", "가족 동반 환영"],
     fee: ["성인 10~15만원", "학부생 5만원", "유아동 3만원"],
+    // 행사 당일 안내(day.html) 정적 폴백 — 운영시트(parking/seating/emergency)가 있으면 그쪽이 우선
+    parking: "호텔 지하 주차장 이용 가능",
+    seating: "선착순 배정 예정",
+    emergency: "010-6351-6533 (안연수 회장)",
     refundPolicy: "",
     attendanceCount: "",
     liveUrl: "",
@@ -84,8 +88,8 @@ const CONFIG = {
     eventusUrl: "https://event-us.kr/n6cfygv1/event/129241",
   },
   MAP_LINKS: {
-    kakao: "",
-    naver: "",
+    kakao: "https://place.map.kakao.com/23700427",
+    naver: "https://naver.me/GfCsZ9fn",
   },
   CONTACT: {
     phone: "",

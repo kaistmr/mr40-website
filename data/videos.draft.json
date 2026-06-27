@@ -1,0 +1,66 @@
+[
+  {
+    "id": "",
+    "title": "91 T.MIT 로봇 콘테스트",
+    "year": 1991,
+    "desc": "1991년 로봇 경진대회 출전 기록",
+    "active": true,
+    "_source": "video_out/1991_91 T.MIT Robot Contest.mp4"
+  },
+  {
+    "id": "",
+    "title": "1992 마이크로 로봇 경진대회",
+    "year": 1992,
+    "desc": "1992.12.1 개최",
+    "active": true,
+    "_source": "video_out/1992_1992.12.1 마이크로 로봇 경진대회.mp4"
+  },
+  {
+    "id": "",
+    "title": "KAIST MR 대회 1993 — Vol.1",
+    "year": 1993,
+    "desc": "1993.12.1 교내 마이크로로봇 대회",
+    "active": true,
+    "_source": "video_out/1993_KAIST MR대회 1993.12.1 Vol.1.mp4"
+  },
+  {
+    "id": "",
+    "title": "KAIST MR 대회 1993 — Vol.2",
+    "year": 1993,
+    "desc": "1993.12.1 교내 마이크로로봇 대회",
+    "active": true,
+    "_source": "video_out/1993_KAIST MR대회  1993.12.1 Vol.2.mp4"
+  },
+  {
+    "id": "",
+    "title": "동아리 내 라인트레이서 대회",
+    "year": 1998,
+    "desc": "1998.10.10 교내 라인트레이서 대회 녹화",
+    "active": true,
+    "_source": "video_out/1998_1998년 10월10일 동아리내 라인트레이서 대회 녹화.mp4"
+  },
+  {
+    "id": "",
+    "title": "2003 정기총회",
+    "year": 2003,
+    "desc": "2003.11.8",
+    "active": true,
+    "_source": "video_out/2003_2003 총회#1 03.11.8.mp4"
+  },
+  {
+    "id": "",
+    "title": "2004 가을 정기총회",
+    "year": 2004,
+    "desc": "2004.11.6",
+    "active": true,
+    "_source": "video_out/2004_2004 가을총회 2004.11.6.mp4"
+  },
+  {
+    "id": "",
+    "title": "2005 가을 정기총회",
+    "year": 2005,
+    "desc": "2005.11.12",
+    "active": true,
+    "_source": "video_out/2005_2005 가을정기총회 05.11.12.mp4"
+  }
+]

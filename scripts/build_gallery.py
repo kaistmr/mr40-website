@@ -89,9 +89,13 @@ def collect_sources(listfile):
             if line and not line.startswith("#"):
                 srcs.append(WS / line)
         return srcs
+    # 옛 CD 사이트 미리보기 썸네일(thumb_*, 100x75 저화질)은 제외 — 같은 폴더에
+    # 풀해상도 원본이 함께 있으므로 갤러리엔 원본만 싣는다.
     return sorted(
         p for p in PHOTOS.rglob("*")
-        if p.is_file() and p.suffix.lower() in IMG_EXTS and not p.name.startswith("._")
+        if p.is_file() and p.suffix.lower() in IMG_EXTS
+        and not p.name.startswith("._")
+        and not p.name.lower().startswith("thumb_")
     )
 
 

@@ -475,10 +475,15 @@
       if (attendance) document.getElementById("attendance-copy").textContent = "현재까지 " + attendance + "명 참석 예정입니다.";
       var live = safeUrl(data.live_url || CONFIG.EVENT_DETAILS.liveUrl);
       var replay = safeUrl(data.replay_url || CONFIG.EVENT_DETAILS.replayUrl);
-      var media = Date.now() >= target.getTime() && live ? live : replay || live;
+      var started = Date.now() >= target.getTime();
+      var media = started && live ? live : replay || live;
       if (media) {
-        document.getElementById("live-copy").innerHTML = '<a href="' + media + '" target="_blank" rel="noopener">' +
-          (replay && media === replay ? "다시보기 열기" : "지금 라이브로 보기") + '</a>';
+        var isReplay = replay && media === replay;
+        var label = isReplay ? "다시보기 열기" : (started ? "지금 라이브로 보기" : "중계 채널 열기");
+        // 행사 전에도 채널을 미리 공개하되, 당일 생중계 예정임을 안내
+        var prefix = isReplay || started ? "" : "행사 당일(11월 28일)부터 이 채널에서 생중계됩니다. ";
+        document.getElementById("live-copy").innerHTML = prefix +
+          '<a href="' + media + '" target="_blank" rel="noopener">' + label + '</a>';
         var youtube = media.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|live\/))([^?&/]+)/);
         if (youtube) document.getElementById("live-host").innerHTML =
           '<iframe class="live-frame" title="MR40 온라인 중계" src="https://www.youtube-nocookie.com/embed/' + encodeURIComponent(youtube[1]) + '" allowfullscreen></iframe>';

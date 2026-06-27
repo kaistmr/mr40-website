@@ -68,7 +68,7 @@ const CONFIG = {
     emergency: "010-6351-6533 (안연수 회장)",
     refundPolicy: "",
     attendanceCount: "",
-    liveUrl: "",
+    liveUrl: "https://youtube.com/live/WvAlIzlu9p4?feature=share",
     replayUrl: "",
     photoUploadUrl: "",
     program: [

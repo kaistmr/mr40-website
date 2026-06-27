@@ -121,6 +121,8 @@ async function shareCurrentPage() {
 function enhanceCommonContent() {
   document.querySelectorAll('a[target="_blank"]').forEach(function (link) {
     if (link.querySelector(".new-window-note")) return;
+    // 비활성("준비 중") 링크는 실제로 새 창을 열지 않으므로 표시 제외
+    if (link.classList.contains("disabled") || link.getAttribute("href") === "#") return;
     const note = document.createElement("span");
     note.className = "new-window-note";
     note.textContent = " ↗ 새 창";

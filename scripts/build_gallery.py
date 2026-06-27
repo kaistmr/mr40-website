@@ -26,26 +26,56 @@ THUMB_LONG, FULL_LONG, THUMB_Q, FULL_Q = 480, 1920, 70, 82
 IMG_EXTS = {".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp"}
 
 
+YEAR = r"(?:19[8-9]\d|20[0-2]\d)"
+
+
 def guess_year(path):
+    # 범위 폴더(예: '2007-2013', '2014~2017')는 범위 라벨 문자열로 반환
     for part in path.parts:
-        m = re.search(r"(19[8-9]\d|20[0-2]\d)", part)
+        m = re.search(rf"({YEAR})\s*[-~–]\s*({YEAR})", part)
         if m:
-            return int(m.group(1))
+            return f"{m.group(1)}–{m.group(2)}"   # 2007–2013 (en dash)
+    for part in path.parts:
+        m = re.search(rf"({YEAR})", part)
+        if m:
+            return int(m.group(0))
     return None
 
 
+def year_key(year):
+    """정렬용 숫자 키 — 연도미상은 -1, 범위는 시작 연도."""
+    if year is None:
+        return -1
+    m = re.match(r"\d{4}", str(year))
+    return int(m.group(0)) if m else 0
+
+
+def year_slug(year):
+    """URL/파일명 안전한 키 — 범위의 en dash·물결을 하이픈으로."""
+    if year is None or year == "unknown":
+        return "unknown"
+    return re.sub(r"[–~]", "-", str(year))
+
+
 def process_image(src, thumb_dir, base, full_dir=None):
-    img = ImageOps.exif_transpose(Image.open(src)).convert("RGB")
     key = hashlib.md5(str(src.relative_to(base)).encode()).hexdigest()[:12]
-    thumb_dir.mkdir(parents=True, exist_ok=True)
-    t = img.copy()
-    t.thumbnail((THUMB_LONG, THUMB_LONG))
-    t.save(thumb_dir / f"{key}.webp", "WEBP", quality=THUMB_Q)
-    if full_dir:
-        full_dir.mkdir(parents=True, exist_ok=True)
-        f = img.copy()
-        f.thumbnail((FULL_LONG, FULL_LONG))
-        f.save(full_dir / f"{key}.webp", "WEBP", quality=FULL_Q)
+    thumb_path = thumb_dir / f"{key}.webp"
+    full_path = (full_dir / f"{key}.webp") if full_dir else None
+    need_thumb = not thumb_path.exists()
+    need_full = bool(full_path) and not full_path.exists()
+    # 이미 만들어진 썸네일은 재인코딩하지 않음 (사진 추가 시 증분 실행)
+    if need_thumb or need_full:
+        img = ImageOps.exif_transpose(Image.open(src)).convert("RGB")
+        if need_thumb:
+            thumb_dir.mkdir(parents=True, exist_ok=True)
+            t = img.copy()
+            t.thumbnail((THUMB_LONG, THUMB_LONG))
+            t.save(thumb_path, "WEBP", quality=THUMB_Q)
+        if need_full:
+            full_dir.mkdir(parents=True, exist_ok=True)
+            f = img.copy()
+            f.thumbnail((FULL_LONG, FULL_LONG))
+            f.save(full_path, "WEBP", quality=FULL_Q)
     return {"thumb": f"{key}.webp", "year": guess_year(src.relative_to(base)),
             "src": str(src.relative_to(base))}
 
@@ -80,13 +110,19 @@ def write_gallery_data(items, data_dir):
     index = []
     for key, group in sorted(
             groups.items(),
-            key=lambda pair: -1 if pair[0] == "unknown" else int(pair[0])):
-        filename = f"{key}.json"
+            key=lambda pair: year_key(None if pair[0] == "unknown" else pair[0])):
+        if key == "unknown":
+            year_val = None
+        elif key.isdigit():
+            year_val = int(key)
+        else:
+            year_val = key                       # 범위 라벨(예: 2007–2013)
+        filename = f"{year_slug(key)}.json"
         (years_dir / filename).write_text(
             json.dumps(group, ensure_ascii=False, separators=(",", ":")),
             encoding="utf-8")
         index.append({
-            "year": None if key == "unknown" else int(key),
+            "year": year_val,
             "count": len(group),
             "file": f"data/gallery-years/{filename}",
         })
@@ -110,7 +146,7 @@ def main():
             items.append(process_image(src, SITE / "thumbs", WS, full_out))
         except Exception as e:
             errors.append(f"{src}: {e}")
-    items.sort(key=lambda x: (x["year"] or 0, x["src"]))
+    items.sort(key=lambda x: (year_key(x["year"]), str(x["src"])))
     write_gallery_data(items, SITE / "data")
     print(f"완료: {len(items)}장, 실패 {len(errors)}건")
     for e in errors:

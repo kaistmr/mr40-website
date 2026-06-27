@@ -422,6 +422,16 @@
       return y === null || y === undefined ? "연도미상" : String(y);
     }
 
+    // 연도 정렬용 숫자 키 — 연도미상은 -1, 범위(2007–2013)는 시작 연도
+    function yearKey(y) {
+      if (y === null || y === undefined) return -1;
+      var m = String(y).match(/\d{4}/);
+      return m ? parseInt(m[0], 10) : 0;
+    }
+    function latestYear(list) {
+      return list.reduce(function (a, b) { return yearKey(b) > yearKey(a) ? b : a; });
+    }
+
     function buildChips() {
       var years = galleryIndex.filter(function (item) {
         return item.year !== null && item.year !== undefined;
@@ -429,7 +439,7 @@
       var hasUnknown = galleryIndex.some(function (item) {
         return item.year === null || item.year === undefined;
       });
-      years.sort(function (a, b) { return a - b; });
+      years.sort(function (a, b) { return yearKey(a) - yearKey(b); });
 
       var html = '<button class="year-chip' + (currentYear === "all" ? " active" : "") + '" data-year="all" type="button">전체</button>';
       years.forEach(function (y) {
@@ -696,7 +706,7 @@
         var knownYears = galleryIndex.map(function (item) { return item.year; }).filter(function (year) {
           return year !== null && year !== undefined;
         });
-        if (knownYears.length) currentYear = String(Math.max.apply(null, knownYears));
+        if (knownYears.length) currentYear = String(latestYear(knownYears));
         buildChips();
         selectYear(currentYear);
       })
@@ -711,8 +721,10 @@
           galleryIndex = Object.keys(groups).map(function (key) {
             return { year: key === "unknown" ? null : Number(key), count: groups[key] };
           });
-          var knownYears = galleryIndex.map(function (item) { return item.year; }).filter(Number.isFinite);
-          currentYear = knownYears.length ? String(Math.max.apply(null, knownYears)) : "all";
+          var knownYears = galleryIndex.map(function (item) { return item.year; }).filter(function (y) {
+            return y !== null && y !== undefined;
+          });
+          currentYear = knownYears.length ? String(latestYear(knownYears)) : "all";
           photoCache[currentYear] = photos.filter(function (photo) {
             return String(photo.year) === currentYear;
           });

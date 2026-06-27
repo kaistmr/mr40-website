@@ -848,10 +848,7 @@
       <p class="wm-date">2026년 11월 28일 (토) 기념행사</p>
       <p class="wm-copy">잠깐 시간 내어 참여해 주시면 준비에 큰 힘이 됩니다.</p>
       <div id="wm-surveys"></div>
-      <div class="wm-payments">
-        <a class="wm-payment disabled" id="wm-card-payment" href="#" target="_blank" rel="noopener">카드 결제 준비 중</a>
-        <a class="wm-payment disabled" id="wm-transfer-payment" href="#" target="_blank" rel="noopener">간편 송금 준비 중</a>
-      </div>
+      <div id="wm-pay-cta"></div>
       <button class="wm-later" id="wm-later" type="button">다음에 할게요</button>
     </div>
   </div>
@@ -928,6 +925,21 @@
       }
       renderHeroApply((CONFIG.PAYMENTS || {}).provider, (CONFIG.PAYMENTS || {}).eventusUrl);
 
+      // 모달 메인 CTA — 이벤터스 참가 신청 (신청·결제 일원화)
+      var payCtaEl = document.getElementById("wm-pay-cta");
+      function renderModalApply(provider, url) {
+        var u = safeUrl(url);
+        var over = new Date(CONFIG.EVENT_DATE).getTime() <= Date.now();
+        if (!over && provider === "eventus" && u) {
+          payCtaEl.innerHTML =
+            '<a class="wm-apply" href="' + escapeHtml(u) + '" target="_blank" rel="noopener">🎉 40주년 행사 참가 신청</a>' +
+            '<p class="hero-apply-note">신청과 참가비 결제를 이벤터스에서 한 번에 진행합니다.</p>';
+        } else {
+          payCtaEl.innerHTML = "";
+        }
+      }
+      renderModalApply((CONFIG.PAYMENTS || {}).provider, (CONFIG.PAYMENTS || {}).eventusUrl);
+
       renderSurveys();
       renderHeroSurveys();
       MR40Ops.rows("surveys").then(function (sheetSurveys) {
@@ -939,18 +951,10 @@
       });
       MR40Ops.rows("event").then(function (eventRows) {
         var data = MR40Ops.eventMap(eventRows);
-        renderHeroApply(data.payment_provider || CONFIG.PAYMENTS.provider, data.eventus_url || CONFIG.PAYMENTS.eventusUrl);
-        [
-          ["wm-card-payment", data.card_payment || CONFIG.PAYMENTS.cardUrl, "카드 결제"],
-          ["wm-transfer-payment", data.transfer_payment || CONFIG.PAYMENTS.transferUrl, "간편 송금"],
-        ].forEach(function (item) {
-          var url = safeUrl(item[1]);
-          if (!url) return;
-          var link = document.getElementById(item[0]);
-          link.href = url;
-          link.textContent = item[2];
-          link.classList.remove("disabled");
-        });
+        var liveProvider = data.payment_provider || CONFIG.PAYMENTS.provider;
+        var liveEventus = data.eventus_url || CONFIG.PAYMENTS.eventusUrl;
+        renderHeroApply(liveProvider, liveEventus);
+        renderModalApply(liveProvider, liveEventus);
         var eventTime = new Date(CONFIG.EVENT_DATE).getTime();
         var live = safeUrl(data.live_url || CONFIG.EVENT_DETAILS.liveUrl);
         var replay = safeUrl(data.replay_url || CONFIG.EVENT_DETAILS.replayUrl);

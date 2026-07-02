@@ -3,8 +3,9 @@ const CONFIG = {
   SITE_URL: "https://kaistmr.github.io/mr40-website/",
   OG_IMAGE: "assets/og-image.png",
 
-  // 구글시트 '웹에 게시' CSV 주소 (미발급 시 "" — 페이지에 안내 표시됨)
-  MEMBERS_CSV_URL: "https://docs.google.com/spreadsheets/d/e/2PACX-1vTOJwiWrRbj2_fFav3sga3dNum3iCjtwn0WdJeOoY-H3sM3EYGmx24WGgqSk9LBg22W-1WPyBJ03Mww/pub?gid=738005260&single=true&output=csv",
+  // 주소록 암호문 경로 (AES-256-GCM). scripts/encrypt-members.mjs 로 생성.
+  // 접속 코드로 브라우저에서 복호화하며, 게시되는 파일은 암호문뿐이라 코드 없이는 읽을 수 없음.
+  MEMBERS_ENC_PATH: "data/members.enc",
   OPS_SHEETS: {
     notices: "",
     event: "",
@@ -51,8 +52,6 @@ const CONFIG = {
   ],
   // Cloudflare R2 공개 버킷 베이스 URL (예: https://pub-xxx.r2.dev)
   R2_BASE_URL: "",
-  // 주소록 접속 코드의 SHA-256 해시 (코드 변경: 새 코드를 해시해서 교체)
-  MEMBERS_CODE_HASH: "eb9ccc68c4b8f5cbbd365d73ce2be9c0da9e56ec89b44feec7ce9bd7524209b9",
   // 행사 정보
   EVENT_DATE: "2026-11-28T15:00:00+09:00",
   EVENT_PLACE: "롯데시티호텔 대전",

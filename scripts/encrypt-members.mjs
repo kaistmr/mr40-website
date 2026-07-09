@@ -8,7 +8,7 @@
 //
 // 접속 코드는 stdin으로 입력(가려짐). 환경변수 MEMBERS_CODE 로도 전달 가능(테스트용).
 //
-// 사이트 스키마(열 순서): 이름, 기수, 소속, 이메일, 전화번호, 관심사, 한마디
+// 사이트 스키마(열 순서): 이름, 기수, 소속, 이메일, 전화번호, 관심사, 한마디, 회장
 // 브라우저(members.html)는 헤더 1줄을 건너뛰고 위치 기반으로 읽는다.
 
 import fs from "node:fs";
@@ -127,11 +127,16 @@ function parseSheet(xml, strings) {
   let rm;
   while ((rm = rowRe.exec(xml))) {
     const cells = {};
-    const cRe = /<c\b([^>]*)>([\s\S]*?)<\/c>|<c\b([^>]*)\/>/g;
+    // 자기닫힘 대안(<c .../>)을 먼저 시도해야 한다 — 여는 태그 대안의 [^>]*가
+    // 순서상 먼저 걸리면 자기닫힘 태그 끝의 "/"까지 attrs로 먹어치우고, 그 뒤
+    // "<c .../><c ...>본문</c>" 형태를 "여는 태그 + 본문"으로 잘못 매치해
+    // 다음 셀 전체를 이 셀의 body로 삼켜버린다(다음 셀 t="s" 정보 유실 → 공유
+    // 문자열 인덱스가 원시 숫자 값으로 새어나감).
+    const cRe = /<c\b([^>]*)\/>|<c\b([^>]*)>([\s\S]*?)<\/c>/g;
     let cm;
     while ((cm = cRe.exec(rm[1]))) {
-      const attrs = cm[1] || cm[3] || "";
-      const body = cm[2] || "";
+      const attrs = cm[1] || cm[2] || "";
+      const body = cm[3] || "";
       const refM = /r="([A-Z]+\d+)"/.exec(attrs);
       if (!refM) continue;
       const type = (/t="([^"]+)"/.exec(attrs) || [])[1];
@@ -157,8 +162,8 @@ function legacyXlsxToRows(buf) {
   const strings = parts["xl/sharedStrings.xml"]
     ? parseSharedStrings(parts["xl/sharedStrings.xml"].toString("utf8")) : [];
   const sheet = parseSheet(parts["xl/worksheets/sheet1.xml"].toString("utf8"), strings);
-  // 구 스키마: A 기수/학번, B 이름, C 전화, D 직장, E 지역1, F 지역2, G 이메일, H 이메일2
-  const header = ["이름", "기수", "소속", "이메일", "전화번호", "관심사", "한마디"];
+  // 구 스키마: A 기수/학번, B 이름, C 전화, D 직장, E 지역1, F 지역2, G 이메일, H 이메일2, J 비고(회장 표시)
+  const header = ["이름", "기수", "소속", "이메일", "전화번호", "관심사", "한마디", "회장"];
   const dataRows = sheet.slice(1); // 1행 헤더 제외
   const mapped = [];
   for (const d of dataRows) {
@@ -171,7 +176,8 @@ function legacyXlsxToRows(buf) {
     const org = [ (d.D || "").trim(), (d.E || "").trim() ].filter(Boolean).join(", ");
     const email = (d.G || "").trim() || (d.H || "").trim();
     const phone = (d.C || "").trim();
-    mapped.push([name, cohort, org, email, phone, "", ""]);
+    const pres = (d.J || "").includes("회장") ? "회장" : "";
+    mapped.push([name, cohort, org, email, phone, "", "", pres]);
   }
   return [header, ...mapped];
 }

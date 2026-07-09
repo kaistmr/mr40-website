@@ -555,6 +555,7 @@
     var COL_PHONE    = 4;
     var COL_INTEREST = 5;
     var COL_QUOTE    = 6;
+    var COL_PRES     = 7;
 
     // ── 전체 회원 데이터 (검색에 사용) ──
     var allRows = [];
@@ -753,8 +754,10 @@
         ? (/^\d+$/.test(cohortRaw.replace(/\s/g, "")) ? escapeHtml(cohortRaw) + "학번" : escapeHtml(cohortRaw))
         : "";
 
-      // 역대 회장 뱃지 — data/presidents.json에 이름+기수가 등록돼 있으면 표시
-      var presLabel = presidentsMap[(r[COL_NAME] || "").trim() + "|" + normCohort(cohortRaw)];
+      // 역대 회장 뱃지 — data/presidents.json(수동, 우선)에 이름+기수가 등록돼 있으면 그 라벨을 쓰고,
+      // 없으면 원본 엑셀 J열(비고)에서 자동 추출한 r[COL_PRES]("회장")를 라벨로 사용한다.
+      // 구버전 데이터(7열)는 r[COL_PRES]가 undefined이므로 자연히 뱃지 없이 동작한다.
+      var presLabel = presidentsMap[(r[COL_NAME] || "").trim() + "|" + normCohort(cohortRaw)] || r[COL_PRES] || "";
       var presBadgeHtml = presLabel
         ? '<span class="pres-badge">👑 ' + escapeHtml(presLabel) + "</span>"
         : "";

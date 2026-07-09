@@ -211,7 +211,21 @@ function encrypt(plaintext, code) {
   };
 }
 
-export { parseCsv, toCsv, legacyXlsxToRows, encrypt, ITERATIONS };
+// ── 복호화 (encrypt()의 역연산 — 봉투의 salt/iv/iter를 그대로 사용) ──
+function decrypt(blob, code) {
+  const salt = Buffer.from(blob.salt, "base64");
+  const iv = Buffer.from(blob.iv, "base64");
+  const key = crypto.pbkdf2Sync(Buffer.from(code, "utf8"), salt, blob.iter, 32, "sha256");
+  const ctTag = Buffer.from(blob.ct, "base64");
+  const tag = ctTag.subarray(ctTag.length - 16);
+  const ct = ctTag.subarray(0, ctTag.length - 16);
+  const decipher = crypto.createDecipheriv("aes-256-gcm", key, iv);
+  decipher.setAuthTag(tag);
+  const plain = Buffer.concat([decipher.update(ct), decipher.final()]);
+  return plain.toString("utf8");
+}
+
+export { parseCsv, toCsv, legacyXlsxToRows, encrypt, decrypt, ITERATIONS };
 
 async function main() {
   const args = parseArgs(process.argv.slice(2));

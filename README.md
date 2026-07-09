@@ -23,7 +23,7 @@ KAIST 동아리 **MR**(Microrobot Research, 1986~) 창립 40주년 기념 사이
 
 ## 🛠️ 운영 원리 (3줄 요약)
 
-1. **주소록·방명록**: 구글폼으로 받은 응답이 구글시트에 쌓이고, 시트를 "웹에 게시(CSV)"하면 사이트가 자동으로 읽어옵니다.
+1. **주소록**: 비공개 구글 시트(주소록 원본 + 연락처 설문 응답)를 GitHub Actions가 매일 새벽 자동으로 읽어 병합·암호화한 `data/members.enc`를 커밋합니다. **방명록**은 구글폼 응답이 쌓인 시트를 "웹에 게시(CSV)"하면 사이트가 자동으로 읽어옵니다.
 2. **사진**: `scripts/build_gallery.py`가 원본 사진을 썸네일(WebP)로 변환해 사이트에 넣습니다.
 3. **영상**: YouTube(한정공개)에 올리고 `data/videos.json`에 ID만 적으면 됩니다.
 
@@ -33,17 +33,20 @@ KAIST 동아리 **MR**(Microrobot Research, 1986~) 창립 40주년 기념 사이
 
 `config.js` 파일의 빈 값들을 채우면 기능이 하나씩 켜집니다:
 
-1. **주소록**: 구글폼 생성(이름/기수/소속/이메일/전화/관심사/한마디 순서) → 응답 시트에서 같은 열 순서의 `Web` 시트 구성 → [파일]→[공유]→[웹에 게시]→해당 시트를 CSV로 게시 → 그 URL을 `MEMBERS_CSV_URL`에, 폼 URL을 `MEMBERS_FORM_URL`에 입력
-2. **접속 코드**: 코드를 정한 뒤 터미널에서 해시 생성 →
-   ```bash
-   echo -n "정한코드" | shasum -a 256
-   ```
-   결과 해시를 `MEMBERS_CODE_HASH`에 입력. 코드는 동문 공지로만 배포하세요.
-   ⚠️ 클라이언트 측 보호라 완벽한 보안이 아닙니다. 민감한 정보는 시트에 넣지 마세요.
-3. **방명록**: 구글폼(이름/기수/메시지) → 같은 방식으로 `GUESTBOOK_CSV_URL`, `GUESTBOOK_FORM_URL` 입력. 시트 열 순서는 타임스탬프/이름/기수/메시지.
-4. **40주년 설문 3종**: `config.js`의 `SURVEYS` 배열에서 각 설문(참석 조사 / 총회 한마디·동잠 / 연락처 업데이트)의 `url`에 구글폼 주소를 넣으세요. 첫 화면 팝업과 우하단 "참여하기" 버튼에 자동 표시됩니다. 시기상 내릴 설문은 `active: false`로 바꾸면 됩니다.
-5. **행사 신청(구버전 키)**: 폼 URL을 `EVENT_FORM_URL`에. 장소 확정 시 `EVENT_PLACE` 수정. 프로그램은 `event.html` 상단의 `EVENT_INFO`/`PROGRAM` 상수 수정.
-6. **원본급 사진(선택)**: Cloudflare R2 공개 버킷 생성 → `build_gallery.py --full-out`으로 만든 full WebP를 `full/` 경로에 업로드 → 버킷 공개 URL을 `R2_BASE_URL`에 입력. 비워두면 라이트박스가 썸네일을 사용합니다(동작에는 문제 없음).
+1. **주소록**: 접속 코드로 보호되는 페이지(`members.html`)는 CSV를 직접 읽지 않고, 접속 코드로 복호화하는 암호문 `data/members.enc`(`config.js`의 `MEMBERS_ENC_PATH`)를 읽습니다. 이 파일은 두 가지 방법으로 만들 수 있습니다.
+   - **자동(권장)**: GitHub Actions `update-members` 워크플로가 비공개 구글 시트 2개(주소록 원본 + 연락처 설문 응답)를 매일 읽어 병합·암호화·커밋합니다. 최초 설정 절차는 [`docs/members-pipeline-guide.md`](docs/members-pipeline-guide.md)를 참고하세요.
+   - **수동**: CSV나 구 엑셀 주소록을 직접 암호화하려면 `node scripts/encrypt-members.mjs --csv <경로>`(또는 `--legacy-xlsx <경로>`)를 실행하고 접속 코드를 입력하면 `data/members.enc`가 생성됩니다.
+   - 연락처 업데이트 폼 링크는 `MEMBERS_FORM_URL`(비워두면 `SURVEYS`의 `contact` 설문 URL을 대신 사용)에 입력합니다.
+   - 접속 코드 자체는 동문 공지로만 배포하고, 자동 파이프라인을 쓴다면 GitHub Secrets의 `MEMBERS_CODE`도 같은 값으로 맞춰 두세요(둘이 다르면 사이트에서 복호화가 실패합니다).
+   - ⚠️ 접속 코드는 클라이언트 측 검증(복호화 성공 여부)이라 완벽한 보안이 아닙니다. 극도로 민감한 정보는 시트에 넣지 마세요.
+2. **방명록**: 구글폼(이름/기수/메시지) → 응답 시트를 [파일]→[공유]→[웹에 게시]로 CSV 게시 → 그 URL을 `GUESTBOOK_CSV_URL`에, 폼 URL을 `GUESTBOOK_FORM_URL`에 입력. 시트 열 순서는 타임스탬프/이름/기수/메시지.
+3. **40주년 설문 3종**: `config.js`의 `SURVEYS` 배열에서 각 설문(참석 조사 / 동잠 주문 / 연락처 업데이트)의 `url`에 구글폼 주소를 넣으세요. 첫 화면 팝업과 우하단 "참여하기" 버튼에 자동 표시됩니다. 시기상 내릴 설문은 `active: false`로 바꾸면 됩니다.
+4. **행사 신청(구버전 키)**: 폼 URL을 `EVENT_FORM_URL`에. 장소 확정 시 `EVENT_PLACE` 수정. 프로그램은 `event.html` 상단의 `EVENT_INFO`/`PROGRAM` 상수 수정.
+5. **원본급 사진(선택)**: Cloudflare R2 공개 버킷 생성 → `build_gallery.py --full-out`으로 만든 full WebP를 `full/` 경로에 업로드 → 버킷 공개 URL을 `R2_BASE_URL`에 입력. 비워두면 라이트박스가 썸네일을 사용합니다(동작에는 문제 없음).
+
+## 🔄 주소록 자동 갱신 파이프라인
+
+`.github/workflows/update-members.yml`이 매일 03:00 KST(cron `0 18 * * *`, UTC 기준)와 수동 실행(`workflow_dispatch`)으로 `scripts/build-members-enc.mjs`를 돌립니다. 구글 서비스 계정(Sheets API, `spreadsheets.readonly` 스코프)으로 비공개 시트 2개를 읽어 병합 규칙(동의한 최신 응답만 반영, 비공개 선택자는 제외 등)을 적용하고, 기존 `data/members.enc`를 접속 코드로 복호화해 내용이 실제로 바뀐 경우에만 새로 암호화해 커밋합니다. 회원 데이터는 어떤 단계에서도 로그에 출력되지 않습니다(개수만 출력). 서비스 계정 발급, GitHub Secrets/Variables 등록, 문제 해결은 [`docs/members-pipeline-guide.md`](docs/members-pipeline-guide.md)에 단계별로 정리되어 있습니다.
 
 ## 운영 시트 연결
 
@@ -97,12 +100,18 @@ python3 patch_archive_compat.py   # 모던 브라우저 호환 패치
 
 ## ⚠️ 문제 해결
 
-**Q. 주소록/방명록이 안 떠요**
+**Q. 방명록이 안 떠요**
 - 구글시트 [파일]→[공유]→[웹에 게시]가 풀렸는지 확인하세요. CSV 형식으로 게시돼 있어야 합니다.
-- 링크가 바뀌었으면 `config.js`의 URL을 교체하세요.
+- 링크가 바뀌었으면 `config.js`의 `GUESTBOOK_CSV_URL`을 교체하세요.
+
+**Q. 주소록이 안 떠요 / 접속 코드가 안 맞아요**
+- `data/members.enc` 파일이 존재하고 최근에 갱신됐는지 확인하세요. GitHub Actions **update-members** 워크플로 실행 로그에서 `changed`/`no-change`가 정상 출력되는지 봅니다.
+- 코드가 틀렸다는 토스트가 뜨면, 실제로 코드가 다르거나(동문 공지 코드와 `MEMBERS_CODE` 시크릿 불일치) `data/members.enc`가 다른 코드로 암호화된 상태입니다.
 
 **Q. 접속 코드를 바꾸고 싶어요**
-- 위 "최초 설정 2번" 방법으로 새 해시를 만들어 `MEMBERS_CODE_HASH`만 교체하면 됩니다.
+- 자동 파이프라인을 쓴다면 GitHub Secrets의 `MEMBERS_CODE`를 새 코드로 교체한 뒤 **Actions → update-members → Run workflow**로 수동 실행하세요. 시트 내용이 그대로여도 코드가 바뀌면 기존 파일을 복호화하지 못해 자동으로 새 코드로 재암호화·커밋됩니다.
+- 수동으로 관리한다면 `node scripts/encrypt-members.mjs --csv <경로>`를 새 코드로 다시 실행해 `data/members.enc`를 갱신하세요.
+- 어느 방법이든 동문에게 공지하는 코드와 반드시 동일해야 합니다.
 
 **Q. 사진이 너무 많아서 리포가 무거워져요**
 - 썸네일은 장당 ~40KB라 수천 장도 수백 MB 수준입니다. GitHub 권장 한도(1GB)에 가까워지면 큐레이션을 줄이거나 R2로 이전하세요.

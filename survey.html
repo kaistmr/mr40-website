@@ -61,6 +61,10 @@
       <p><strong>연락처 업데이트는 모든 동문께 권장드립니다.</strong> 이미 주소록에 정보가 있으신 분도 새로 작성해 주세요 — 새 내용이 기존 데이터 위에 갱신됩니다.</p>
       <p>이번에는 이름·연락처뿐 아니라 <strong>관심사와 졸업 후 진로·경력</strong>까지 새로 받아, 주소록 전체를 리뉴얼합니다.</p>
     </aside>
+    <aside class="survey-info card" id="donate-note" hidden>
+      <p><strong>후원은 사단법인 계좌로 이체하신 뒤 이 설문을 작성해 주시면 완료됩니다.</strong> 설문에 남겨 주신 주소로 사은품을 보내드립니다.</p>
+      <p>후원 금액에 따라 <strong>기부자 티켓</strong>을 드립니다. 세부 기준은 확정되는 대로 이 자리와 단톡방에 안내드릴게요.</p>
+    </aside>
     <div class="survey-actions">
       <a class="survey-open disabled" id="external-form" href="#" target="_blank" rel="noopener">설문을 새 창에서 열기</a>
     </div>
@@ -73,9 +77,10 @@
       <strong>결제(입금)자 이름을 신청서의 이름과 같게</strong> 해주시면 확인이 빨라집니다.</p>
       <table class="fee-table" aria-label="참가비 안내">
         <tbody>
-          <tr><th>졸업생 및 성인</th><td>12만원</td></tr>
-          <tr><th>학부생 및 가족(미성년)</th><td>5만원</td></tr>
-          <tr><th>유, 아동 가족</th><td>3만원</td></tr>
+          <tr><th>졸업생 및 가족(성인)</th><td>12만원</td></tr>
+          <tr><th>대학원생</th><td>8만원</td></tr>
+          <tr><th>학부생(현재 동아리원) 및 가족(유·아동 제외)</th><td>5만원</td></tr>
+          <tr><th>가족(유·아동)</th><td>2만 5천원</td></tr>
         </tbody>
       </table>
       <div class="pay-buttons" id="pay-buttons"></div>
@@ -99,6 +104,7 @@
       document.getElementById("survey-title").textContent = survey.title || "설문 참여";
       document.getElementById("survey-desc").textContent = survey.desc || "아래 문항을 작성한 뒤 마지막의 보내기 버튼을 눌러 주세요.";
       if (id === "contact") document.getElementById("contact-note").hidden = false;
+      if (id === "donate") document.getElementById("donate-note").hidden = false;
       var url = safeUrl(survey.url);
       if (url && generation && survey.prefill_generation_key) {
         var u = new URL(url);

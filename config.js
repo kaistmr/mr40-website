@@ -49,6 +49,15 @@ const CONFIG = {
       active: true,
       prefill_generation_key: "entry.1146662053",
     },
+    {
+      id: "donate",
+      icon: "💝",
+      title: "40주년 후원",
+      desc: "사단법인 계좌 이체로 후원하고 설문을 남겨 주시면 사은품을 보내드립니다.",
+      url: "",
+      active: true,
+      prefill_generation_key: "",
+    },
   ],
   // Cloudflare R2 공개 버킷 베이스 URL (예: https://pub-xxx.r2.dev)
   R2_BASE_URL: "",
@@ -60,7 +69,12 @@ const CONFIG = {
     address: "",
     rooms: ["크리스탈볼룸", "루비룸 (1층)"],
     audience: ["MR 동문 (역대 전 기수)", "현역 부원", "지도교수 및 내빈", "가족 동반 환영"],
-    fee: ["졸업생 및 성인 12만원", "학부생 및 가족(미성년) 5만원", "유, 아동 가족 3만원"],
+    fee: [
+      "졸업생 및 가족(성인) 12만원",
+      "대학원생 8만원",
+      "학부생(현재 동아리원) 및 가족(유·아동 제외) 5만원",
+      "가족(유·아동) 2만 5천원",
+    ],
     // 행사 당일 안내(day.html) 정적 폴백 — 운영시트(parking/seating/emergency)가 있으면 그쪽이 우선
     parking: "호텔 지하 주차장 이용 가능",
     seating: "선착순 배정 예정",

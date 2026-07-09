@@ -232,11 +232,31 @@
       margin-bottom: 0.6rem;
     }
 
+    .member-name-wrap {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
     .member-name {
       font-size: 1.1rem;
       font-weight: 800;
       letter-spacing: -0.02em;
       color: var(--text);
+    }
+
+    /* ── 역대 회장 뱃지 (금색 계열) ── */
+    .pres-badge {
+      background: rgba(255, 200, 60, 0.12);
+      color: #f0c34e;
+      border: 1px solid rgba(255, 200, 60, 0.35);
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.15rem 0.55rem;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .cohort-badge {
@@ -539,6 +559,30 @@
     // ── 전체 회원 데이터 (검색에 사용) ──
     var allRows = [];
 
+    // ── 기수 정규화: "1"~"9" 한 자리 → "01"~"09" 두 자리 (01~09학번이 숫자로 저장된 경우 보정) ──
+    function normCohort(c) {
+      c = (c || "").trim();
+      return /^\d$/.test(c) ? "0" + c : c;
+    }
+
+    // ── 역대 회장 이력 (data/presidents.json, 채워지면 자동 반영) ──
+    // key: "이름|정규화된 기수" → label (예: "10대 회장")
+    var presidentsMap = {};
+    fetch("data/presidents.json")
+      .then(function (res) { return res.ok ? res.json() : []; })
+      .then(function (list) {
+        (list || []).forEach(function (p) {
+          if (!p || !p.name || !p.label) return;
+          var key = p.name.trim() + "|" + normCohort(p.cohort);
+          presidentsMap[key] = p.label;
+        });
+        // presidents.json이 카드 렌더 이후 늦게 도착할 수 있으므로 재렌더로 뱃지를 반영한다.
+        if (allRows.length > 0) {
+          applyFilter(document.getElementById("search-input").value);
+        }
+      })
+      .catch(function () { /* 명단 없음 — 뱃지 없이 정상 동작 */ });
+
     // ── 소속 배지 색상 결정 (해시 기반) ──
     function orgColorClass(text) {
       var hash = 0;
@@ -596,6 +640,11 @@
         if (!silent) showToast("접속 코드가 올바르지 않습니다.");
         return;
       }
+      // 01~09학번이 원본 엑셀에 숫자 1~9로 저장된 경우가 있어 로드 시점에 두 자리로 정규화한다
+      // (카드 표시·검색 모두 이 정규화된 값을 기준으로 동작하게 하기 위함).
+      rows.forEach(function (r) {
+        if (r[COL_COHORT]) r[COL_COHORT] = normCohort(r[COL_COHORT]);
+      });
       allRows = rows;
       sessionStorage.setItem("mr40_code", code);          // 세션 편의(탭 닫으면 소멸)
       localStorage.removeItem("mr40_members");            // 과거 평문 캐시 제거
@@ -704,6 +753,12 @@
         ? (/^\d+$/.test(cohortRaw.replace(/\s/g, "")) ? escapeHtml(cohortRaw) + "학번" : escapeHtml(cohortRaw))
         : "";
 
+      // 역대 회장 뱃지 — data/presidents.json에 이름+기수가 등록돼 있으면 표시
+      var presLabel = presidentsMap[(r[COL_NAME] || "").trim() + "|" + normCohort(cohortRaw)];
+      var presBadgeHtml = presLabel
+        ? '<span class="pres-badge">👑 ' + escapeHtml(presLabel) + "</span>"
+        : "";
+
       // 소속 배지들
       var orgHtml = "";
       if (orgRaw.trim()) {
@@ -777,7 +832,10 @@
       return (
         '<div class="member-card">' +
         '<div class="member-card-top">' +
+        '<span class="member-name-wrap">' +
         '<span class="member-name">' + name + "</span>" +
+        presBadgeHtml +
+        "</span>" +
         (cohortDisplay ? '<span class="cohort-badge">' + cohortDisplay + "</span>" : "") +
         "</div>" +
         (orgHtml ? '<div class="org-badges">' + orgHtml + "</div>" : "") +

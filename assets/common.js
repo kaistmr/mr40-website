@@ -235,7 +235,7 @@ function initStaggerReveal() {
         io.disconnect();
         scheduleCleanup();
       });
-    }, { threshold: 0.1 });
+    }, { threshold: 0 }); // 0.1이면 대형 그리드(예: 주소록 543장)는 전체 10% 교차가 불가능해 영영 발화하지 않는다 — 1px만 보여도 발화하게 0으로 설정
     io.observe(box);
   });
 }

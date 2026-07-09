@@ -166,6 +166,8 @@ function legacyXlsxToRows(buf) {
     if (!name) continue;
     let cohort = (d.A || "").trim();
     if (cohort.endsWith(".0")) cohort = cohort.slice(0, -2);
+    // 01~09학번이 숫자 1~9로 저장된 경우 두 자리로 정규화(members.html의 로드 시점 정규화와 동일 규칙)
+    if (/^\d$/.test(cohort)) cohort = cohort.padStart(2, "0");
     const org = [ (d.D || "").trim(), (d.E || "").trim() ].filter(Boolean).join(", ");
     const email = (d.G || "").trim() || (d.H || "").trim();
     const phone = (d.C || "").trim();

@@ -54,7 +54,7 @@ const CONFIG = {
       icon: "💝",
       title: "40주년 후원",
       desc: "사단법인 계좌 이체로 후원하고 설문을 남겨 주시면 사은품을 보내드립니다.",
-      url: "",
+      url: "https://docs.google.com/forms/d/e/1FAIpQLSdqSTzf-gZvq2JPLxGkXQVHg-x0IhI2pvBC2Alx5RQbqFTDKg/viewform",
       active: true,
       prefill_generation_key: "",
     },

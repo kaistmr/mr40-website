@@ -61,6 +61,11 @@
       <p><strong>연락처 업데이트는 모든 동문께 권장드립니다.</strong> 이미 주소록에 정보가 있으신 분도 새로 작성해 주세요 — 새 내용이 기존 데이터 위에 갱신됩니다.</p>
       <p>이번에는 이름·연락처뿐 아니라 <strong>관심사와 졸업 후 진로·경력</strong>까지 새로 받아, 주소록 전체를 리뉴얼합니다.</p>
     </aside>
+    <aside class="survey-info card" id="jacket-note" hidden>
+      <p><strong>예상 단가는 54,000원</strong>이며, 입금은 주문 수합 후 별도로 안내드립니다.</p>
+      <p>제작 기간 관계로 주문은 <strong>9월 13일(일)까지</strong>만 받습니다.</p>
+      <p>수집한 정보는 40주년 행사 운영 목적에 한해 사용하며, 행사 종료 후 파기합니다.</p>
+    </aside>
     <aside class="survey-info card" id="donate-note" hidden>
       <p><strong>후원은 사단법인 계좌로 이체하신 뒤 이 설문을 작성해 주시면 완료됩니다.</strong> 설문에 남겨 주신 주소로 사은품을 보내드립니다.</p>
       <p>후원해 주신 분들은 메인 페이지의 <strong>'함께하는 분들'</strong>에 성함 또는 로고로 모십니다. 익명 후원을 원하시면 설문에서 선택해 주세요.</p>
@@ -104,6 +109,7 @@
       document.getElementById("survey-title").textContent = survey.title || "설문 참여";
       document.getElementById("survey-desc").textContent = survey.desc || "아래 문항을 작성한 뒤 마지막의 보내기 버튼을 눌러 주세요.";
       if (id === "contact") document.getElementById("contact-note").hidden = false;
+      if (id === "jacket") document.getElementById("jacket-note").hidden = false;
       if (id === "donate") document.getElementById("donate-note").hidden = false;
       var url = safeUrl(survey.url);
       if (url && generation && survey.prefill_generation_key) {

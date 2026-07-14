@@ -52,9 +52,10 @@ const CONFIG = {
       icon: "📇",
       title: "동문 근황 · 연락처 업데이트",
       desc: "주소록에 실릴 연락처와 졸업 후 진로·경력을 갱신해 주세요.",
-      url: "https://docs.google.com/forms/d/e/1FAIpQLSeaKDi6DRe2DqktW4CvvKRyENXLbiyFd2GgMYhRqiEnNc1uCw/viewform",
+      // 구글폼 → 사이트 자체 폼(update.html, Supabase 직접 저장)으로 이관
+      url: "update.html",
       active: true,
-      prefill_generation_key: "entry.1146662053",
+      prefill_generation_key: "",
     },
     {
       id: "donate",

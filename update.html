@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MR 40주년 동문 근황·연락처 업데이트" />
+  <meta property="og:title" content="근황·연락처 업데이트 — MR 40" /><meta property="og:description" content="주소록에 실릴 연락처와 졸업 후 진로·경력을 갱신해 주세요." />
+  <meta property="og:image" content="https://kaistmr.github.io/mr40-website/assets/og-image.png" /><meta property="og:url" content="https://kaistmr.github.io/mr40-website/update.html" />
+  <meta property="og:type" content="website" /><meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="assets/favicon.png" /><link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <title>근황·연락처 업데이트 — MR 40</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <script src="config.js"></script>
+  <script src="assets/common.js"></script>
+  <style>
+    .up-wrap { max-width: 720px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
+    .up-head { text-align: center; margin-bottom: 1.5rem; }
+    .up-head h1 { font-size: clamp(1.7rem, 6vw, 2.5rem); margin-bottom: 0.6rem; }
+    .up-head p { color: var(--muted); line-height: 1.7; }
+    .up-info { margin: 0 auto 1.25rem; padding: 1.1rem 1.35rem; line-height: 1.75; border-left: 3px solid var(--accent); }
+    .up-info p { margin: 0; color: var(--muted); }
+    .up-info p + p { margin-top: 0.55rem; }
+    .up-info strong { color: var(--text); }
+    .up-form { padding: 1.5rem 1.35rem; }
+    .field { margin-bottom: 1.25rem; }
+    .field label { display: block; font-weight: 700; margin-bottom: 0.4rem; }
+    .field .req { color: var(--accent); margin-left: 0.15rem; }
+    .field .hint { display: block; font-weight: 400; font-size: 0.82rem; color: var(--muted); margin-top: 0.2rem; }
+    .field input[type=text], .field input[type=tel], .field input[type=email], .field textarea {
+      width: 100%; min-height: 46px; padding: 0.6rem 0.85rem; border-radius: 0.65rem;
+      border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.04); color: var(--text);
+      font-size: 1rem; font-family: inherit;
+    }
+    .field textarea { min-height: 92px; resize: vertical; line-height: 1.6; }
+    .field input:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
+    .radio-row { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .radio-row label { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 500; margin: 0; }
+    .radio-row input { width: 20px; height: 20px; accent-color: var(--accent); }
+    .consent-box { margin: 1.25rem 0; padding: 1rem 1.15rem; border-radius: 0.65rem; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.12); line-height: 1.7; font-size: 0.9rem; color: var(--muted); }
+    .consent-box strong { color: var(--text); }
+    .consent-check { display: flex; align-items: flex-start; gap: 0.5rem; margin-top: 0.85rem; font-weight: 700; color: var(--text); }
+    .consent-check input { width: 20px; height: 20px; margin-top: 0.1rem; accent-color: var(--accent); flex: none; }
+    .submit-btn { display: block; width: 100%; min-height: 52px; margin-top: 1.5rem; border: none; border-radius: 9999px; background: var(--accent); color: #fff; font-size: 1.05rem; font-weight: 700; cursor: pointer; }
+    .submit-btn:disabled { opacity: 0.55; cursor: default; }
+    .done-box { display: none; padding: 2.5rem 1.5rem; text-align: center; line-height: 1.9; }
+    .done-box .big { font-size: 2.5rem; }
+    .done-box a { color: var(--accent); text-decoration: underline; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <script>injectNav("update.html");</script>
+  <main class="up-wrap">
+    <header class="up-head">
+      <h1>동문 근황 · 연락처 업데이트</h1>
+      <p>주소록에 실릴 연락처와 졸업 후 진로·경력을 갱신해 주세요.<br>이미 정보가 있으신 분도 새로 작성하시면 기존 내용 위에 갱신됩니다.</p>
+    </header>
+
+    <aside class="up-info card">
+      <p><strong>이름과 기수는 기존 주소록과 같게</strong> 적어 주세요 — 같은 사람으로 인식해 정보를 갱신합니다.</p>
+      <p>공개 범위를 <strong>비공개</strong>로 선택하시면 주소록에서 완전히 제외됩니다.</p>
+    </aside>
+
+    <form class="up-form card" id="update-form" autocomplete="on">
+      <div class="field">
+        <label for="f-cohort">기수 <span class="req">*</span>
+          <span class="hint">입학 연도 두 자리 (예: 1995학번 → 95, 2008학번 → 08)</span></label>
+        <input type="text" id="f-cohort" name="cohort" inputmode="numeric" required />
+      </div>
+      <div class="field">
+        <label for="f-name">이름 <span class="req">*</span></label>
+        <input type="text" id="f-name" name="name" required />
+      </div>
+      <div class="field">
+        <label for="f-phone">휴대폰
+          <span class="hint">예: 010-1234-5678</span></label>
+        <input type="tel" id="f-phone" name="phone" />
+      </div>
+      <div class="field">
+        <label for="f-email">이메일</label>
+        <input type="email" id="f-email" name="email" />
+      </div>
+      <div class="field">
+        <label for="f-current_org">현재 소속 · 직위
+          <span class="hint">예: 현대자동차 책임연구원 / KAIST 박사과정 / 프리랜서</span></label>
+        <input type="text" id="f-current_org" name="current_org" />
+      </div>
+      <div class="field">
+        <label for="f-education">최종 학력</label>
+        <input type="text" id="f-education" name="education" />
+      </div>
+      <div class="field">
+        <label for="f-major">전공</label>
+        <input type="text" id="f-major" name="major" />
+      </div>
+      <div class="field">
+        <label for="f-career">경력
+          <span class="hint">거쳐온 회사·직무나 활동을 자유롭게 적어 주세요.</span></label>
+        <textarea id="f-career" name="career"></textarea>
+      </div>
+      <div class="field">
+        <label for="f-note">한마디 · 근황
+          <span class="hint">주소록 카드에 실릴 짧은 인사나 근황.</span></label>
+        <textarea id="f-note" name="note"></textarea>
+      </div>
+
+      <div class="field">
+        <label>주소록 공개 범위 <span class="req">*</span></label>
+        <div class="radio-row">
+          <label><input type="radio" name="visibility" value="공개" checked /> 공개 (동문 주소록에 실음)</label>
+          <label><input type="radio" name="visibility" value="비공개" /> 비공개 (주소록에서 제외)</label>
+        </div>
+      </div>
+
+      <div class="consent-box">
+        <strong>개인정보 수집 · 이용 동의</strong><br>
+        수집 항목: 이름, 기수, 연락처(휴대폰·이메일), 소속·경력, 근황.<br>
+        이용 목적: KAIST MR 40주년 기념 동문 주소록 작성 및 행사 운영.<br>
+        보유 · 이용 기간: 행사 운영 종료 후 파기 (동문 주소록은 회칙에 따라 보관).<br>
+        동의를 거부하실 수 있으며, 이 경우 주소록 등재가 제한됩니다.
+        <label class="consent-check">
+          <input type="checkbox" id="f-consent" name="consent" />
+          위 개인정보 수집 · 이용에 동의합니다. <span class="req">*</span>
+        </label>
+      </div>
+
+      <button type="submit" class="submit-btn" id="submit-btn">보내기</button>
+    </form>
+
+    <div class="done-box card" id="done">
+      <div class="big">✅</div>
+      <p><strong>근황이 접수됐습니다. 감사합니다!</strong><br>
+      입력하신 내용은 주소록에 반영됩니다.</p>
+      <p><a href="members.html">주소록으로 돌아가기</a></p>
+    </div>
+  </main>
+  <footer class="site-footer"><p class="footer-name">KAIST MR · Microrobot Research · Since 1986</p><p class="footer-note">© 2026 MR 40주년 준비위원회</p></footer>
+
+  <script>
+  (function () {
+    var form = document.getElementById("update-form");
+    var btn = document.getElementById("submit-btn");
+
+    async function submitUpdate(e) {
+      e.preventDefault();
+      var f = e.target;
+      if (!f.consent.checked) { alert("개인정보 수집·이용에 동의해 주세요."); return; }
+      if (!f.cohort.value.trim() || !f.name.value.trim()) { alert("기수와 이름은 필수입니다."); return; }
+      var payload = {
+        cohort: f.cohort.value.trim(),
+        name: f.name.value.trim(),
+        phone: f.phone.value.trim(),
+        email: f.email.value.trim(),
+        note: f.note.value.trim(),
+        visibility: f.visibility.value,               // "공개" | "비공개"
+        consent: "동의합니다",
+        education: f.education.value.trim(),
+        major: f.major.value.trim(),
+        current_org: f.current_org.value.trim(),
+        career: f.career.value.trim(),
+      };
+      btn.disabled = true; btn.textContent = "보내는 중…";
+      try {
+        var res = await fetch(CONFIG.SUBMIT_UPDATE_URL, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "apikey": CONFIG.SUPABASE_ANON_KEY,
+            "Authorization": "Bearer " + CONFIG.SUPABASE_ANON_KEY,
+            "Prefer": "return=minimal",
+          },
+          body: JSON.stringify(payload),
+        });
+        if (res.ok) {
+          form.style.display = "none";
+          document.getElementById("done").style.display = "block";
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        } else {
+          throw new Error(res.status);
+        }
+      } catch (err) {
+        alert("제출에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+        btn.disabled = false; btn.textContent = "보내기";
+      }
+    }
+
+    form.addEventListener("submit", submitUpdate);
+  })();
+  </script>
+</body>
+</html>

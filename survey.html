@@ -102,6 +102,8 @@
   (function () {
     var id = new URLSearchParams(location.search).get("id") || "attend";
     var generation = new URLSearchParams(location.search).get("generation") || "";
+    // 근황·연락처 업데이트는 사이트 자체 폼(update.html)으로 이관됨 — 구글폼 임베드 대신 전환
+    if (id === "contact") { location.replace("update.html"); return; }
     var fallback = (CONFIG.SURVEYS || []).find(function (s) { return s.id === id; });
     MR40Ops.rows("surveys").then(function (rows) {
       var sheet = rows.find(function (s) { return s.id === id && MR40Ops.active(s); });

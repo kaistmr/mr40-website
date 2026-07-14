@@ -1,6 +1,10 @@
 # 주소록 자동 갱신 파이프라인 — 운영자 가이드
 
-> **이 문서가 최신입니다.** `docs/members-public-sheet.md`(공개용 주소록 파생 시트 안내)와
+> ⚠️ **폐기(2026-07-14): 주소록은 Supabase 실시간 DB로 이관됨.** 이 구글시트→GitHub Actions→`members.enc`
+> 파이프라인은 더 이상 사용하지 않습니다(워크플로 삭제됨). 운영은 **`docs/members-supabase-guide.md`** 를
+> 따르세요. `build-members-enc.mjs`/`encrypt-members.mjs`는 비상 복구용으로만 남겨 둡니다. 아래 내용은 사료입니다.
+
+> **(구) 이 문서가 최신입니다.** `docs/members-public-sheet.md`(공개용 주소록 파생 시트 안내)와
 > 내용이 상충하면 이 문서를 따르세요. 그 문서는 "구글 시트를 공개 CSV로 게시"하는 구식 방식을
 > 설명하고 있고, 이 파이프라인은 시트를 **비공개로 유지한 채** 서비스 계정으로 읽어 `members.enc`
 > (암호문)만 커밋하는 방식입니다. 시트를 웹에 게시할 필요가 없습니다.

@@ -4,8 +4,15 @@ const CONFIG = {
   OG_IMAGE: "assets/og-image.png",
 
   // 주소록 암호문 경로 (AES-256-GCM). scripts/encrypt-members.mjs 로 생성.
-  // 접속 코드로 브라우저에서 복호화하며, 게시되는 파일은 암호문뿐이라 코드 없이는 읽을 수 없음.
+  // (구식) 정적 복호 방식 — Supabase 이관 후 비상 폴백용으로만 남겨둠.
   MEMBERS_ENC_PATH: "data/members.enc",
+
+  // 주소록 실시간 DB (Supabase). anon 키는 공개용이라 정적 파일에 넣어도 안전
+  // (RLS로 members 테이블 직접 조회는 전면 차단, service_role Edge Function만 접근).
+  SUPABASE_URL: "https://upbvxipashgyowctbhby.supabase.co",
+  SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwYnZ4aXBhc2hneW93Y3RiaGJ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwMTc0OTUsImV4cCI6MjA5OTU5MzQ5NX0.q7IdTlUxb_tj0NHJahPmh3kjqjVPkYmaPUywHjATyt8",
+  DIRECTORY_FN_URL: "https://upbvxipashgyowctbhby.supabase.co/functions/v1/directory",
+  SUBMIT_UPDATE_URL: "https://upbvxipashgyowctbhby.supabase.co/rest/v1/responses",
   OPS_SHEETS: {
     notices: "",
     event: "",

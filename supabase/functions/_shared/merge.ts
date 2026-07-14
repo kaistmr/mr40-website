@@ -69,6 +69,7 @@ export function mergeMembers(
     const email = cell(r, 4).trim();
     const org = cell(r, 10).trim();
     const quote = cell(r, 5).trim();
+    const role = cell(r, 12).trim();   // 자기보고 임원 직책 → president 열
 
     if (memberIndexByKey.has(key)) {
       const row = members[memberIndexByKey.get(key)!];
@@ -76,8 +77,9 @@ export function mergeMembers(
       row[4] = phone || row[4];
       row[2] = org || row[2];
       row[6] = quote || row[6];
+      row[7] = role || row[7];
     } else {
-      newRows.push([name, cohort, org, email, phone, "", quote, ""]);
+      newRows.push([name, cohort, org, email, phone, "", quote, role]);
     }
   }
 

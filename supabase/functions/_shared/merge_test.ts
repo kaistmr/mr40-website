@@ -38,6 +38,20 @@ Deno.test("같은 사람 최신 응답이 최종", () => {
   assertEquals(out[0][6], "신");
 });
 
+Deno.test("임원 직책(role, index 12)이 president 열로 매핑됨 — 신규/기존 모두", () => {
+  // 신규 회원: role → 8열째(president)
+  const respNew = [["2026-01-01", "10", "새임원", "", "", "", "", "동의", "", "", "", "", "회장"]];
+  const outNew = mergeMembers([], respNew);
+  assertEquals(outNew[0][7], "회장");
+  // 기존 회원: role 있으면 갱신, 없으면 기존 유지
+  const members = [["옛회장", "88", "", "", "", "", "", "회장"], ["직책없음", "89", "", "", "", "", "", ""]];
+  const respExist = [["2026-01-01", "89", "직책없음", "", "", "", "", "동의", "", "", "", "", "총무"]];
+  const outExist = mergeMembers(members, respExist);
+  const byName = (n: string) => outExist.find((r) => r[0] === n) ?? [];
+  assertEquals(byName("옛회장")[7], "회장");      // 응답 없으니 유지
+  assertEquals(byName("직책없음")[7], "총무");    // 응답으로 채움
+});
+
 Deno.test("정렬: 연대순(80s→00s) 후 이름 가나다순", () => {
   const members = [
     ["나중", "05", "", "", "", "", "", ""],

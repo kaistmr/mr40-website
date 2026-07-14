@@ -12,3 +12,4 @@ video_out/
 scripts/seed-members.sql
 .env
 supabase/.temp/
+.org-cleanup-backup.json

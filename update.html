@@ -34,7 +34,9 @@
     }
     .field textarea { min-height: 92px; resize: vertical; line-height: 1.6; }
     .field input:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
+    .field code { background: rgba(255,255,255,.08); padding: 0.05rem 0.35rem; border-radius: 0.3rem; font-size: 0.85em; }
     .radio-row { display: flex; gap: 1.25rem; flex-wrap: wrap; }
+    .radio-row.tight { gap: 0.9rem 1.25rem; }
     .radio-row label { display: inline-flex; align-items: center; gap: 0.4rem; font-weight: 500; margin: 0; }
     .radio-row input { width: 20px; height: 20px; accent-color: var(--accent); }
     .consent-box { margin: 1.25rem 0; padding: 1rem 1.15rem; border-radius: 0.65rem; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.12); line-height: 1.7; font-size: 0.9rem; color: var(--muted); }
@@ -82,7 +84,7 @@
       </div>
       <div class="field">
         <label for="f-current_org">현재 소속 · 직위
-          <span class="hint">예: 현대자동차 책임연구원 / KAIST 박사과정 / 프리랜서</span></label>
+          <span class="hint">여러 개는 <strong>콤마(,)로 구분</strong>하면 주소록에서 각각 태그로 표시돼요. 예: <code>현대자동차, 책임연구원, 울산</code></span></label>
         <input type="text" id="f-current_org" name="current_org" />
       </div>
       <div class="field">
@@ -102,6 +104,18 @@
         <label for="f-note">한마디 · 근황
           <span class="hint">주소록 카드에 실릴 짧은 인사나 근황.</span></label>
         <textarea id="f-note" name="note"></textarea>
+      </div>
+
+      <div class="field">
+        <label>동아리 임원 경력
+          <span class="hint">MR에서 맡았던 직책이 있으면 선택해 주세요. 주소록 카드에 뱃지로 표시됩니다.</span></label>
+        <div class="radio-row tight">
+          <label><input type="radio" name="role" value="" checked /> 해당 없음</label>
+          <label><input type="radio" name="role" value="회장" /> 회장</label>
+          <label><input type="radio" name="role" value="부회장" /> 부회장</label>
+          <label><input type="radio" name="role" value="총무" /> 총무</label>
+          <label><input type="radio" name="role" value="임원" /> 기타 임원</label>
+        </div>
       </div>
 
       <div class="field">
@@ -152,6 +166,7 @@
         phone: f.phone.value.trim(),
         email: f.email.value.trim(),
         note: f.note.value.trim(),
+        role: f.role.value,                           // "" | "회장" | "부회장" | "총무" | "임원"
         visibility: f.visibility.value,               // "공개" | "비공개"
         consent: "동의합니다",
         education: f.education.value.trim(),

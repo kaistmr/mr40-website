@@ -179,7 +179,35 @@
     /* ── 명부 헤더 ── */
     .dir-header {
       padding: 2.5rem 0 1.5rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
+    .sort-wrap {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex: none;
+    }
+    .sort-label {
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    #sort-select {
+      min-height: 40px;
+      padding: 0.4rem 0.7rem;
+      border-radius: 0.6rem;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      font-size: 0.875rem;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    #sort-select:focus { outline: none; border-color: var(--accent); }
 
     .dir-title {
       font-size: clamp(1.3rem, 4vw, 1.75rem);
@@ -514,8 +542,19 @@
     <!-- 명부 헤더 -->
     <div class="container">
       <div class="dir-header">
-        <h2 class="dir-title">동문 주소록</h2>
-        <p class="dir-subtitle" id="member-count">불러오는 중…</p>
+        <div>
+          <h2 class="dir-title">동문 주소록</h2>
+          <p class="dir-subtitle" id="member-count">불러오는 중…</p>
+        </div>
+        <label class="sort-wrap">
+          <span class="sort-label">정렬</span>
+          <select id="sort-select" aria-label="정렬 기준">
+            <option value="cohort-asc">학번순 (오래된 기수부터)</option>
+            <option value="cohort-desc">학번 역순 (최신 기수부터)</option>
+            <option value="name-asc">가나다순</option>
+            <option value="name-desc">가나다 역순</option>
+          </select>
+        </label>
       </div>
 
       <!-- 카드 그리드 -->
@@ -648,6 +687,37 @@
       }
     }
 
+    // ── 정렬 ──
+    var currentSort = "cohort-asc";
+
+    // 기수를 실제 연도로 환산해 연대순 비교(80~99→19xx, 00~79→20xx) — 86 → 00 → 24 순.
+    function chronoYear(cohort) {
+      var c = normCohort((cohort || "").trim());
+      if (!/^\d+$/.test(c)) return null;
+      var n = parseInt(c, 10);
+      return n >= 80 ? 1900 + n : 2000 + n;
+    }
+    function cmpCohortAsc(a, b) {
+      var ya = chronoYear(a[COL_COHORT]), yb = chronoYear(b[COL_COHORT]);
+      if (ya !== null && yb !== null && ya !== yb) return ya - yb;
+      if (ya !== null && yb === null) return -1;
+      if (ya === null && yb !== null) return 1;
+      return (a[COL_NAME] || "").localeCompare(b[COL_NAME] || "", "ko"); // 같은 기수 내 이름순
+    }
+    function cmpNameAsc(a, b) {
+      return (a[COL_NAME] || "").localeCompare(b[COL_NAME] || "", "ko");
+    }
+    function sortRows(rows) {
+      var arr = rows.slice();
+      switch (currentSort) {
+        case "cohort-asc":  arr.sort(cmpCohortAsc); break;
+        case "cohort-desc": arr.sort(function (a, b) { return -cmpCohortAsc(a, b); }); break;
+        case "name-asc":    arr.sort(cmpNameAsc); break;
+        case "name-desc":   arr.sort(function (a, b) { return -cmpNameAsc(a, b); }); break;
+      }
+      return arr;
+    }
+
     // ── 필터 적용 후 카드 렌더링 ──
     function applyFilter(term) {
       var q = term.toLowerCase().trim();
@@ -662,7 +732,7 @@
           })
         : allRows;
 
-      renderCards(filtered);
+      renderCards(sortRows(filtered));
 
       var countEl = document.getElementById("member-count");
       if (allRows.length > 0) {
@@ -738,8 +808,10 @@
       // 없으면 원본 엑셀 J열(비고)에서 자동 추출한 r[COL_PRES]("회장")를 라벨로 사용한다.
       // 구버전 데이터(7열)는 r[COL_PRES]가 undefined이므로 자연히 뱃지 없이 동작한다.
       var presLabel = presidentsMap[(r[COL_NAME] || "").trim() + "|" + normCohort(cohortRaw)] || r[COL_PRES] || "";
+      // 회장은 👑, 그 외 임원(부회장·총무·기타)은 🎖️로 구분
+      var presIcon = /회장/.test(presLabel) && !/부회장/.test(presLabel) ? "👑" : "🎖️";
       var presBadgeHtml = presLabel
-        ? '<span class="pres-badge">👑 ' + escapeHtml(presLabel) + "</span>"
+        ? '<span class="pres-badge">' + presIcon + " " + escapeHtml(presLabel) + "</span>"
         : "";
 
       // 소속 배지들
@@ -844,6 +916,12 @@
       if (val.length > 0) clearBtn.classList.add("visible");
       else clearBtn.classList.remove("visible");
       applyFilter(val);
+    });
+
+    // ── 정렬 select 이벤트 ──
+    document.getElementById("sort-select").addEventListener("change", function (e) {
+      currentSort = e.target.value;
+      applyFilter(document.getElementById("search-input").value);
     });
 
     // ── Enter 키로 접속 코드 제출 ──

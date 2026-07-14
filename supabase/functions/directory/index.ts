@@ -46,7 +46,7 @@ Deno.serve(async (req) => {
     .select("name,cohort,org,email,phone,interests,quote,president");
   const { data: resp, error: e2 } = await supabase
     .from("responses")
-    .select("created_at,cohort,name,phone,email,note,visibility,consent,education,major,current_org,career");
+    .select("created_at,cohort,name,phone,email,note,visibility,consent,education,major,current_org,career,role");
 
   if (e1 || e2) {
     return new Response(JSON.stringify({ error: "db" }), {
@@ -58,10 +58,10 @@ Deno.serve(async (req) => {
     r.name, r.cohort, r.org, r.email, r.phone, r.interests, r.quote, r.president,
   ].map((v) => (v == null ? "" : String(v))));
 
-  // 응답 행을 병합 함수가 기대하는 인덱스 순서(0=ts … 10=current_org)로 배열화
+  // 응답 행을 병합 함수가 기대하는 인덱스 순서(0=ts … 10=current_org … 12=role)로 배열화
   const responseRows = (resp ?? []).map((r) => [
     r.created_at, r.cohort, r.name, r.phone, r.email, r.note,
-    r.visibility, r.consent, r.education, r.major, r.current_org, r.career,
+    r.visibility, r.consent, r.education, r.major, r.current_org, r.career, r.role,
   ].map((v) => (v == null ? "" : String(v))));
 
   const rows = mergeMembers(memberRows, responseRows);

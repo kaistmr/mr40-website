@@ -6,3 +6,9 @@ __pycache__/
 _workspace/
 reference/
 video_out/
+
+# Supabase 로컬 자격증명·시드 (PII/비밀 — 절대 커밋 금지)
+.env.supabase.local
+scripts/seed-members.sql
+.env
+supabase/.temp/

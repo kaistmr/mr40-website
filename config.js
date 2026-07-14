@@ -12,6 +12,8 @@ const CONFIG = {
   SUPABASE_URL: "https://upbvxipashgyowctbhby.supabase.co",
   SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVwYnZ4aXBhc2hneW93Y3RiaGJ5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwMTc0OTUsImV4cCI6MjA5OTU5MzQ5NX0.q7IdTlUxb_tj0NHJahPmh3kjqjVPkYmaPUywHjATyt8",
   DIRECTORY_FN_URL: "https://upbvxipashgyowctbhby.supabase.co/functions/v1/directory",
+  // 본인 기록 불러오기(update.html). 접속 코드+기수+이름으로 내 최신 기록을 반환.
+  MYRECORD_FN_URL: "https://upbvxipashgyowctbhby.supabase.co/functions/v1/myrecord",
   SUBMIT_UPDATE_URL: "https://upbvxipashgyowctbhby.supabase.co/rest/v1/responses",
   OPS_SHEETS: {
     notices: "",

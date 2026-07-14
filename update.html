@@ -48,6 +48,24 @@
     .done-box { display: none; padding: 2.5rem 1.5rem; text-align: center; line-height: 1.9; }
     .done-box .big { font-size: 2.5rem; }
     .done-box a { color: var(--accent); text-decoration: underline; font-weight: 700; }
+    /* ── 내 기록 불러오기 박스 ── */
+    .load-box { padding: 1.35rem 1.35rem; margin-bottom: 1.25rem; }
+    .load-box h2 { font-size: 1.1rem; margin-bottom: 0.3rem; }
+    .load-box .load-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.65; margin-bottom: 1rem; }
+    .load-box .load-desc strong { color: var(--text); }
+    .load-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
+    .load-grid .load-full { grid-column: 1 / -1; }
+    .load-box label { display: block; font-weight: 700; margin-bottom: 0.35rem; font-size: 0.9rem; }
+    .load-box input { width: 100%; min-height: 46px; padding: 0.6rem 0.85rem; border-radius: 0.65rem; border: 1px solid rgba(255,255,255,.18); background: rgba(255,255,255,.04); color: var(--text); font-size: 1rem; font-family: inherit; }
+    .load-box input:focus { outline: none; border-color: var(--accent); }
+    .load-btn { width: 100%; min-height: 50px; margin-top: 1rem; border-radius: 9999px; background: rgba(91,140,255,.18); color: var(--accent); border: 1px solid rgba(91,140,255,.4); font-size: 1rem; font-weight: 700; cursor: pointer; }
+    .load-btn:hover { background: rgba(91,140,255,.28); }
+    .load-btn:disabled { opacity: 0.55; cursor: default; }
+    .load-status { margin-top: 0.9rem; font-size: 0.9rem; line-height: 1.6; display: none; padding: 0.7rem 0.9rem; border-radius: 0.55rem; }
+    .load-status.show { display: block; }
+    .load-status.ok   { background: rgba(34,197,94,.12);  border: 1px solid rgba(34,197,94,.3);  color: #86efac; }
+    .load-status.info { background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.12); color: var(--muted); }
+    .load-status.err  { background: rgba(239,68,68,.12);  border: 1px solid rgba(239,68,68,.3);  color: #fca5a5; }
   </style>
 </head>
 <body>
@@ -55,13 +73,34 @@
   <main class="up-wrap">
     <header class="up-head">
       <h1>동문 근황 · 연락처 업데이트</h1>
-      <p>주소록에 실릴 연락처와 졸업 후 진로·경력을 갱신해 주세요.<br>이미 정보가 있으신 분도 새로 작성하시면 기존 내용 위에 갱신됩니다.</p>
+      <p>주소록에 실릴 연락처와 졸업 후 진로·경력을 갱신해 주세요.<br>이미 등록하신 분은 <strong>기존 기록을 불러와</strong> 고칠 수 있어요.</p>
     </header>
 
     <aside class="up-info card">
       <p><strong>이름과 기수는 기존 주소록과 같게</strong> 적어 주세요 — 같은 사람으로 인식해 정보를 갱신합니다.</p>
       <p>공개 범위를 <strong>비공개</strong>로 선택하시면 주소록에서 완전히 제외됩니다.</p>
     </aside>
+
+    <section class="load-box card">
+      <h2>내 기록 불러오기</h2>
+      <p class="load-desc">이미 등록한 적이 있으면 <strong>주소록 접속 코드 · 기수 · 이름</strong>으로 기존 내용을 불러와 수정할 수 있어요. 처음이라면 건너뛰고 아래에 바로 작성하세요.</p>
+      <div class="load-grid">
+        <div class="load-full">
+          <label for="l-code">주소록 접속 코드</label>
+          <input type="password" id="l-code" autocomplete="current-password" placeholder="주소록과 같은 코드" />
+        </div>
+        <div>
+          <label for="l-cohort">기수</label>
+          <input type="text" id="l-cohort" inputmode="numeric" placeholder="예: 95" />
+        </div>
+        <div>
+          <label for="l-name">이름</label>
+          <input type="text" id="l-name" />
+        </div>
+      </div>
+      <button type="button" class="load-btn" id="load-btn">기존 기록 불러오기</button>
+      <div class="load-status" id="load-status" role="status" aria-live="polite"></div>
+    </section>
 
     <form class="up-form card" id="update-form" autocomplete="on">
       <div class="field">
@@ -149,6 +188,96 @@
     </div>
   </main>
   <footer class="site-footer"><p class="footer-name">KAIST MR · Microrobot Research · Since 1986</p><p class="footer-note">© 2026 MR 40주년 준비위원회</p></footer>
+
+  <script>
+  // ── 내 기록 불러오기 (접속 코드 + 기수 + 이름 → myrecord Edge Function) ──
+  (function () {
+    var codeInput   = document.getElementById("l-code");
+    var cohortInput = document.getElementById("l-cohort");
+    var nameInput   = document.getElementById("l-name");
+    var loadBtn     = document.getElementById("load-btn");
+    var statusEl    = document.getElementById("load-status");
+    var form        = document.getElementById("update-form");
+
+    // 주소록(members.html)에서 왔으면 세션에 저장된 코드를 자동으로 채운다.
+    var savedCode = sessionStorage.getItem("mr40_code");
+    if (savedCode) codeInput.value = savedCode;
+
+    function setStatus(kind, html) {
+      statusEl.className = "load-status show " + kind;
+      statusEl.innerHTML = html;
+    }
+
+    function setRadio(nameAttr, value) {
+      var els = form.elements[nameAttr];
+      if (!els) return;
+      var list = els.length ? els : [els];
+      for (var i = 0; i < list.length; i++) {
+        list[i].checked = (list[i].value === (value || ""));
+      }
+    }
+
+    function prefill(rec) {
+      form.cohort.value      = rec.cohort || "";
+      form.name.value        = rec.name || "";
+      form.phone.value       = rec.phone || "";
+      form.email.value       = rec.email || "";
+      form.current_org.value = rec.current_org || "";
+      form.education.value   = rec.education || "";
+      form.major.value       = rec.major || "";
+      form.career.value      = rec.career || "";
+      form.note.value        = rec.note || "";
+      setRadio("role", rec.role || "");
+      setRadio("visibility", rec.visibility || "공개");
+    }
+
+    async function loadMyRecord() {
+      var code   = codeInput.value.trim();
+      var cohort = cohortInput.value.trim();
+      var name   = nameInput.value.trim();
+      if (!code)   { setStatus("err", "접속 코드를 입력하세요."); codeInput.focus(); return; }
+      if (!cohort || !name) { setStatus("err", "기수와 이름을 입력하세요."); return; }
+
+      loadBtn.disabled = true; loadBtn.textContent = "불러오는 중…";
+      try {
+        var res = await fetch(CONFIG.MYRECORD_FN_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", "apikey": CONFIG.SUPABASE_ANON_KEY },
+          body: JSON.stringify({ code: code, cohort: cohort, name: name }),
+        });
+        if (res.status === 401) {
+          setStatus("err", "접속 코드가 올바르지 않습니다.");
+          return;
+        }
+        if (!res.ok) throw new Error(res.status);
+        var payload = await res.json();
+        // 이후 편의를 위해 유효한 코드는 세션에 저장(주소록도 함께 열림).
+        sessionStorage.setItem("mr40_code", code);
+        if (payload.found && payload.record) {
+          prefill(payload.record);
+          var label = (payload.record.name || name) +
+            (payload.record.cohort ? "(" + payload.record.cohort + "학번)" : "");
+          setStatus("ok", "<strong>" + label + "</strong> 기록을 불러왔어요. 아래에서 고친 뒤 <strong>보내기</strong>를 눌러 주세요.");
+          form.scrollIntoView({ behavior: "smooth", block: "start" });
+        } else {
+          // 기존 기록 없음 — 입력한 기수·이름만 채우고 새로 작성 유도.
+          form.cohort.value = cohort;
+          form.name.value = name;
+          setStatus("info", "기존 기록이 없어요. 아래에 새로 작성해 주세요.");
+        }
+      } catch (e) {
+        setStatus("err", "불러오지 못했습니다. 잠시 후 다시 시도하거나 아래에 직접 작성해 주세요.");
+      } finally {
+        loadBtn.disabled = false; loadBtn.textContent = "기존 기록 불러오기";
+      }
+    }
+
+    loadBtn.addEventListener("click", loadMyRecord);
+    [codeInput, cohortInput, nameInput].forEach(function (el) {
+      el.addEventListener("keydown", function (e) { if (e.key === "Enter") { e.preventDefault(); loadMyRecord(); } });
+    });
+  })();
+  </script>
 
   <script>
   (function () {

@@ -2,22 +2,26 @@
  {
   "year": 1986,
   "date": "1986. 9",
-  "text": "동아리 MR 창단"
+  "text": "동아리 MR 창단",
+  "text_en": "MR club founded"
  },
  {
   "year": 1989,
   "date": "1989. 9",
-  "text": "제 7회 전국 마이크로 로봇 경연대회 참가 2위, 4위"
+  "text": "제 7회 전국 마이크로 로봇 경연대회 참가 2위, 4위",
+  "text_en": "7th National Micro Robot Contest — 2nd and 4th place"
  },
  {
   "year": 1990,
   "date": "1990. 9",
-  "text": "제 8회 전국 마이크로 로봇 경연대회 참가 4위"
+  "text": "제 8회 전국 마이크로 로봇 경연대회 참가 4위",
+  "text_en": "8th National Micro Robot Contest — 4th place"
  },
  {
   "year": 1991,
   "date": "1991. 9",
-  "text": "제 9회 전국 마이크로 로봇 경연대회 참가 1위"
+  "text": "제 9회 전국 마이크로 로봇 경연대회 참가 1위",
+  "text_en": "9th National Micro Robot Contest — 1st place"
  },
  {
   "year": 1996,
@@ -27,7 +31,8 @@
  {
   "year": 1997,
   "date": "1997",
-  "text": "97'Micro Robot World Cup Soccer Tournament 예선 참가"
+  "text": "97'Micro Robot World Cup Soccer Tournament 예선 참가",
+  "text_en": "97' Micro Robot World Cup Soccer Tournament — qualifiers"
  },
  {
   "year": 1998,
@@ -37,42 +42,50 @@
    "url": "https://programs.sbs.co.kr/drama/kaist/vods/59992",
    "label": "SBS 공식 무료 다시보기",
    "image": "https://img2.sbs.co.kr/img/sbs_cms/PG/2015/10/22/PG40765071_w640_h360.jpg"
-  }
+  },
+  "text_en": "Named the model club for the SBS drama \"KAIST\""
  },
  {
   "year": 1998,
   "date": "1998. 6",
-  "text": "98'Micro Robot World Cup Soccer Tournament 아시아 예선 4위"
+  "text": "98'Micro Robot World Cup Soccer Tournament 아시아 예선 4위",
+  "text_en": "98' Micro Robot World Cup Soccer Tournament — 4th in Asian qualifiers"
  },
  {
   "year": 1998,
   "date": "1998. 6",
-  "text": "98'Micro Robot World Cup Soccer Tournament 프랑스 월드컵 single부문 4위"
+  "text": "98'Micro Robot World Cup Soccer Tournament 프랑스 월드컵 single부문 4위",
+  "text_en": "98' Micro Robot World Cup Soccer Tournament (France) — 4th in the Single category"
  },
  {
   "year": 1998,
   "date": "1998",
-  "text": "동아리 서버 구축"
+  "text": "동아리 서버 구축",
+  "text_en": "Club server set up"
  },
  {
   "year": 2000,
   "date": "2000. 8",
-  "text": "00'Micro Robot World Cup Soccer Tournament 참가"
+  "text": "00'Micro Robot World Cup Soccer Tournament 참가",
+  "text_en": "00' Micro Robot World Cup Soccer Tournament — participated"
  },
  {
   "year": 2002,
   "date": "2002. 8",
-  "text": "제 4회 국제 로봇올림피아드(IROC) 전국대회 창작부문 동상"
+  "text": "제 4회 국제 로봇올림피아드(IROC) 전국대회 창작부문 동상",
+  "text_en": "4th International Robot Olympiad (IROC) national round — bronze, Creative category"
  },
  {
   "year": 2003,
   "date": "2003. 1 ~",
-  "text": "MRDEC과의 연계사업-RF축구로봇제작 & 시연"
+  "text": "MRDEC과의 연계사업-RF축구로봇제작 & 시연",
+  "text_en": "Joint project with MRDEC — built and demonstrated RF soccer robots"
  },
  {
   "year": 2003,
   "date": "2003.12",
-  "text": "와우로봇 주최 로봇동아리협회(KORA) 회원 등록"
+  "text": "와우로봇 주최 로봇동아리협회(KORA) 회원 등록",
+  "text_en": "Registered with the Korea Robot Club Association (KORA) hosted by WowRobot"
  },
  {
   "year": 2004,
@@ -82,256 +95,307 @@
  {
   "year": 2005,
   "date": "2005. 11",
-  "text": "SIPAC 주최 이족 격투기 로봇 대회 참가"
+  "text": "SIPAC 주최 이족 격투기 로봇 대회 참가",
+  "text_en": "Biped fighting robot contest hosted by SIPAC — participated"
  },
  {
   "year": 2008,
   "date": "2008",
-  "text": "잡지 인터뷰 (과학동아 2008년 2월호, 등의 과학계열 잡지 총 2건)"
+  "text": "잡지 인터뷰 (과학동아 2008년 2월호, 등의 과학계열 잡지 총 2건)",
+  "text_en": "Magazine interviews (Science Donga, Feb 2008, and one other science magazine)"
  },
  {
   "year": 2010,
   "date": "2010",
-  "text": "삼성테크윈 로봇멤버십 수료"
+  "text": "삼성테크윈 로봇멤버십 수료",
+  "text_en": "Completed the Samsung Techwin Robot Membership program"
  },
  {
   "year": 2011,
   "date": "2011",
-  "text": "삼성테크윈 로봇멤버십 하반기 종합 3위"
+  "text": "삼성테크윈 로봇멤버십 하반기 종합 3위",
+  "text_en": "Samsung Techwin Robot Membership — 3rd overall, second half"
  },
  {
   "year": 2012,
   "date": "2012",
-  "text": "SK Telecom 스마트 로봇 앱 공모전 동상"
+  "text": "SK Telecom 스마트 로봇 앱 공모전 동상",
+  "text_en": "SK Telecom Smart Robot App Contest — bronze"
  },
  {
   "year": 2012,
   "date": "2012",
-  "text": "삼성테크윈 로봇멤버십 수료"
+  "text": "삼성테크윈 로봇멤버십 수료",
+  "text_en": "Completed the Samsung Techwin Robot Membership program"
  },
  {
   "year": 2013,
   "date": "2013",
-  "text": "전국 융합과학 창작 경진대회 은상"
+  "text": "전국 융합과학 창작 경진대회 은상",
+  "text_en": "National Convergence Science Creativity Contest — silver"
  },
  {
   "year": 2013,
   "date": "2013",
-  "text": "전국 융합과학 창작 경진대회 특별상"
+  "text": "전국 융합과학 창작 경진대회 특별상",
+  "text_en": "National Convergence Science Creativity Contest — special award"
  },
  {
   "year": 2013,
   "date": "2013",
-  "text": "웨어러블 컴퓨터 경진대회 우수 아이디어상"
+  "text": "웨어러블 컴퓨터 경진대회 우수 아이디어상",
+  "text_en": "Wearable Computer Contest — best idea award"
  },
  {
   "year": 2014,
   "date": "2014",
-  "text": "캔위성 경연대회 창작부 우수상 (2위)"
+  "text": "캔위성 경연대회 창작부 우수상 (2위)",
+  "text_en": "CanSat Competition — excellence award, Creative division (2nd)"
  },
  {
   "year": 2014,
   "date": "2014",
-  "text": "한국항공우주학회 추계학술대회 캔위성 Organized Session 논문/구두 발표"
+  "text": "한국항공우주학회 추계학술대회 캔위성 Organized Session 논문/구두 발표",
+  "text_en": "Paper and oral presentation, CanSat organized session, KSAS Fall Conference"
  },
  {
   "year": 2014,
   "date": "2014",
-  "text": "웨어러블 컴퓨터 경진대회 장려상"
+  "text": "웨어러블 컴퓨터 경진대회 장려상",
+  "text_en": "Wearable Computer Contest — encouragement award"
  },
  {
   "year": 2014,
   "date": "2014",
-  "text": "임베디드 소프트웨어 경진대회 첨단 의료서비스 부문 최우수상 (부문 1위)"
+  "text": "임베디드 소프트웨어 경진대회 첨단 의료서비스 부문 최우수상 (부문 1위)",
+  "text_en": "Embedded Software Contest — grand prize, Advanced Medical Services (1st in category)"
  },
  {
   "year": 2014,
   "date": "2014",
-  "text": "인텔코리아 송년  기자 간담회 & 인텔 IoT 솔루션 소개 행사 제품 전시"
+  "text": "인텔코리아 송년  기자 간담회 & 인텔 IoT 솔루션 소개 행사 제품 전시",
+  "text_en": "Product exhibition at Intel Korea's year-end press event and IoT solution showcase"
  },
  {
   "year": 2014,
   "date": "2014",
-  "text": "삼성테크윈 로봇멤버십 수료"
+  "text": "삼성테크윈 로봇멤버십 수료",
+  "text_en": "Completed the Samsung Techwin Robot Membership program"
  },
  {
   "year": 2014,
   "date": "2014",
-  "text": "소외된 90%를 위한 창의적 공학설계 경진대회 대상"
+  "text": "소외된 90%를 위한 창의적 공학설계 경진대회 대상",
+  "text_en": "Creative Engineering Design Contest for the Other 90% — grand prize"
  },
  {
   "year": 2014,
   "date": "2014",
-  "text": "과학문화융합포럼 초청 및 발표"
+  "text": "과학문화융합포럼 초청 및 발표",
+  "text_en": "Invited talk at the Science Culture Convergence Forum"
  },
  {
   "year": 2014,
   "date": "2014",
-  "text": "삼성 SDS S/W 동아리 챔피언십 최우수상 (1위)"
+  "text": "삼성 SDS S/W 동아리 챔피언십 최우수상 (1위)",
+  "text_en": "Samsung SDS Software Club Championship — top prize (1st)"
  },
  {
   "year": 2014,
   "date": "2014",
-  "text": "과총 행복한 과학기술 공모전 우수상 (3위)"
+  "text": "과총 행복한 과학기술 공모전 우수상 (3위)",
+  "text_en": "KOFST Happy Science & Technology Contest — excellence award (3rd)"
  },
  {
   "year": 2015,
   "date": "2015",
-  "text": "제어로봇시스템학회 학부생 논문상"
+  "text": "제어로봇시스템학회 학부생 논문상",
+  "text_en": "ICROS undergraduate paper award"
  },
  {
   "year": 2015,
   "date": "2015",
-  "text": "전국 융합과학 창작 경진대회 대상 (1위)"
+  "text": "전국 융합과학 창작 경진대회 대상 (1위)",
+  "text_en": "National Convergence Science Creativity Contest — grand prize (1st)"
  },
  {
   "year": 2015,
   "date": "2015",
-  "text": "인텔 IoT 경진대회 창의상"
+  "text": "인텔 IoT 경진대회 창의상",
+  "text_en": "Intel IoT Contest — creativity award"
  },
  {
   "year": 2015,
   "date": "2015",
-  "text": "전국지능로봇경진대회(경남대 주최) 우수디자인상 수상"
+  "text": "전국지능로봇경진대회(경남대 주최) 우수디자인상 수상",
+  "text_en": "National Intelligent Robot Contest (Kyungnam Univ.) — best design award"
  },
  {
   "year": 2015,
   "date": "2015",
-  "text": "임베디드 소프트웨어 경진대회 IoT 플랫폼 인텔코리아 부문 최우수상 (부문 1위)"
+  "text": "임베디드 소프트웨어 경진대회 IoT 플랫폼 인텔코리아 부문 최우수상 (부문 1위)",
+  "text_en": "Embedded Software Contest — grand prize, Intel Korea IoT Platform (1st in category)"
  },
  {
   "year": 2015,
   "date": "2015",
-  "text": "제어로봇시스템학회 대전충청지부 학술대회 논문/포스터 발표"
+  "text": "제어로봇시스템학회 대전충청지부 학술대회 논문/포스터 발표",
+  "text_en": "Paper and poster, ICROS Daejeon–Chungcheong chapter conference"
  },
  {
   "year": 2015,
   "date": "2015",
-  "text": "소외된 90%를 위한 창의적 공학설계 경진대회 최우수상"
+  "text": "소외된 90%를 위한 창의적 공학설계 경진대회 최우수상",
+  "text_en": "Creative Engineering Design Contest for the Other 90% — top prize"
  },
  {
   "year": 2015,
   "date": "2015",
-  "text": "Sensors 지 (SCIE급, IF=2.24) 논문 발표"
+  "text": "Sensors 지 (SCIE급, IF=2.24) 논문 발표",
+  "text_en": "Paper published in Sensors (SCIE, IF 2.24)"
  },
  {
   "year": 2015,
   "date": "2015",
-  "text": "ICCAS 국제학회 논문/포스터 발표"
+  "text": "ICCAS 국제학회 논문/포스터 발표",
+  "text_en": "Paper and poster at ICCAS"
  },
  {
   "year": 2016,
   "date": "2016",
-  "text": "제어로봇시스템학회 학술대회 논문/포스터 발표"
+  "text": "제어로봇시스템학회 학술대회 논문/포스터 발표",
+  "text_en": "Paper and poster at the ICROS conference"
  },
  {
   "year": 2016,
   "date": "2016",
-  "text": "Sensors 지 (SCIE급, IF=2.0) 논문 발표"
+  "text": "Sensors 지 (SCIE급, IF=2.0) 논문 발표",
+  "text_en": "Paper published in Sensors (SCIE, IF 2.0)"
  },
  {
   "year": 2016,
   "date": "2016",
-  "text": "디바이스마트 ICT 융합 프로젝트 공모전 우수상 (2위)"
+  "text": "디바이스마트 ICT 융합 프로젝트 공모전 우수상 (2위)",
+  "text_en": "DeviceMart ICT Convergence Project Contest — excellence award (2nd)"
  },
  {
   "year": 2016,
   "date": "2016",
-  "text": "IROS 국제학회 논문/포스터 발표"
+  "text": "IROS 국제학회 논문/포스터 발표",
+  "text_en": "Paper and poster at IROS"
  },
  {
   "year": 2016,
   "date": "2016",
-  "text": "ICCAS 국제학회 논문/포스터 발표"
+  "text": "ICCAS 국제학회 논문/포스터 발표",
+  "text_en": "Paper and poster at ICCAS"
  },
  {
   "year": 2016,
   "date": "2016",
-  "text": "전국지능로봇경진대회(경남대 주최) 은상 수상"
+  "text": "전국지능로봇경진대회(경남대 주최) 은상 수상",
+  "text_en": "National Intelligent Robot Contest (Kyungnam Univ.) — silver"
  },
  {
   "year": 2016,
   "date": "2016",
-  "text": "전국 융합과학(STEAM) 창작 경진대회 금상 수상"
+  "text": "전국 융합과학(STEAM) 창작 경진대회 금상 수상",
+  "text_en": "National Convergence Science (STEAM) Creativity Contest — gold"
  },
  {
   "year": 2016,
   "date": "2016",
-  "text": "2016년 봄학기&middot;가을학기 인성/리더십 III R분반 &lt;로봇 만들기&gt; 우수 강의상 수상"
+  "text": "2016년 봄학기&middot;가을학기 인성/리더십 III R분반 &lt;로봇 만들기&gt; 우수 강의상 수상",
+  "text_en": "Best course award for \"Building Robots\", Character & Leadership III section R, spring and fall 2016"
  },
  {
   "year": 2016,
   "date": "2016",
-  "text": "Sensors 지 (SCIE급, IF=2.03) 논문 발표"
+  "text": "Sensors 지 (SCIE급, IF=2.03) 논문 발표",
+  "text_en": "Paper published in Sensors (SCIE, IF 2.03)"
  },
  {
   "year": 2016,
   "date": "2016",
-  "text": "임베디드 소프트웨어 경진대회 ICT융합논문 부문 우수상 (1팀 선발)"
+  "text": "임베디드 소프트웨어 경진대회 ICT융합논문 부문 우수상 (1팀 선발)",
+  "text_en": "Embedded Software Contest — excellence award, ICT Convergence Paper (one team selected)"
  },
  {
   "year": 2017,
   "date": "2017",
-  "text": "디바이스마트 ICT 융합 프로젝트 공모전 입선"
+  "text": "디바이스마트 ICT 융합 프로젝트 공모전 입선",
+  "text_en": "DeviceMart ICT Convergence Project Contest — honorable mention"
  },
  {
   "year": 2017,
   "date": "2017",
-  "text": "ASEM17/ANBRE17 국제학회 논문/포스터 발표"
+  "text": "ASEM17/ANBRE17 국제학회 논문/포스터 발표",
+  "text_en": "Paper and poster at ASEM17/ANBRE17"
  },
  {
   "year": 2017,
   "date": "2017",
-  "text": "Sensors 지 (SCIE급, IF=2.677) 논문 발표"
+  "text": "Sensors 지 (SCIE급, IF=2.677) 논문 발표",
+  "text_en": "Paper published in Sensors (SCIE, IF 2.677)"
  },
  {
   "year": 2017,
   "date": "2017",
-  "text": "제19회 한국지능로봇경진대회 특별상 (유엘산업안전상) 수상"
+  "text": "제19회 한국지능로봇경진대회 특별상 (유엘산업안전상) 수상",
+  "text_en": "19th Korea Intelligent Robot Contest — special award (UL Industrial Safety Award)"
  },
  {
   "year": 2018,
   "date": "2018",
-  "text": "Sensors 지 (SCIE급, IF=2.677) 논문 발표"
+  "text": "Sensors 지 (SCIE급, IF=2.677) 논문 발표",
+  "text_en": "Paper published in Sensors (SCIE, IF 2.677)"
  },
  {
   "year": 2022,
   "date": "2022",
-  "text": "KAIST 코딩 올림피아드 개최"
+  "text": "KAIST 코딩 올림피아드 개최",
+  "text_en": "Hosted the KAIST Coding Olympiad"
  },
  {
   "year": 2022,
   "date": "2022",
-  "text": "\"나의 첫 창작 일지\"전(2022) KAIST MR & 이덕주 명예교수 작품 선정"
+  "text": "\"나의 첫 창작 일지\"전(2022) KAIST MR & 이덕주 명예교수 작품 선정",
+  "text_en": "Work by KAIST MR and Prof. Emeritus Duk-Joo Lee selected for the \"My First Creation Diary\" exhibition (2022)"
  },
  {
   "year": 2023,
   "date": "2023",
-  "text": "MR x CNIS MOU 체결"
+  "text": "MR x CNIS MOU 체결",
+  "text_en": "Signed an MOU between MR and CNIS"
  },
  {
   "year": 2023,
   "date": "2023",
-  "text": "KARC(KAIST AI Robot Contest) 프리미어"
+  "text": "KARC(KAIST AI Robot Contest) 프리미어",
+  "text_en": "Premiere of KARC (KAIST AI Robot Contest)"
  },
  {
   "year": 2023,
   "date": "2023",
-  "text": "김진환 연구실 소속으로 MBZIRC 참여 및 준우승"
+  "text": "김진환 연구실 소속으로 MBZIRC 참여 및 준우승",
+  "text_en": "Runner-up at MBZIRC as part of Prof. Jinwhan Kim's lab"
  },
  {
   "year": 2024,
   "date": "2024",
-  "text": "2024 First Global Challenge 대한민국 국가대표 코치 참여"
+  "text": "2024 First Global Challenge 대한민국 국가대표 코치 참여",
+  "text_en": "Coached Team Korea at the 2024 FIRST Global Challenge"
  },
  {
   "year": 2024,
   "date": "2024",
-  "text": "VEX & MR 로봇캠프 개최"
+  "text": "VEX & MR 로봇캠프 개최",
+  "text_en": "Hosted the VEX & MR Robot Camp"
  },
  {
   "year": 2024,
   "date": "2024",
-  "text": "HUMAN lab과 엔터테크 사업 진행"
+  "text": "HUMAN lab과 엔터테크 사업 진행",
+  "text_en": "Entertainment-tech project with HUMAN Lab"
  }
 ]

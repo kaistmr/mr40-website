@@ -13,6 +13,7 @@
   <link rel="stylesheet" href="assets/style.css" />
   <script src="config.js"></script>
   <script src="assets/common.js"></script>
+  <script src="assets/i18n.js"></script>
   <style>
     .up-wrap { max-width: 720px; margin: 0 auto; padding: 3rem 1.25rem 5rem; }
     .up-head { text-align: center; margin-bottom: 1.5rem; }
@@ -291,8 +292,8 @@
     async function submitUpdate(e) {
       e.preventDefault();
       var f = e.target;
-      if (!f.consent.checked) { alert("개인정보 수집·이용에 동의해 주세요."); return; }
-      if (!f.cohort.value.trim() || !f.name.value.trim()) { alert("기수와 이름은 필수입니다."); return; }
+      if (!f.consent.checked) { alert(I18N.t("개인정보 수집·이용에 동의해 주세요.")); return; }
+      if (!f.cohort.value.trim() || !f.name.value.trim()) { alert(I18N.t("기수와 이름은 필수입니다.")); return; }
       var payload = {
         cohort: f.cohort.value.trim(),
         name: f.name.value.trim(),
@@ -327,7 +328,7 @@
           throw new Error(res.status);
         }
       } catch (err) {
-        alert("제출에 실패했습니다. 잠시 후 다시 시도해 주세요.");
+        alert(I18N.t("제출에 실패했습니다. 잠시 후 다시 시도해 주세요."));
         btn.disabled = false; btn.textContent = "보내기";
       }
     }

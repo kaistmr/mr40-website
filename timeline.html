@@ -16,6 +16,7 @@
   <!-- 설정 & 공통 스크립트 -->
   <script src="config.js"></script>
   <script src="assets/common.js"></script>
+  <script src="assets/i18n.js"></script>
 
   <style>
     /* 시대 전환이 부드럽게 보이도록 색 전환 트랜지션 */
@@ -419,7 +420,7 @@
         html += '<div class="tl-item">' +
           '<div class="tl-card">' +
           '<div class="tl-date">' + escapeHtml(it.date || String(it.year || "")) + "</div>" +
-          '<div class="tl-text">' + escapeHtml(it.text || "") + "</div>" +
+          '<div class="tl-text">' + escapeHtml((document.documentElement.lang === "en" && it.text_en) || it.text || "") + "</div>" +
           mediaHtml +
           vodHtml +
           "</div></div>";

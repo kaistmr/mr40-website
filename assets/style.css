@@ -488,3 +488,23 @@ iframe:focus-visible {
     animation-delay: var(--mr-delay, 0s);
   }
 }
+
+/* ---------- 한/영 전환 버튼 (assets/i18n.js) ---------- */
+.lang-toggle {
+  min-height: 36px;
+  padding: 0 0.7rem;
+  background: none;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 9999px;
+  color: var(--text);
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.lang-toggle:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}

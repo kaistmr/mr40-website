@@ -24,10 +24,22 @@ Deno.serve(async (req) => {
   }
 
   let code = "";
+  let ping = false;
   try {
     const body = await req.json();
     code = typeof body?.code === "string" ? body.code : "";
+    ping = body?.ping === true;
   } catch { /* 잘못된 JSON */ }
+
+  // keep-alive: 무료 플랜은 7일간 DB 활동이 없으면 프로젝트가 일시정지(주소록 먹통)된다.
+  // .github/workflows/keepalive.yml 이 주기적으로 {ping:true}를 보내 DB를 한 번 읽는다. 데이터는 안 돌려준다.
+  if (ping) {
+    const sb = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+    const { error } = await sb.from("members").select("name", { count: "exact", head: true });
+    return new Response(JSON.stringify({ ok: !error }), {
+      status: error ? 500 : 200, headers: { ...cors, "Content-Type": "application/json" },
+    });
+  }
 
   if (!codeMatches(code, Deno.env.get("MEMBERS_CODE") ?? "")) {
     return new Response(JSON.stringify({ error: "invalid_code" }), {

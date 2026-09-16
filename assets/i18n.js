@@ -63,7 +63,7 @@
     "주소록에 실릴 연락처와 졸업 후 진로·경력을 갱신해 주세요.": "Update the contact details and post-graduation career shown in the directory.",
     "40주년 후원": "40th anniversary sponsorship",
     "사단법인 계좌 이체로 후원하고 설문을 남겨 주시면 사은품을 보내드립니다.": "Donate by bank transfer to the association account, fill in the survey, and we'll send you a gift.",
-    "롯데시티호텔 대전": "Lotte City Hotel Daejeon", "크리스탈볼룸": "Crystal Ballroom", "루비룸 (1층)": "Ruby Room (1F)",
+    "롯데시티호텔 대전": "Lotte City Hotel Daejeon", "1층 크리스탈홀": "Crystal Hall (1F)", "대전광역시 유성구 엑스포로123번길 33": "33 Expo-ro 123beon-gil, Yuseong-gu, Daejeon",
     "MR 동문 (역대 전 기수)": "MR alumni (all cohorts)", "현역 부원": "Current members",
     "지도교수 및 내빈": "Advising professors and guests", "가족 동반 환영": "Families welcome",
     "졸업생 및 가족(성인) 12만원": "Alumni and adult family: KRW 120,000",

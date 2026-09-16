@@ -76,8 +76,8 @@ const CONFIG = {
   EVENT_PLACE: "롯데시티호텔 대전",
   EVENT_DETAILS: {
     durationHours: 6,
-    address: "",
-    rooms: ["크리스탈볼룸", "루비룸 (1층)"],
+    address: "대전광역시 유성구 엑스포로123번길 33",
+    rooms: ["1층 크리스탈홀"],
     audience: ["MR 동문 (역대 전 기수)", "현역 부원", "지도교수 및 내빈", "가족 동반 환영"],
     fee: [
       "졸업생 및 가족(성인) 12만원",

@@ -44,7 +44,7 @@ const CONFIG = {
       id: "jacket",
       icon: "🧥",
       title: "동잠(단체복) 주문",
-      desc: "사이즈 · 수량 · 손목 각인 이름. 예상 단가 54,000원 · 9월 13일(일) 주문 마감.",
+      desc: "사이즈 · 수량 · 손목 각인 이름. 예상 단가 54,000원 · 9월 20일(일) 주문 마감.",
       url: "https://docs.google.com/forms/d/e/1FAIpQLSfFIGePYR4BbjLZVbGr8tGLkkMqTTrdFqw120mIe1n6F5YiEg/viewform",
       active: true,
       prefill_generation_key: "entry.1271457072",

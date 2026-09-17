@@ -952,8 +952,33 @@
       return '"' + t.replace(/"/g, '""') + '"';
     }
 
-    function exportCsv() {
+    // 내보내기 전용 비밀번호. 평문 대신 SHA-256 해시를 둔다(레포가 공개라 평문은 그대로 노출됨).
+    // ponytail: 클라이언트 측 관문이라 소스를 열면 우회된다 — 실제 차단이 필요하면
+    //           CSV 생성을 Edge Function으로 옮기고 거기서 비번을 검증해야 한다.
+    var EXPORT_PW_SHA256 = "1d4bbc4e775c9690e12d9d136e62e0d7d0ee15bdcccf785bb70439b951f357ec";
+
+    async function sha256Hex(text) {
+      var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+      return Array.from(new Uint8Array(buf))
+        .map(function (b) { return b.toString(16).padStart(2, "0"); }).join("");
+    }
+
+    // 탭을 닫을 때까지 한 번만 묻는다.
+    async function exportUnlocked() {
+      if (sessionStorage.getItem("mr40_export_ok") === "1") return true;
+      var pw = prompt("내보내기 비밀번호를 입력하세요.");
+      if (pw === null) return false;                       // 취소
+      if (await sha256Hex(pw.trim()) !== EXPORT_PW_SHA256) {
+        showToast("비밀번호가 올바르지 않습니다.");
+        return false;
+      }
+      sessionStorage.setItem("mr40_export_ok", "1");
+      return true;
+    }
+
+    async function exportCsv() {
       if (currentView.length === 0) { showToast("내보낼 결과가 없습니다."); return; }
+      if (!(await exportUnlocked())) return;
       var lines = [EXPORT_COLS.map(function (c) { return csvCell(c[0]); }).join(",")];
       currentView.forEach(function (r) {
         lines.push(EXPORT_COLS.map(function (c) { return csvCell(r[c[1]]); }).join(","));

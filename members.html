@@ -210,6 +210,21 @@
     }
     #sort-select:focus { outline: none; border-color: var(--accent); }
 
+    #export-btn {
+      min-height: 40px;
+      padding: 0.4rem 0.8rem;
+      border-radius: 0.6rem;
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.05);
+      color: var(--text);
+      font-size: 0.875rem;
+      font-family: inherit;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    #export-btn:hover { border-color: var(--accent); }
+    #export-btn:focus { outline: none; border-color: var(--accent); }
+
     .dir-title {
       font-size: clamp(1.3rem, 4vw, 1.75rem);
       font-weight: 800;
@@ -556,6 +571,7 @@
             <option value="name-desc">가나다 역순</option>
           </select>
         </label>
+        <button type="button" id="export-btn" title="현재 검색·정렬 결과를 CSV로 저장 (엑셀에서 열림)">⬇ 엑셀 내보내기</button>
       </div>
 
       <!-- 카드 그리드 -->
@@ -599,6 +615,8 @@
 
     // ── 전체 회원 데이터 (검색에 사용) ──
     var allRows = [];
+    // ── 현재 화면에 보이는 목록 (검색·정렬 반영) — 내보내기 대상 ──
+    var currentView = [];
 
     // ── 기수 정규화: "1"~"9" 한 자리 → "01"~"09" 두 자리 (01~09학번이 숫자로 저장된 경우 보정) ──
     function normCohort(c) {
@@ -733,7 +751,8 @@
           })
         : allRows;
 
-      renderCards(sortRows(filtered));
+      currentView = sortRows(filtered);
+      renderCards(currentView);
 
       var countEl = document.getElementById("member-count");
       if (allRows.length > 0) {
@@ -918,6 +937,38 @@
       else clearBtn.classList.remove("visible");
       applyFilter(val);
     });
+
+    // ── CSV 내보내기 (현재 검색·정렬 결과 그대로) ──
+    var EXPORT_COLS = [
+      ["이름", COL_NAME], ["학번", COL_COHORT], ["소속", COL_ORG],
+      ["이메일", COL_EMAIL], ["연락처", COL_PHONE],
+      ["관심분야", COL_INTEREST], ["한마디", COL_QUOTE],
+    ];
+
+    function csvCell(v) {
+      // 앞에 =,+,-,@ 가 오면 엑셀이 수식으로 해석하므로 탭을 붙여 무력화한다.
+      var t = (v == null ? "" : String(v));
+      if (/^[=+\-@]/.test(t)) t = "\t" + t;
+      return '"' + t.replace(/"/g, '""') + '"';
+    }
+
+    function exportCsv() {
+      if (currentView.length === 0) { showToast("내보낼 결과가 없습니다."); return; }
+      var lines = [EXPORT_COLS.map(function (c) { return csvCell(c[0]); }).join(",")];
+      currentView.forEach(function (r) {
+        lines.push(EXPORT_COLS.map(function (c) { return csvCell(r[c[1]]); }).join(","));
+      });
+      // \uFEFF(BOM) + CRLF — 엑셀이 한글을 깨뜨리지 않고 여는 조합
+      var blob = new Blob(["\uFEFF" + lines.join("\r\n")], { type: "text/csv;charset=utf-8;" });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "MR_주소록_" + new Date().toISOString().slice(0, 10) + ".csv";
+      a.click();
+      URL.revokeObjectURL(a.href);
+      showToast(currentView.length + "명 내보냄 — 개인정보이니 취급에 주의해 주세요.");
+    }
+
+    document.getElementById("export-btn").addEventListener("click", exportCsv);
 
     // ── 정렬 select 이벤트 ──
     document.getElementById("sort-select").addEventListener("change", function (e) {

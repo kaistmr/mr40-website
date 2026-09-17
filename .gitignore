@@ -13,3 +13,6 @@ scripts/seed-members.sql
 .env
 supabase/.temp/
 .org-cleanup-backup.json
+
+# 주소록 접속 코드 (대리 입력 스크립트용 — 절대 커밋 금지)
+.mr-code

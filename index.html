@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="KAIST MR(Microrobot Research) 창립 40주년 기념 홈페이지" />
-  <meta property="og:title" content="MR 40 — 로봇과 함께한 마흔 해" />
+  <meta property="og:title" content="MR 40 — 로봇과 함께한 40년" />
   <meta property="og:description" content="1986년부터 2026년까지, MR의 40년 기록과 사람들을 만납니다." />
   <meta property="og:image" content="https://kaistmr.github.io/mr40-website/assets/og-image.png" />
   <meta property="og:url" content="https://kaistmr.github.io/mr40-website/" />
@@ -303,10 +303,10 @@
   <section class="hero">
     <p class="hero-eyebrow">KAIST MICROROBOT RESEARCH · 1986 → 2026</p>
     <h1 class="hero-headline">
-      로봇과 함께한<br><span class="highlight">마흔 해</span>
+      로봇과 함께한<br><span class="highlight">40년</span>
     </h1>
     <p class="hero-sub">
-      1986년 창설부터 2026년 오늘까지, 40년의 기록과 사람들을<br class="hidden-xs"> 한 자리에 모았습니다.
+      1986년 창단부터 2026년 오늘까지, 40년의 기록과 사람들을<br class="hidden-xs"> 한 자리에 모았습니다.
     </p>
     <div class="hero-cta" id="hero-cta"></div>
     <div class="hero-surveys" id="hero-surveys"></div>
@@ -369,13 +369,13 @@
         <a href="magazine.html" class="section-card card">
           <span class="card-icon" aria-hidden="true">📖</span>
           <p class="card-title">회지</p>
-          <p class="card-desc">큰 마음 작은 이야기 — 회지 아카이브</p>
+          <p class="card-desc">큰 마음 작은 이야기, 회지 아카이브</p>
         </a>
 
         <a href="event.html" class="section-card card">
           <span class="card-icon" aria-hidden="true">🎉</span>
           <p class="card-title">행사안내</p>
-          <p class="card-desc">2026.11.28 — 40주년 기념행사</p>
+          <p class="card-desc">2026.11.28, 40주년 기념행사</p>
         </a>
 
         <a href="stats.html" class="section-card card">
@@ -489,11 +489,11 @@
   <section class="brand-section">
     <div class="container">
       <h2 class="brand-heading">로고로 보는 MR <span aria-hidden="true">🎨</span></h2>
-      <p class="brand-sub">시대마다 새로 그려진 동아리의 얼굴들</p>
+      <p class="brand-sub">시대마다 새로 그린 동아리의 얼굴</p>
       <div class="logo-strip">
         <div class="logo-chip"><img src="assets/logos/2004_logo4.jpg" alt="MR 2000년대 로고" loading="lazy" /><span class="logo-era">2000년대</span></div>
         <div class="logo-chip dark"><img src="assets/logos/mr_logo_white.png" alt="MR 2010년대 로고" loading="lazy" /><span class="logo-era">2010년대</span></div>
-        <div class="logo-chip dark"><img src="assets/logos/mr_logo_2026.png" alt="MR 현행 로고 — Microrobot Research" loading="lazy" /><span class="logo-era">2020년대</span></div>
+        <div class="logo-chip dark"><img src="assets/logos/mr_logo_2026.png" alt="MR 현행 로고, Microrobot Research" loading="lazy" /><span class="logo-era">2020년대</span></div>
       </div>
 
       <h2 class="brand-heading">함께하는 분들 <span aria-hidden="true">🤝</span></h2>
@@ -516,7 +516,7 @@
 
       function renderSponsors(items) {
         if (!items || items.length === 0) {
-          listEl.innerHTML = '<div class="sponsor-empty">후원사를 모시고 있습니다.<br>동문 개인 후원과 기업 후원 모두 환영해요 — 문의는 동아리 메일로 부탁드립니다.</div>';
+          listEl.innerHTML = '<div class="sponsor-empty">후원사를 모시고 있습니다.<br>동문 개인 후원과 기업 후원 모두 환영해요. 문의는 동아리 메일로 부탁드립니다.</div>';
           return;
         }
         listEl.innerHTML = items.map(function (s) {
@@ -891,7 +891,7 @@
 
       function openSurvey(s) {
         if (!s) return;
-        location.href = "survey.html?id=" + encodeURIComponent(s.id || "attend");
+        location.href = s.page || ("survey.html?id=" + encodeURIComponent(s.id || "attend"));
       }
 
       // 히어로 하단 상시 노출 링크 ("다음에 할게요" 이후에도 계속 접근 가능)

@@ -990,7 +990,7 @@
       a.download = "MR_주소록_" + new Date().toISOString().slice(0, 10) + ".csv";
       a.click();
       URL.revokeObjectURL(a.href);
-      showToast(currentView.length + "명 내보냄 — 개인정보이니 취급에 주의해 주세요.");
+      showToast(currentView.length + "명을 내보냈습니다. 개인정보이니 취급에 주의해 주세요.");
     }
 
     document.getElementById("export-btn").addEventListener("click", exportCsv);

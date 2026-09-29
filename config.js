@@ -64,7 +64,7 @@ const CONFIG = {
       id: "donate",
       icon: "💝",
       title: "40주년 후원",
-      desc: "기부금영수증이 필요하면 발전기금, 간편하게 하시려면 사단법인 계좌. 두 가지 방법을 안내합니다.",
+      desc: "발전기금과 사단법인 계좌, 두 가지 방법을 안내합니다.",
       url: "https://docs.google.com/forms/d/e/1FAIpQLSdqSTzf-gZvq2JPLxGkXQVHg-x0IhI2pvBC2Alx5RQbqFTDKg/viewform",
       // page가 있으면 설문 iframe 대신 이 페이지로 보냅니다 (후원은 방법이 둘이라 별도 안내 페이지).
       page: "donate.html",

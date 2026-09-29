@@ -21,7 +21,15 @@
     .dn-compare th, .dn-compare td { border:1px solid rgba(125,141,181,.25); padding:.75rem .8rem; text-align:left; vertical-align:top; line-height:1.7; }
     .dn-compare thead th { color:var(--accent); }
     .dn-compare tbody th { width:24%; color:var(--muted); font-weight:700; word-break:keep-all; }
-    @media (max-width:560px) { .dn-compare { font-size:.85rem; } .dn-compare th, .dn-compare td { padding:.55rem .45rem; } }
+    /* 좁은 화면: 3열 표를 항목별 카드로 쌓아 글자가 잘게 쪼개지지 않게 */
+    @media (max-width:560px) {
+      .dn-compare, .dn-compare tbody, .dn-compare tr, .dn-compare th, .dn-compare td { display:block; width:auto; }
+      .dn-compare thead { display:none; }
+      .dn-compare tr { border:1px solid rgba(125,141,181,.25); border-radius:.8rem; margin-bottom:.7rem; padding:.7rem .95rem; }
+      .dn-compare tbody th { border:0; padding:0 0 .35rem; color:var(--accent); font-size:1rem; }
+      .dn-compare td { border:0; padding:.2rem 0; }
+      .dn-compare td::before { content:attr(data-l) " "; font-weight:800; color:var(--muted); }
+    }
     .dn-way { margin-bottom:1.25rem; }
     .dn-way h2 { color:var(--accent); font-size:1.3rem; line-height:1.5; margin-bottom:.3rem; }
     .dn-tag { display:inline-block; margin-bottom:.9rem; padding:.25rem .7rem; border-radius:9999px; font-size:.85rem; font-weight:700;
@@ -62,10 +70,10 @@
         <tr><th scope="col">구분</th><th scope="col">① KAIST 발전기금</th><th scope="col">② 사단법인 계좌</th></tr>
       </thead>
       <tbody>
-        <tr><th scope="row">기부금영수증</th><td>받으실 수 있습니다 (연말정산 세액공제)</td><td>발급이 어렵습니다</td></tr>
-        <tr><th scope="row">준비하실 것</th><td>약정서 1장 작성 + 계좌이체</td><td>인터넷 설문 작성 + 계좌이체</td></tr>
-        <tr><th scope="row">돈이 들어가는 곳</th><td>KAIST 학교 계좌 (‘MR 발전기금’)</td><td>동아리 사단법인 계좌</td></tr>
-        <tr><th scope="row">걸리는 시간</th><td>서류 작성이 있어 조금 더 걸립니다</td><td>가장 빠릅니다</td></tr>
+        <tr><th scope="row">기부금영수증</th><td data-l="①">받으실 수 있습니다 (연말정산 세액공제)</td><td data-l="②">발급이 어렵습니다</td></tr>
+        <tr><th scope="row">준비하실 것</th><td data-l="①">약정서 1장 작성 + 계좌이체</td><td data-l="②">인터넷 설문 작성 + 계좌이체</td></tr>
+        <tr><th scope="row">돈이 들어가는 곳</th><td data-l="①">KAIST 학교 계좌 (‘MR 발전기금’)</td><td data-l="②">동아리 사단법인 계좌</td></tr>
+        <tr><th scope="row">걸리는 시간</th><td data-l="①">서류 작성이 있어 조금 더 걸립니다</td><td data-l="②">가장 빠릅니다</td></tr>
       </tbody>
     </table>
 

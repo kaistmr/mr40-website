@@ -63,7 +63,7 @@
     "주소록에 실릴 연락처와 졸업 후 진로·경력을 갱신해 주세요.": "Update the contact details and post-graduation career shown in the directory.",
     "40주년 후원": "40th anniversary sponsorship",
     "사단법인 계좌 이체로 후원하고 설문을 남겨 주시면 사은품을 보내드립니다.": "Donate by bank transfer to the association account, fill in the survey, and we'll send you a gift.",
-    "기부금영수증이 필요하면 발전기금, 간편하게 하시려면 사단법인 계좌. 두 가지 방법을 안내합니다.": "Development Fund for a tax receipt, association account for the simple route. Both are explained.",
+    "발전기금과 사단법인 계좌, 두 가지 방법을 안내합니다.": "Two ways to give: the KAIST Development Fund or the association account.",
     "롯데시티호텔 대전": "Lotte City Hotel Daejeon", "1층 크리스탈홀": "Crystal Hall (1F)", "대전광역시 유성구 엑스포로123번길 33": "33 Expo-ro 123beon-gil, Yuseong-gu, Daejeon",
     "MR 동문 (역대 전 기수)": "MR alumni (all cohorts)", "현역 부원": "Current members",
     "지도교수 및 내빈": "Advising professors and guests", "가족 동반 환영": "Families welcome",

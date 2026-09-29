@@ -1,7 +1,7 @@
 <html>
 
 <head>
-<meta http-equiv=Content-Type content="text/html; charset=ks_c_5601-1987">
+<meta http-equiv=Content-Type content="text/html; charset=utf-8">
 <meta name=ProgId content=PowerPoint.Slide>
 <meta name=Generator content="Microsoft PowerPoint 12">
 <link id=Main-File rel=Main-File href="../%EB%AA%A9%ED%91%9C%EC%B6%94%EC%A0%81%EB%A1%9C%EB%B3%B4%ED%8A%B8.htm">
@@ -118,9 +118,9 @@ function UpdNav()
 {
 	txt = "<center>";
 	if( parent.GetHrefObj( parent.gCurSld ).mOrigVis == 1 )
-		txt += "½½¶óÀÌµå " + parent.GetCurSldNum() + "/" + parent.GetNumSlds()
+		txt += "ìŠ¬ë¼ì´ë“œ " + parent.GetCurSldNum() + "/" + parent.GetNumSlds()
 	else
-		txt += "¼û°ÜÁø ½½¶óÀÌµå"
+		txt += "ìˆ¨ê²¨ì§„ ìŠ¬ë¼ì´ë“œ"
 	txt += "</center>";
 	nav_text.innerHTML = txt;
 	if( !parent.HasPrevSld() )
@@ -194,12 +194,12 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
 <table id="notesBtn" style='display:none;position:relative;width:55px' align=left cellpadding=0
  cellspacing=0>
  <td nowrap>
- <div id="nb_ntsElem" title="½½¶óÀÌµå
-³ëÆ® Ç¥½Ã/¼û±â±â" align=center style='position:relative;margin-left:5px;margin-right:5px;padding:3px;
- font-family:±¼¸²;color:buttontext;font-size:9pt; cursor:default'>
- <img src="notes_flag.gif" id="nb_nts" style='display:none'> &nbsp;½½¶óÀÌµå
-³ëÆ®</div>
- <div id="nb_ntsBorder" title ="½½¶óÀÌµå ³ëÆ® Ç¥½Ã/¼û±â±â" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=1 style='position:absolute;top:0%;left:0%;width:100%;height:20px'>
+ <div id="nb_ntsElem" title="ìŠ¬ë¼ì´ë“œ
+ë…¸íŠ¸ í‘œì‹œ/ìˆ¨ê¸°ê¸°" align=center style='position:relative;margin-left:5px;margin-right:5px;padding:3px;
+ font-family:êµ´ë¦¼;color:buttontext;font-size:9pt; cursor:default'>
+ <img src="notes_flag.gif" id="nb_nts" style='display:none'> &nbsp;ìŠ¬ë¼ì´ë“œ
+ë…¸íŠ¸</div>
+ <div id="nb_ntsBorder" title ="ìŠ¬ë¼ì´ë“œ ë…¸íŠ¸ í‘œì‹œ/ìˆ¨ê¸°ê¸°" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=1 style='position:absolute;top:0%;left:0%;width:100%;height:20px'>
 
  </div>
  </td>
@@ -208,10 +208,10 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
 
 <table style='position:relative;width:70px' align=right cellpadding=0 cellspacing=0>
  <td nowrap>
- <div id="nb_sldshwText" title="ÀüÃ¼ È­¸é ½½¶óÀÌµå ¼î" align=center style='position:relative;margin-left:20px;padding:3px;
- font-family:±¼¸²;color:buttontext;font-size:9pt;cursor:default'>½½¶óÀÌµå
-¼î</div>
- <div id="nb_sldshwBorder" title="ÀüÃ¼ È­¸é ½½¶óÀÌµå ¼î" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=5 style='position:absolute;top:0%;left:0%;width:100%;height:20px'>
+ <div id="nb_sldshwText" title="ì „ì²´ í™”ë©´ ìŠ¬ë¼ì´ë“œ ì‡¼" align=center style='position:relative;margin-left:20px;padding:3px;
+ font-family:êµ´ë¦¼;color:buttontext;font-size:9pt;cursor:default'>ìŠ¬ë¼ì´ë“œ
+ì‡¼</div>
+ <div id="nb_sldshwBorder" title="ì „ì²´ í™”ë©´ ìŠ¬ë¼ì´ë“œ ì‡¼" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=5 style='position:absolute;top:0%;left:0%;width:100%;height:20px'>
  <div style='position:absolute;clip:rect(0px, 18px, 18px, 0px)'><img
  src="buttons.gif" id="nb_sldshw" style='position:relative;left:-254px'></div>
  </div>
@@ -220,7 +220,7 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
  <div id="nb_voiceBorder" style='display:none;position:absolute;top:0;left:-40px;
  width:20px;height:20px' onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=4 class=button>
  <div style='position:absolute;clip:rect(0px, 18px, 18px, 0px)'><img
- src="buttons.gif" id="nb_voice" title="¼³¸í ÀÏ½Ã ÁßÁö/Àç»ý" style='position:
+ src="buttons.gif" id="nb_voice" title="ì„¤ëª… ì¼ì‹œ ì¤‘ì§€/ìž¬ìƒ" style='position:
  relative;left:-290px'></div>
  </div>
  </td>
@@ -230,14 +230,14 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
  <td nowrap>
  <div id="nb_prevBorder" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=2 class=button style='left:-30px'>
  <div style='position:absolute;clip:rect(0px, 30px, 18px, 0px)'><img
- src="buttons.gif" id="nb_prev" title="ÀÌÀü ½½¶óÀÌµå" style='position:relative;
+ src="buttons.gif" id="nb_prev" title="ì´ì „ ìŠ¬ë¼ì´ë“œ" style='position:relative;
  left:0px'></div>
  </div>
  <span id="nav_text" style='position:relative;top:3px;width:100px;font-family:
- ±¼¸²;color:buttontext;font-size:9pt'></span>
+ êµ´ë¦¼;color:buttontext;font-size:9pt'></span>
  <div id="nb_nextBorder" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=3 class=button>
  <div style='position:absolute;clip:rect(0px, 30px, 18px, 0px)'><img
- src="buttons.gif" id="nb_next" title="´ÙÀ½ ½½¶óÀÌµå" style='position:relative;
+ src="buttons.gif" id="nb_next" title="ë‹¤ìŒ ìŠ¬ë¼ì´ë“œ" style='position:relative;
  left:-90px'></div>
  </div>
  </td>
@@ -249,11 +249,11 @@ onmousedown="BtnOnDown()" onmouseout="BtnOnOut()" onmouseup="BtnOnUp()"
 onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
 
 <table style='position:relative;width:70px' align=left cellpadding=0 cellspacing=0>
- <td nowrap><div title="°³¿ä
-Ç¥½Ã/¼û±â±â" id="nb_otl" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=11
+ <td nowrap><div title="ê°œìš”
+í‘œì‹œ/ìˆ¨ê¸°ê¸°" id="nb_otl" onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=11
  style='position:absolute;top:0%;left:0%;width:100%;height:100%;cursor:default'>
- <div id="nb_otlElem" align=center style='position:relative;padding:3px;font-family:±¼¸²;
- color:buttontext;font-size:9pt'>°³¿ä</div></div>
+ <div id="nb_otlElem" align=center style='position:relative;padding:3px;font-family:êµ´ë¦¼;
+ color:buttontext;font-size:9pt'>ê°œìš”</div></div>
  </td>
 </table>
 
@@ -262,7 +262,7 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
  <div style='position:absolute;left:-18px;width:24px;height:20px;border-style:
  solid;border-width:1px;border-color:threedface' onfocus="BtnOnOver()" onblur="BtnOnOut()" TABINDEX=12 id="nb_otlTxtBorder">
  <div style='position:absolute;clip:rect(0px, 22px, 18px, 0px)'><img
- src="buttons.gif" id="nb_otlTxt" title="°³¿ä È®Àå/Ãà¼Ò"
+ src="buttons.gif" id="nb_otlTxt" title="ê°œìš” í™•ìž¥/ì¶•ì†Œ"
  style='position:relative;left:-157px'></div>
  </div>
  </td>
@@ -273,7 +273,7 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
 <div id=OtlObj style='display:none;visibility:hidden;'>
 
 
-<table width="100%" style='font-family:±¼¸²;font-size:9pt'>
+<table width="100%" style='font-family:êµ´ë¦¼;font-size:9pt'>
  <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
   style='cursor:hand'>
   <td align=right valign=top>
@@ -281,10 +281,10 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
   </td>
   <td width="100%">
   <div id=PPTP1 class=PTxt><font size=2><a
-  href="javascript:GoToSld('slide0001.htm');" id=PPTL1>¸ñÇ¥ÃßÀû·Îº¸Æ®</a></font></div>
+  href="javascript:GoToSld('slide0001.htm');" id=PPTL1>ëª©í‘œì¶”ì ë¡œë³´íŠ¸</a></font></div>
   <div id=PPTC1 class=CTxt style='display:none'><font size=2>
   <ul>
-   <li>MR 08ÇÐ¹ø ÃÖÁ¾¿ø</li>
+   <li>MR 08í•™ë²ˆ ìµœì¢…ì›</li>
   </ul>
   </font></div>
   </td>
@@ -296,7 +296,7 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
   </td>
   <td>
   <div id=PPTP2 class=PTxt><font size=2><a
-  href="javascript:GoToSld('slide0002.htm');" id=PPTL2>±âº» ·Îº¿ ¼³¸í</a></font></div>
+  href="javascript:GoToSld('slide0002.htm');" id=PPTL2>ê¸°ë³¸ ë¡œë´‡ ì„¤ëª…</a></font></div>
   </td>
  </tr>
  <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
@@ -306,7 +306,7 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
   </td>
   <td>
   <div id=PPTP3 class=PTxt><font size=2><a
-  href="javascript:GoToSld('slide0003.htm');" id=PPTL3>Á¦ÀÛ °úÁ¤ : ¹ß½ÅºÎ - 1</a></font></div>
+  href="javascript:GoToSld('slide0003.htm');" id=PPTL3>ì œìž‘ ê³¼ì • : ë°œì‹ ë¶€ - 1</a></font></div>
   </td>
  </tr>
  <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
@@ -316,7 +316,7 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
   </td>
   <td>
   <div id=PPTP4 class=PTxt><font size=2><a
-  href="javascript:GoToSld('slide0004.htm');" id=PPTL4>Á¦ÀÛ °úÁ¤ : ¹ß½ÅºÎ - 2</a></font></div>
+  href="javascript:GoToSld('slide0004.htm');" id=PPTL4>ì œìž‘ ê³¼ì • : ë°œì‹ ë¶€ - 2</a></font></div>
   </td>
  </tr>
  <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
@@ -326,7 +326,7 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
   </td>
   <td>
   <div id=PPTP5 class=PTxt><font size=2><a
-  href="javascript:GoToSld('slide0010.htm');" id=PPTL5>Á¦ÀÛ °úÁ¤ : ¹ß½ÅºÎ - 3</a></font></div>
+  href="javascript:GoToSld('slide0010.htm');" id=PPTL5>ì œìž‘ ê³¼ì • : ë°œì‹ ë¶€ - 3</a></font></div>
   </td>
  </tr>
  <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
@@ -336,7 +336,7 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
   </td>
   <td>
   <div id=PPTP6 class=PTxt><font size=2><a
-  href="javascript:GoToSld('slide0005.htm');" id=PPTL6>Á¦ÀÛ °úÁ¤ : ¼ö½ÅºÎ - 1</a></font></div>
+  href="javascript:GoToSld('slide0005.htm');" id=PPTL6>ì œìž‘ ê³¼ì • : ìˆ˜ì‹ ë¶€ - 1</a></font></div>
   </td>
  </tr>
  <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
@@ -346,7 +346,7 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
   </td>
   <td>
   <div id=PPTP7 class=PTxt><font size=2><a
-  href="javascript:GoToSld('slide0011.htm');" id=PPTL7>Á¦ÀÛ °úÁ¤ : ¼ö½ÅºÎ - 2</a></font></div>
+  href="javascript:GoToSld('slide0011.htm');" id=PPTL7>ì œìž‘ ê³¼ì • : ìˆ˜ì‹ ë¶€ - 2</a></font></div>
   </td>
  </tr>
  <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
@@ -356,7 +356,7 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
   </td>
   <td>
   <div id=PPTP8 class=PTxt><font size=2><a
-  href="javascript:GoToSld('slide0012.htm');" id=PPTL8>Á¦ÀÛ °úÁ¤ : ¼ö½ÅºÎ - 3</a></font></div>
+  href="javascript:GoToSld('slide0012.htm');" id=PPTL8>ì œìž‘ ê³¼ì • : ìˆ˜ì‹ ë¶€ - 3</a></font></div>
   </td>
  </tr>
  <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
@@ -366,7 +366,7 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
   </td>
   <td>
   <div id=PPTP9 class=PTxt><font size=2><a
-  href="javascript:GoToSld('slide0013.htm');" id=PPTL9>ÀÛµ¿ ±¸Á¶ : ¹ß½ÅºÎ</a></font></div>
+  href="javascript:GoToSld('slide0013.htm');" id=PPTL9>ìž‘ë™ êµ¬ì¡° : ë°œì‹ ë¶€</a></font></div>
   </td>
  </tr>
  <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
@@ -376,7 +376,7 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
   </td>
   <td>
   <div id=PPTP10 class=PTxt><font size=2><a
-  href="javascript:GoToSld('slide0014.htm');" id=PPTL10>ÀÛµ¿ ±¸Á¶ : ¼ö½ÅºÎ</a></font></div>
+  href="javascript:GoToSld('slide0014.htm');" id=PPTL10>ìž‘ë™ êµ¬ì¡° : ìˆ˜ì‹ ë¶€</a></font></div>
   </td>
  </tr>
  <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
@@ -386,11 +386,11 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
   </td>
   <td>
   <div id=PPTP11 class=PTxt><font size=2><a
-  href="javascript:GoToSld('slide0015.htm');" id=PPTL11>¹ß½ÅºÎ ¸ðÅÍ ±¸µ¿</a></font></div>
+  href="javascript:GoToSld('slide0015.htm');" id=PPTL11>ë°œì‹ ë¶€ ëª¨í„° êµ¬ë™</a></font></div>
   <div id=PPTC11 class=CTxt style='display:none'><font size=2>
   <ul>
-   <li>¿¹±âÄ¡ ¾ÊÀº °£ÆíÇÔ</li>
-   <li>ÀÚµ¿À¸·Î PWMÀ» »ý¼º</li>
+   <li>ì˜ˆê¸°ì¹˜ ì•Šì€ ê°„íŽ¸í•¨</li>
+   <li>ìžë™ìœ¼ë¡œ PWMì„ ìƒì„±</li>
    <br>
    <br>
   </ul>
@@ -404,11 +404,11 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
   </td>
   <td>
   <div id=PPTP12 class=PTxt><font size=2><a
-  href="javascript:GoToSld('slide0016.htm');" id=PPTL12>°¨»çÇÕ´Ï´Ù.</a></font></div>
+  href="javascript:GoToSld('slide0016.htm');" id=PPTL12>ê°ì‚¬í•©ë‹ˆë‹¤.</a></font></div>
   <div id=PPTC12 class=CTxt style='display:none'><font size=2>
   <ul>
-   <li>µé¾îÁÖ¼Å¼­ °¨»çÇÕ´Ï´Ù.</li>
-   <li>Áú¹® ÀÖÀ¸½Ã¸é Áú¹®ÇØ ÁÖ¼¼¿ä</li>
+   <li>ë“¤ì–´ì£¼ì…”ì„œ ê°ì‚¬í•©ë‹ˆë‹¤.</li>
+   <li>ì§ˆë¬¸ ìžˆìœ¼ì‹œë©´ ì§ˆë¬¸í•´ ì£¼ì„¸ìš”</li>
   </ul>
   </font></div>
   </td>
@@ -420,7 +420,7 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
   </td>
   <td>
   <div id=PPTP13 class=PTxt><font size=2><a
-  href="javascript:GoToSld('slide0017.htm');" id=PPTL13>Ãß°¡ ÆäÀÌÁö : ¼ö½ÅºÎ ¼Ò½º</a></font></div>
+  href="javascript:GoToSld('slide0017.htm');" id=PPTL13>ì¶”ê°€ íŽ˜ì´ì§€ : ìˆ˜ì‹ ë¶€ ì†ŒìŠ¤</a></font></div>
   <div id=PPTC13 class=CTxt style='display:none'><font size=2>
   <ul>
    <li>while(1) {<br>
@@ -470,7 +470,7 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
   </td>
   <td>
   <div id=PPTP14 class=PTxt><font size=2><a
-  href="javascript:GoToSld('slide0018.htm');" id=PPTL14>Ãß°¡ ÆäÀÌÁö : ¼ö½ÅºÎ È¸·Î</a></font></div>
+  href="javascript:GoToSld('slide0018.htm');" id=PPTL14>ì¶”ê°€ íŽ˜ì´ì§€ : ìˆ˜ì‹ ë¶€ íšŒë¡œ</a></font></div>
   </td>
  </tr>
  <tr onmouseover="Over(this)" onmouseout="Out(this)" onclick="Follow(this)"
@@ -480,7 +480,7 @@ onkeypress="ExecBtn()" style='display:none;visibility:hidden'>
   </td>
   <td>
   <div id=PPTP15 class=PTxt><font size=2><a
-  href="javascript:GoToSld('slide0019.htm');" id=PPTL15>Ãß°¡ ÆäÀÌÁö : ¹ß½ÅºÎ È¸·Î</a></font></div>
+  href="javascript:GoToSld('slide0019.htm');" id=PPTL15>ì¶”ê°€ íŽ˜ì´ì§€ : ë°œì‹ ë¶€ íšŒë¡œ</a></font></div>
   </td>
  </tr>
 </table>

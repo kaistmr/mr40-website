@@ -3,20 +3,20 @@
 //Copyleft (c) 2000 - 2001 Shinobu (shinobu@empal.com),All Rights Unreversed.	//
 //Shinobu's Script Support Page : http://javascript.new21.org			//
 //////////////////////////////////////////////////////////////////////////////////
-//¾È³çÇÏ¼¼¿ä? ¼Ò½º °ø°³ÀÚ ½Ã³ëºÎ¶ó°í ÇÕ´Ï´Ù.					//
-//ºÎ´ã¾øÀÌ »ç¿ëÇÏ½Ã°í, ÀÇ¹®Á¡Àº À§ÀÇ ¼­Æ÷Æ® ÆäÀÌÁö¸¦ ¹æ¹®ÇÏ½Ê½Ã¿À.		//
+//ì•ˆë…•í•˜ì„¸ìš”? ì†ŒìŠ¤ ê³µê°œì ì‹œë…¸ë¶€ë¼ê³  í•©ë‹ˆë‹¤.					//
+//ë¶€ë‹´ì—†ì´ ì‚¬ìš©í•˜ì‹œê³ , ì˜ë¬¸ì ì€ ìœ„ì˜ ì„œí¬íŠ¸ í˜ì´ì§€ë¥¼ ë°©ë¬¸í•˜ì‹­ì‹œì˜¤.		//
 //////////////////////////////////////////////////////////////////////////////////
-//Âü  °í : ÀÌ ½ºÅ©¸³Æ®´Â °ø°³ ½ºÅ©¸³Æ®ÀÔ´Ï´Ù.
-//¼öÁ¤ÇÏ½Ç °æ¿ì, ¹ß»ıÇÏ´Â ¸ğµç ¹®Á¦¿¡ ´ëÇÑ Ã¥ÀÓÀº ¼öÁ¤ ¹èÆ÷ÀÚ¿¡°Ô ÀÖÀ¸¸ç,
-//¹İµå½Ã ¿øÀÛÀÚÀÇ Á¤º¸¸¦ ¹àÇô¾ß ÇÕ´Ï´Ù.
-//µû¶ó¼­,À§ÀÇ Ä«ÇÇ·¹ÇÁÆ® ºÎºĞÀº »èÁ¦ÇÒ ¼ö ¾ø½À´Ï´Ù.
+//ì°¸  ê³  : ì´ ìŠ¤í¬ë¦½íŠ¸ëŠ” ê³µê°œ ìŠ¤í¬ë¦½íŠ¸ì…ë‹ˆë‹¤.
+//ìˆ˜ì •í•˜ì‹¤ ê²½ìš°, ë°œìƒí•˜ëŠ” ëª¨ë“  ë¬¸ì œì— ëŒ€í•œ ì±…ì„ì€ ìˆ˜ì • ë°°í¬ìì—ê²Œ ìˆìœ¼ë©°,
+//ë°˜ë“œì‹œ ì›ì‘ìì˜ ì •ë³´ë¥¼ ë°í˜€ì•¼ í•©ë‹ˆë‹¤.
+//ë”°ë¼ì„œ,ìœ„ì˜ ì¹´í”¼ë ˆí”„íŠ¸ ë¶€ë¶„ì€ ì‚­ì œí•  ìˆ˜ ì—†ìŠµë‹ˆë‹¤.
 //////////////////////////////////////////////////////////////////////////////////
 
-//¸ŞÀÎ ·çÆ¾ ½ÃÀÛ.
-//½ÇÁ¦·Î À½¾ÇÀ» Àç»ıÇÏ°í ÄÁÆ®·ÑÇÏ´Â ºÎºĞÀ¸·Î¼­, ¸Å¿ì Áß¿äÇÏ´Ï
-//¼öÁ¤À» ÇÏ½ÃÁö ¾Ê´Â °ÍÀÌ ÁÁ½À´Ï´Ù.
+//ë©”ì¸ ë£¨í‹´ ì‹œì‘.
+//ì‹¤ì œë¡œ ìŒì•…ì„ ì¬ìƒí•˜ê³  ì»¨íŠ¸ë¡¤í•˜ëŠ” ë¶€ë¶„ìœ¼ë¡œì„œ, ë§¤ìš° ì¤‘ìš”í•˜ë‹ˆ
+//ìˆ˜ì •ì„ í•˜ì‹œì§€ ì•ŠëŠ” ê²ƒì´ ì¢‹ìŠµë‹ˆë‹¤.
 
-//º¯¼öÀÇ ÃÊ±âÈ­
+//ë³€ìˆ˜ì˜ ì´ˆê¸°í™”
 var songtime1 = null;
 var doFirstPlay = null;
 var songPlaying = false;
@@ -30,8 +30,8 @@ var loop = false;
 var playMode = null;
 var restLength = null;
 
-function init_bgm() { //bgm Player ÃÊ±âÈ­
-	//È¯°æ º¯¼ö¸¦ Ã¼Å©ÇÏ¿© Á¤ÀÇµÇÁö ¾Ê¾ÒÀ¸¸é ³Ö¾îÁØ´Ù.
+function init_bgm() { //bgm Player ì´ˆê¸°í™”
+	//í™˜ê²½ ë³€ìˆ˜ë¥¼ ì²´í¬í•˜ì—¬ ì •ì˜ë˜ì§€ ì•Šì•˜ìœ¼ë©´ ë„£ì–´ì¤€ë‹¤.
 	if (showTitle == null) { showTitle = 1; }
 	switch (showTitle) {
 		case 0 :
@@ -54,7 +54,7 @@ function init_bgm() { //bgm Player ÃÊ±âÈ­
 	if (doFirstPlay == 1) { play(); }
 }
 
-function addbgm( url, title, time ) { //bgm Ãß°¡
+function addbgm( url, title, time ) { //bgm ì¶”ê°€
 	if (songNum == null) { songNum = new Array(); count = 0;} else { count = songNum.length; }
 	if (songName == null) { songName = new Array(); }
 	if (songTime == null) { songTime = new Array(); }
@@ -64,18 +64,18 @@ function addbgm( url, title, time ) { //bgm Ãß°¡
 	songTime[count] = time;
 }
 
-function chgLoop() { //¹İº¹ ¿©ºÎ ¼³Á¤
+function chgLoop() { //ë°˜ë³µ ì—¬ë¶€ ì„¤ì •
 	if (loop == false) {loop = true;}
 	else {loop = false;}
 }
 
-//Àç»ı ÇÔ¼ö.
+//ì¬ìƒ í•¨ìˆ˜.
 function play() {
-	if (songPlaying) { //Àç»ıÁßÀÌ¶ó¸é...
-	alert("ÀÌ¹Ì Àç»ıÁß!! ^___^");
+	if (songPlaying) { //ì¬ìƒì¤‘ì´ë¼ë©´...
+	alert("ì´ë¯¸ ì¬ìƒì¤‘!! ^___^");
 	return;
 	}
-	//Àç»ı ¸ğµå¿¡ µû¸¥ ÃÊ±â Æ®·¢¹øÈ£ ¼³Á¤.
+	//ì¬ìƒ ëª¨ë“œì— ë”°ë¥¸ ì´ˆê¸° íŠ¸ë™ë²ˆí˜¸ ì„¤ì •.
 	switch (playMode) {
 		case 0 :
 			track = 0;
@@ -89,103 +89,103 @@ function play() {
 chooseSong(track);
 }
 
-function stopTrack() { // À½¾Ç ¸ØÃß±â
-	document.Music.Stop() //À©µµ¿ì ¹Ìµğ¾î ÄÁÆ®·ÑÀ» À§ÇÑ ¿É¼Ç
-	if (songPlaying) { //Àç»ıÁßÀÌ¶ó¸é...
-	clearTimeout(songtime1); //Å¸ÀÓ¾Æ¿ôÀ» ÇØÁ¦ÇÑ´Ù.
+function stopTrack() { // ìŒì•… ë©ˆì¶”ê¸°
+	document.Music.Stop() //ìœˆë„ìš° ë¯¸ë””ì–´ ì»¨íŠ¸ë¡¤ì„ ìœ„í•œ ì˜µì…˜
+	if (songPlaying) { //ì¬ìƒì¤‘ì´ë¼ë©´...
+	clearTimeout(songtime1); //íƒ€ì„ì•„ì›ƒì„ í•´ì œí•œë‹¤.
 	}
-	else { alert("ÀÌ¹Ì ¸ØÃß¼Ì½À´Ï´ç.^^"); return false;}
-	songPlaying = false; //Àç»ıÇÏÁö ¾ÊÀ½À¸·Î ¼³Á¤.
-	updateTrack(); //Á¦¸ñ ¾÷µ¥ÀÌÆ®(±âº» Á¦¸ñÀ¸·Î)
+	else { alert("ì´ë¯¸ ë©ˆì¶”ì…¨ìŠµë‹ˆë‹¹.^^"); return false;}
+	songPlaying = false; //ì¬ìƒí•˜ì§€ ì•ŠìŒìœ¼ë¡œ ì„¤ì •.
+	updateTrack(); //ì œëª© ì—…ë°ì´íŠ¸(ê¸°ë³¸ ì œëª©ìœ¼ë¡œ)
 }
 
-function checkloop( action ) { //¹İº¹ ¿©ºÎ Ã¼Å©
+function checkloop( action ) { //ë°˜ë³µ ì—¬ë¶€ ì²´í¬
 	if ( loop == true ) { chooseSong(track); }
 	else {
 		switch (action) {
-			case "next" : //´ÙÀ½ Æ®·¢À¸·Î ¸í·ÉÀ» ÁÖ¸é
+			case "next" : //ë‹¤ìŒ íŠ¸ë™ìœ¼ë¡œ ëª…ë ¹ì„ ì£¼ë©´
 				nextTrack();
 				break;
-			case "pre" : //ÀÌÀü Æ®·¢À¸·Î ¸í·ÉÀ» ÁÖ¸é(¿¹ºñ¿ë)
+			case "pre" : //ì´ì „ íŠ¸ë™ìœ¼ë¡œ ëª…ë ¹ì„ ì£¼ë©´(ì˜ˆë¹„ìš©)
 				preTrack();
 				break;
-			default :  //¾Ë ¼ö ¾ø´Â ¸í·ÉÀ» ÁÖ¾úÀ» ¶§¿¡´Â ¿¡·¯¸¦ ³»º¸³½´Ù
-				alert("¾Ë ¼ö ¾ø´Â ¸í·ÉÀÔ´Ï´Ù!!\n\n¸ŞÀÎ ½ºÅ©¸³Æ®¸¦ È®ÀÎÇÏ½ÅÈÄ, Àç½ÇÇàÇÏ½Ê½Ã¿À");
+			default :  //ì•Œ ìˆ˜ ì—†ëŠ” ëª…ë ¹ì„ ì£¼ì—ˆì„ ë•Œì—ëŠ” ì—ëŸ¬ë¥¼ ë‚´ë³´ë‚¸ë‹¤
+				alert("ì•Œ ìˆ˜ ì—†ëŠ” ëª…ë ¹ì…ë‹ˆë‹¤!!\n\në©”ì¸ ìŠ¤í¬ë¦½íŠ¸ë¥¼ í™•ì¸í•˜ì‹ í›„, ì¬ì‹¤í–‰í•˜ì‹­ì‹œì˜¤");
 				stopTrack();
 		}
 	}
 }
 
-function chooseSong(aaa) { // Æ®·¢À¸·Î Á÷Á¢ °Ç³Ê¶Ù±â
-	if (songPlaying) { //Àç»ıÁßÀÌ¶ó¸é..
-	clearTimeout(songtime1); //Å¸ÀÓ¾Æ¿ôÀ» ÇØÁ¦ÇÑ´Ù.
+function chooseSong(aaa) { // íŠ¸ë™ìœ¼ë¡œ ì§ì ‘ ê±´ë„ˆë›°ê¸°
+	if (songPlaying) { //ì¬ìƒì¤‘ì´ë¼ë©´..
+	clearTimeout(songtime1); //íƒ€ì„ì•„ì›ƒì„ í•´ì œí•œë‹¤.
 	}
 	track = aaa; 
-	//»ç¿ëÀÚ°¡ ¸Ú¸ğ¸£°í Æ®·¢ ¹øÈ£¸¦ ÀÔ·ÂÇÏ¸é...
-	if(track > songNum.length - 1 || track < 0) { alert("Á¸ÀçÇÏÁö ¾Ê´Â Æ®·¢¹øÈ£ÀÔ´Ï´Ù!!!"); return false;} //¿¡·¯ ¸Ş½ÃÁö¸¦ º¸³½´Ù.
+	//ì‚¬ìš©ìê°€ ë©‹ëª¨ë¥´ê³  íŠ¸ë™ ë²ˆí˜¸ë¥¼ ì…ë ¥í•˜ë©´...
+	if(track > songNum.length - 1 || track < 0) { alert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” íŠ¸ë™ë²ˆí˜¸ì…ë‹ˆë‹¤!!!"); return false;} //ì—ëŸ¬ ë©”ì‹œì§€ë¥¼ ë³´ë‚¸ë‹¤.
 		var nowtrack1 = songNum[track];
-		document.Music.Open(nowtrack1); //¹è°æÀ½¾Ç URL º¯°æ <- À©µµ¿ì ¹Ìµğ¾î ÇÃ·¹ÀÌ¾î ÄÁÆ®·ÑÀ» À§ÇÑ ¿É¼Ç
-		//¸¸¾à¿¡ Beta 1.xÃ³·³ <bgsound> ÅÂ±×¸¦ ¾µ¶§¿¡´Â ¾Æ·¡¿Í °°ÀÌ ÇØÁØ´Ù
-		//document.all.<bgsound> ÅÂ±×ÀÇ ID.src = nowtrack1;
-		songPlaying = true; //Àç»ıÁß..
-		updateTrack(); //Á¦¸ñ ¾÷µ¥ÀÌÆ®
+		document.Music.Open(nowtrack1); //ë°°ê²½ìŒì•… URL ë³€ê²½ <- ìœˆë„ìš° ë¯¸ë””ì–´ í”Œë ˆì´ì–´ ì»¨íŠ¸ë¡¤ì„ ìœ„í•œ ì˜µì…˜
+		//ë§Œì•½ì— Beta 1.xì²˜ëŸ¼ <bgsound> íƒœê·¸ë¥¼ ì“¸ë•Œì—ëŠ” ì•„ë˜ì™€ ê°™ì´ í•´ì¤€ë‹¤
+		//document.all.<bgsound> íƒœê·¸ì˜ ID.src = nowtrack1;
+		songPlaying = true; //ì¬ìƒì¤‘..
+		updateTrack(); //ì œëª© ì—…ë°ì´íŠ¸
 		var t_time1 = songTime[track] + restLength;
 		var t_time = t_time1 * 1000;
-		songtime1 = setTimeout("checkloop('next')",t_time); //°îÀÌ ³¡³ª¸é ÀÚµ¿À¸·Î ´ÙÀ½ Æ®·¢À¸·Î..(Å¸ÀÓ¾Æ¿ô ÀÌ¿ë)
+		songtime1 = setTimeout("checkloop('next')",t_time); //ê³¡ì´ ëë‚˜ë©´ ìë™ìœ¼ë¡œ ë‹¤ìŒ íŠ¸ë™ìœ¼ë¡œ..(íƒ€ì„ì•„ì›ƒ ì´ìš©)
 }
 
-function nextTrack() { //´ÙÀ½ Æ®·¢À¸·Î °Ç³Ê¶Ù±â
-	if (playMode == 1) { var num = Math.floor(Math.random() * songNum.length); } //·£´ı Àç»ıÀÏ¶§ Ã³¸®
+function nextTrack() { //ë‹¤ìŒ íŠ¸ë™ìœ¼ë¡œ ê±´ë„ˆë›°ê¸°
+	if (playMode == 1) { var num = Math.floor(Math.random() * songNum.length); } //ëœë¤ ì¬ìƒì¼ë•Œ ì²˜ë¦¬
 	else {
-		if(track == songNum.length - 1) { var num = 0; } //¸Ç ³¡ Æ®·¢À» Àç»ıÇÏ°í ÀÖ´Ù¸é ÀÚµ¿À¸·Î Ã³À½À¸·Î ¿Â´Ù.
+		if(track == songNum.length - 1) { var num = 0; } //ë§¨ ë íŠ¸ë™ì„ ì¬ìƒí•˜ê³  ìˆë‹¤ë©´ ìë™ìœ¼ë¡œ ì²˜ìŒìœ¼ë¡œ ì˜¨ë‹¤.
 		else { var num = track + 1; }
 	}
 	chooseSong(num);
 }
 
-function preTrack() { //ÀÌÀü Æ®·¢À¸·Î °Ç³Ê¶Ù±â
-	if (playMode == 1) { var num = Math.floor(Math.random() * songNum.length); } //·£´ı Àç»ıÀÏ¶§ÀÇ Ã³¸®
+function preTrack() { //ì´ì „ íŠ¸ë™ìœ¼ë¡œ ê±´ë„ˆë›°ê¸°
+	if (playMode == 1) { var num = Math.floor(Math.random() * songNum.length); } //ëœë¤ ì¬ìƒì¼ë•Œì˜ ì²˜ë¦¬
 	else {
-		if(track == 0) { var num = songNum.length - 1; } //Ã³À½ Æ®·¢À» Àç»ıÇÏ°í ÀÖ´Ù¸é ÀÚµ¿À¸·Î ¸Ç ³¡À¸·Î ¿Â´Ù.
+		if(track == 0) { var num = songNum.length - 1; } //ì²˜ìŒ íŠ¸ë™ì„ ì¬ìƒí•˜ê³  ìˆë‹¤ë©´ ìë™ìœ¼ë¡œ ë§¨ ëìœ¼ë¡œ ì˜¨ë‹¤.
 		else { var num = track - 1; }
 	}
 	chooseSong(num);
 }
 
-function updateTrack() { //³ë·¡ Á¦¸ñ ¾÷µ¥ÀÌÆ®
-	if (songPlaying) { //³ë·¡ Àç»ıÁßÀÇ Á¦¸ñÀº..
-	track_idx = track + 1; //³ë·¡ ¹øÈ£..
+function updateTrack() { //ë…¸ë˜ ì œëª© ì—…ë°ì´íŠ¸
+	if (songPlaying) { //ë…¸ë˜ ì¬ìƒì¤‘ì˜ ì œëª©ì€..
+	track_idx = track + 1; //ë…¸ë˜ ë²ˆí˜¸..
 	switch (showTitle) {
 		case 0 :
-			window.status = ('Á¦¸ñ Ç¥½Ã ±â´ÉÀ» »ç¿ëÇÏ°í ÀÖÁö ¾Ê½À´Ï´Ù!!'); return true;
+			window.status = ('ì œëª© í‘œì‹œ ê¸°ëŠ¥ì„ ì‚¬ìš©í•˜ê³  ìˆì§€ ì•ŠìŠµë‹ˆë‹¤!!'); return true;
 			break;
 		case 1 :
-			document.form1.stitle.value = "¢İ " + track_idx + ". " + songName[track];
+			document.form1.stitle.value = "â™¬ " + track_idx + ". " + songName[track];
 			break;
 		case 2 :
-			window.status = ('¢İ ' + track_idx + '. ' + songName[track]); return true;
+			window.status = ('â™¬ ' + track_idx + '. ' + songName[track]); return true;
 			break;
 		default :
-			window.status = ('Á¦¸ñ Ç¥½Ã ±â´ÉÀ» »ç¿ëÇÏ°í ÀÖÁö ¾Ê½À´Ï´Ù!!'); return true;
+			window.status = ('ì œëª© í‘œì‹œ ê¸°ëŠ¥ì„ ì‚¬ìš©í•˜ê³  ìˆì§€ ì•ŠìŠµë‹ˆë‹¤!!'); return true;
 		}
 	}
-	else { //³ë·¡¸¦ Àç»ıÇÏ°í ÀÖÁö ¾Ê´Ù¸é...
+	else { //ë…¸ë˜ë¥¼ ì¬ìƒí•˜ê³  ìˆì§€ ì•Šë‹¤ë©´...
 		switch (showTitle) {
 		case 0 :
-			window.status = ('¢Æ¢Æ¢Æ 2008 MR BGM Player [stopped] ¢Æ¢Æ¢Æ'); return true;
+			window.status = ('â–’â–’â–’ 2008 MR BGM Player [stopped] â–’â–’â–’'); return true;
 			break;
 		case 1 :
-			document.form1.stitle.value = "¢Æ¢Æ¢Æ 2008 MR BGM Player [stopped] ¢Æ¢Æ¢Æ";
+			document.form1.stitle.value = "â–’â–’â–’ 2008 MR BGM Player [stopped] â–’â–’â–’";
 			break;
 		case 2 :
-			window.status = ('¢Æ¢Æ¢Æ 2008 MR BGM Player [stopped] ¢Æ¢Æ¢Æ'); return true;
+			window.status = ('â–’â–’â–’ 2008 MR BGM Player [stopped] â–’â–’â–’'); return true;
 			break;
 		default :
-			window.status = ('¢Æ¢Æ¢Æ 2008 MR BGM Player [stopped] ¢Æ¢Æ¢Æ'); return true;
+			window.status = ('â–’â–’â–’ 2008 MR BGM Player [stopped] â–’â–’â–’'); return true;
 		}
 	}
 }
 
-function m_list() { //»õÃ¢À¸·Î BGM ¼±ÅÃÃ¢ ¶ç¿ì±â
+function m_list() { //ìƒˆì°½ìœ¼ë¡œ BGM ì„ íƒì°½ ë„ìš°ê¸°
 	window.open('bgm_sele.html','LinksRemote','width=319,height=495,scrollbars=0,resizable=1');
 }

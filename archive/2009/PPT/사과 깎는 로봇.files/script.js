@@ -210,7 +210,7 @@ var g_showAnimation = g_supportsPPTHTML && SupportsPPTAnimation() && ( (window.n
 var g_animUseRuntime = false;
 var g_animItemsToHide, g_animInteractiveItems, g_animSlideTime;
 var g_animMainSequence = null;
-var ENDSHOW_MESG="½½¶óÀÌµå ¼î°¡ ³¡³µ½À´Ï´Ù. ³¡³»·Á¸é ¸¶¿ì½º¸¦ Å¬¸¯ÇÏ½Ê½Ã¿À.", SCREEN_MODE="Frames", gIsEndShow=0, NUM_VIS_SLDS=6, SCRIPT_HREF="script.js", FULLSCR_HREF="fullscreen.htm";
+var ENDSHOW_MESG="ìŠ¬ë¼ì´ë“œ ì‡¼ê°€ ëë‚¬ìŠµë‹ˆë‹¤. ëë‚´ë ¤ë©´ ë§ˆìš°ìŠ¤ë¥¼ í´ë¦­í•˜ì‹­ì‹œì˜¤.", SCREEN_MODE="Frames", gIsEndShow=0, NUM_VIS_SLDS=6, SCRIPT_HREF="script.js", FULLSCR_HREF="fullscreen.htm";
 var gCurSld = gPrevSld = 1, g_offset = 0, gNtsOpen = gHasNts = gOtlTxtExp = 0, gHasNarration = 0, gOtlOpen = true
 window.gPPTHTML=SupportsPPTHTML()
 var gMainDoc=new Array(new hrefList("slide0001.htm",1,-1,1),new hrefList("slide0003.htm",1,-1,1),new hrefList("slide0002.htm",1,-1,1),new hrefList("slide0004.htm",1,-1,1),new hrefList("slide0005.htm",1,-1,1),new hrefList("slide0006.htm",1,-1,1));
@@ -746,7 +746,7 @@ gBtnArr["nb_otlTxtBorder"] = gBtnArr["nb_otlTxt"]= new ImgBtn( "nb_otlTxt","nb_o
 gBtnArr["nb_ntsBorder"].m_flagId= "nb_nts"
 gBtnArr["nb_ntsBorder"].SetFlag = NtsBtnSetFlag
 gBtnArr["nb_otlTxt"].ChangeIcon= GetOtlTxtState
-var sNext="´ÙÀ½",sPrev="ÀÌÀü",sEnd="¼î ¸¶Ä§",sFont="±¼¸²",sArrow="È­»ìÇ¥",sFreeform="ÀÚÀ¯Çü",sRect="Á÷»ç°¢Çü",sOval="Å¸¿ø"
+var sNext="ë‹¤ìŒ",sPrev="ì´ì „",sEnd="ì‡¼ ë§ˆì¹¨",sFont="êµ´ë¦¼",sArrow="í™”ì‚´í‘œ",sFreeform="ììœ í˜•",sRect="ì§ì‚¬ê°í˜•",sOval="íƒ€ì›"
 function ShowMenu()
 {
 	BuildMenu();

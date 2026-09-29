@@ -1,19 +1,19 @@
 <!--Shinobu's BGM Player 1.5 HTML File-->
 <!--Copyleft (C) 2000 - 2001 by Shinobu All Rights Unreversed-->
-<!--Ãß½Å : À§ÀÇ Ä«ÇÇ·¡ÇÁÆ® ºÎºĞÀ» »èÁ¦ÇÏÁö ¸¶½Ê½Ã¿À.-->
+<!--ì¶”ì‹  : ìœ„ì˜ ì¹´í”¼ë˜í”„íŠ¸ ë¶€ë¶„ì„ ì‚­ì œí•˜ì§€ ë§ˆì‹­ì‹œì˜¤.-->
 
 <html>
 
-<head><meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <title>Shinobu's BGM Player 1</title>
 	<style type='text/css'>
 p,br,body,td,select,input,form,textarea,option {font-size:8pt; font-family:tahoma; line-height:130%; color:333333; letter-spacing:-1;}
 A:link    {color:#000000}
 A:visited {color:#000000}
 
-    a.cls0:link { text-decoration: none; color:#333333; font-size:9pt; font-family:±¼¸²;}
-	a.cls0:visited { text-decoration: none; color:#333333; font-size:9pt; font-family:±¼¸²;}
-	a.cls0:hover { text-decoration: underline; color:#333333; font-size:9pt; font-family:±¼¸²;}
+    a.cls0:link { text-decoration: none; color:#333333; font-size:9pt; font-family:êµ´ë¦¼;}
+	a.cls0:visited { text-decoration: none; color:#333333; font-size:9pt; font-family:êµ´ë¦¼;}
+	a.cls0:hover { text-decoration: underline; color:#333333; font-size:9pt; font-family:êµ´ë¦¼;}
 	a.cls1:link { text-decoration: none; color:#99FF00; font-size:8pt; font-family:Tahoma;}
 	a.cls1:visited { text-decoration: none; color:#99FF00; font-size:8pt; font-family:Tahoma;}
 	a.cls1:hover { text-decoration: underline; color:#99FF00; font-size:8pt; font-family:Tahoma;}
@@ -25,38 +25,38 @@ A:visited {color:#000000}
 <script LANGUAGE=javascript src="bgm_system.js">
 </script>
 <script language=Javascript>
-//½Ã³ëºÎ BGM È¯°æº¯¼ö ¼³Á¤
-//ÀÌ°÷Àº ¿©·¯ºĞÀÇ È¯°æ¿¡ ¸Â°Ô ÇÊÈ÷ ¼öÁ¤ÇØ¾ß ÇÕ´Ï´Ù
+//ì‹œë…¸ë¶€ BGM í™˜ê²½ë³€ìˆ˜ ì„¤ì •
+//ì´ê³³ì€ ì—¬ëŸ¬ë¶„ì˜ í™˜ê²½ì— ë§ê²Œ í•„íˆ ìˆ˜ì •í•´ì•¼ í•©ë‹ˆë‹¤
 
-//±âº» Àç»ı ¸ğµå
-//0 -> ÀÏ¹İ(¼øÂ÷) Àç»ı¸ğµå (±âº»°ª)
-//1 -> ·£´ı Àç»ı¸ğµå
-//Áï, Ã³À½¿¡ ÀÌ ÆäÀÌÁö¸¦ ·ÎµùÇÒ¶§¿¡ ·£´ıÀ¸·Î À½¾ÇÀÌ ¼±ÅÃµÇ°í
-//´ÙÀ½, ÀÌÀüÆ®·¢ ¹öÆ°À» ´­·¯µµ ÀÓÀÇÀÇ °îÀ¸·Î ÀÌµ¿ÇÕ´Ï´Ù
+//ê¸°ë³¸ ì¬ìƒ ëª¨ë“œ
+//0 -> ì¼ë°˜(ìˆœì°¨) ì¬ìƒëª¨ë“œ (ê¸°ë³¸ê°’)
+//1 -> ëœë¤ ì¬ìƒëª¨ë“œ
+//ì¦‰, ì²˜ìŒì— ì´ í˜ì´ì§€ë¥¼ ë¡œë”©í• ë•Œì— ëœë¤ìœ¼ë¡œ ìŒì•…ì´ ì„ íƒë˜ê³ 
+//ë‹¤ìŒ, ì´ì „íŠ¸ë™ ë²„íŠ¼ì„ ëˆŒëŸ¬ë„ ì„ì˜ì˜ ê³¡ìœ¼ë¡œ ì´ë™í•©ë‹ˆë‹¤
 var playMode = 1;
 
-//°î°ú °î»çÀÌÀÇ ½¬´Â ½Ã°£
-//À©µµ¿ì ¹Ìµğ¾î ÄÜÆ®·Ñ·Î À½¾ÇÀ» ½ºÆ®¸®¹Ö Àç»ıÇÏ±â ¶§¹®¿¡ ¼³Á¤ÇØ¾ß ÇÕ´Ï´Ù
-//ºü¸¥ °èÁ¤ÀÌ³ª °í¼ÓÅë½Å »ç¿ëÀÚ´Â 4,5ÃÊ Á¤µµ°¡,
-//¿Ü±¹ °èÁ¤ÀÌ³ª ¸ğµ© »ç¿ëÀÚ´Â 7ÃÊ Á¤µµ°¡ Àû´çÇÕ´Ï´Ù
+//ê³¡ê³¼ ê³¡ì‚¬ì´ì˜ ì‰¬ëŠ” ì‹œê°„
+//ìœˆë„ìš° ë¯¸ë””ì–´ ì½˜íŠ¸ë¡¤ë¡œ ìŒì•…ì„ ìŠ¤íŠ¸ë¦¬ë° ì¬ìƒí•˜ê¸° ë•Œë¬¸ì— ì„¤ì •í•´ì•¼ í•©ë‹ˆë‹¤
+//ë¹ ë¥¸ ê³„ì •ì´ë‚˜ ê³ ì†í†µì‹  ì‚¬ìš©ìëŠ” 4,5ì´ˆ ì •ë„ê°€,
+//ì™¸êµ­ ê³„ì •ì´ë‚˜ ëª¨ë€ ì‚¬ìš©ìëŠ” 7ì´ˆ ì •ë„ê°€ ì ë‹¹í•©ë‹ˆë‹¤
 var restLength = 4;
 
 
-//BGM Á¦¸ñÀÇ Ç¥½Ã¿©ºÎ
-//ÇöÀç ¿¬ÁÖµÇ°í ÀÖ´Â bgmÀÇ Á¦¸ñÀ» <input> ¹Ú½º¿¡ Ç¥½ÃÇÏ·Á¸é 1À»
-//»óÅÂ Ç¥½ÃÁÙ¿¡ Ç¥½ÃÇÏ·Á¸é 2¸¦
-//Ç¥½ÃÇÏÁö ¾ÊÀ¸·Á¸é 0À» ¼±ÅÃÇÏ½Ê½Ã¿À.
+//BGM ì œëª©ì˜ í‘œì‹œì—¬ë¶€
+//í˜„ì¬ ì—°ì£¼ë˜ê³  ìˆëŠ” bgmì˜ ì œëª©ì„ <input> ë°•ìŠ¤ì— í‘œì‹œí•˜ë ¤ë©´ 1ì„
+//ìƒíƒœ í‘œì‹œì¤„ì— í‘œì‹œí•˜ë ¤ë©´ 2ë¥¼
+//í‘œì‹œí•˜ì§€ ì•Šìœ¼ë ¤ë©´ 0ì„ ì„ íƒí•˜ì‹­ì‹œì˜¤.
 var showTitle = 1;
 
-//BGM Player ÃÊ±â ·Îµù½Ã Àç»ı¿©ºÎ
-//BGM Player°¡ Ã³À½ ·ÎµùµÇ¾úÀ» ¶§ ºÎÅÍ À½¾ÇÀÌ Àç»ıµÇ±â¸¦ ¿øÇÏ½Ã¸é 1,
-//±×·¸Áö ¾ÊÀ¸¸é 0À» ³ÖÀ¸½Ê½Ã¿À.
+//BGM Player ì´ˆê¸° ë¡œë”©ì‹œ ì¬ìƒì—¬ë¶€
+//BGM Playerê°€ ì²˜ìŒ ë¡œë”©ë˜ì—ˆì„ ë•Œ ë¶€í„° ìŒì•…ì´ ì¬ìƒë˜ê¸°ë¥¼ ì›í•˜ì‹œë©´ 1,
+//ê·¸ë ‡ì§€ ì•Šìœ¼ë©´ 0ì„ ë„£ìœ¼ì‹­ì‹œì˜¤.
 var doFirstPlay = 0;
 
-//¿¬ÁÖÇÒ °î ¸ñ·Ï(Áï, ÇÃ·¹ÀÌ ¸®½ºÆ®)¸¦ ÀÛ¼ºÇÕ´Ï´Ù
-//addbgm('À½¾Ç ÆÄÀÏÀÇ ÀüÃ¼(¹°¸®)°æ·Î', 'À½¾Ç Á¦¸ñ', À½¾Ç ¿¬ÁÖ½Ã°£(ÃÊ)); ·Î ½áÁÖ½Ã¸é µË´Ï´Ù.
-//(¿¹) addbgm('http://www.server.com/folder/file.wma','Music',123);
-//¸¸¾à¿¡ À½¾Ç Á¦¸ñÀ» ½áÁÖ½ÃÁö ¾ÊÀ¸¸é ÀÚµ¿À¸·Î 'Track ¹øÈ£' ½ÄÀ¸·Î µË´Ï´Ù
+//ì—°ì£¼í•  ê³¡ ëª©ë¡(ì¦‰, í”Œë ˆì´ ë¦¬ìŠ¤íŠ¸)ë¥¼ ì‘ì„±í•©ë‹ˆë‹¤
+//addbgm('ìŒì•… íŒŒì¼ì˜ ì „ì²´(ë¬¼ë¦¬)ê²½ë¡œ', 'ìŒì•… ì œëª©', ìŒì•… ì—°ì£¼ì‹œê°„(ì´ˆ)); ë¡œ ì¨ì£¼ì‹œë©´ ë©ë‹ˆë‹¤.
+//(ì˜ˆ) addbgm('http://www.server.com/folder/file.wma','Music',123);
+//ë§Œì•½ì— ìŒì•… ì œëª©ì„ ì¨ì£¼ì‹œì§€ ì•Šìœ¼ë©´ ìë™ìœ¼ë¡œ 'Track ë²ˆí˜¸' ì‹ìœ¼ë¡œ ë©ë‹ˆë‹¤
 addbgm('http://143.248.204.39/BGsound/Neil%20Zaza%20-%5bMelodica%5d02%20This%20Time.mp3','Neil Zaza -[Melodica] This Time',341);
 addbgm('http://143.248.204.39/BGsound/Neil%20Zaza%20-%5bMelodica%5d03%20All%20My%20Life.mp3','Neil Zaza -[Melodica] All My Life',341);
 addbgm('http://143.248.204.39/BGsound/Neil%20Zaza%20-%5bMelodica%5d04%20As%20I%20Go%20Before%20You.mp3','Neil Zaza -[Melodica] As I Go Before You',353);
@@ -91,9 +91,9 @@ addbgm('http://143.248.204.39/BGsound/Neil%20Zaza%20-%5bMelodica%5d15%20Goodbye.
         <td valign="top" nowrap>
 
 <!--BGM Script BODY Start--><form name="form1">
-<!--Beta 1.x¿¡¼­´Â Bgsound ÅÂ±×¸¦ »ç¿ëÇß¾ú´Ù-->
-<!--±×·¯³ª, bgsound ÅÂ±×´Â urlÀ» Á¦´ë·Î ¸ÔÁö ¾ÊÀ½ÀÌ ¹àÇôÀú¼­ À©µµ¿ì ¹Ìµğ¾î ÄÁÆ®·Ñ·Î ¹Ù²Ù°Ô µÇ¾ú´Ù-->
-<!--µû¶ó¼­, ¾Æ·¡ÀÇ ¿ÀºêÁ§Æ® ÅÂ±×¸¦ ¹Ù²Ù°Å³ª Áö¿ì¸é ¾ÈµÈ´Ù-->
+<!--Beta 1.xì—ì„œëŠ” Bgsound íƒœê·¸ë¥¼ ì‚¬ìš©í–ˆì—ˆë‹¤-->
+<!--ê·¸ëŸ¬ë‚˜, bgsound íƒœê·¸ëŠ” urlì„ ì œëŒ€ë¡œ ë¨¹ì§€ ì•ŠìŒì´ ë°í˜€ì €ì„œ ìœˆë„ìš° ë¯¸ë””ì–´ ì»¨íŠ¸ë¡¤ë¡œ ë°”ê¾¸ê²Œ ë˜ì—ˆë‹¤-->
+<!--ë”°ë¼ì„œ, ì•„ë˜ì˜ ì˜¤ë¸Œì íŠ¸ íƒœê·¸ë¥¼ ë°”ê¾¸ê±°ë‚˜ ì§€ìš°ë©´ ì•ˆëœë‹¤-->
 <object classid="clsid:22D6F312-B0F6-11D0-94AB-0080C74C7E95" width="1" height="1" vspace="1" hspace="1" align="middle" id="Music" style="left:0px; top:0px;">
 <param name="AllowChangeDisplaySize" value="true">
 <param name="AllowScan" value="true">
@@ -151,9 +151,9 @@ addbgm('http://143.248.204.39/BGsound/Neil%20Zaza%20-%5bMelodica%5d15%20Goodbye.
 <span style="font-size:9pt;">
 <font color="black"></font>
 <font color="white">
-<input type="text" name="stitle" size="43" value="2008 MR BGM PLAYER" style="font-family:±¼¸²,Tahoma; font-size:9pt; color:black; background-color:rgb(160,194,255); border-width:0px; border-color:rgb(51,51,51); border-style:solid;" readonly>
+<input type="text" name="stitle" size="43" value="2008 MR BGM PLAYER" style="font-family:êµ´ë¦¼,Tahoma; font-size:9pt; color:black; background-color:rgb(160,194,255); border-width:0px; border-color:rgb(51,51,51); border-style:solid;" readonly>
 
-<!--<input type="checkbox" name="loop" value="1" OnCLick = "chgLoop();"></font>¹İº¹<font color="black">&nbsp;-->
+<!--<input type="checkbox" name="loop" value="1" OnCLick = "chgLoop();"></font>ë°˜ë³µ<font color="black">&nbsp;-->
 
 <!--<a href="#" OnClick = "preTrack();" OnMouseOver="window.status=('Previous Track'); return true;" OnMouseOut="window.status=(''); return true;"><img src="button_b.gif" width="25" height="15" border="0" align="middle"></a> -->
 

@@ -17,6 +17,7 @@
       padding: .5rem 1rem; border-radius: 9999px; border: 1px solid var(--accent); background: none;
       color: var(--accent); font-family: inherit; font-size: .95rem; font-weight: 700; cursor: pointer; }
     .tv-bar a.home { background: var(--accent); color: #0b1020; border-color: var(--accent); }
+    .tv-bar button[hidden] { display: none; }   /* class 규칙이 [hidden]을 덮어써서 명시 */
     .tv-bar button[aria-pressed="true"] { background: rgba(91,140,255,.2); }
     .tv-frame { width: 100%; height: calc(100% - 3.6rem); border: 0; background: #fff; }
     .tv-hint { display: none; padding: .5rem .9rem; font-size: .85rem; color: var(--muted); background: #0b1430; }

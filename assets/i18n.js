@@ -274,7 +274,7 @@
     "⚠️ 20년 전 기술로 만든 페이지라 효과음처럼 지금 브라우저가 지원하지 않는 기능이 있습니다.": "⚠️ These pages were built 20 years ago, so a few things (like sound effects) no longer work in today's browsers.",
     "당시 배경음악은 다시 들을 수 있게 해두었고, 내용은 그때 모습 그대로입니다.": "The original background music has been brought back, and the pages themselves are exactly as they were.",
     /* ── 옛 홈페이지 뷰어 ── */
-    "옛 홈페이지를 그때 그대로 보는 타임머신 화면": "A time machine view of MR's old websites, exactly as they were",
+    "옛 MR 홈페이지를 그때 그대로 보는 타임머신 화면": "A time machine view of MR's old websites, exactly as they were",
     "옛 홈페이지 보기 — MR 40": "Old Website Viewer — MR 40",
     "옛 홈페이지": "Old website", "그때 그 화면 그대로입니다": "Shown exactly as it was",
     "← 목록으로": "← Back to list", "새 창에서 크게 보기": "Open full size in a new tab",

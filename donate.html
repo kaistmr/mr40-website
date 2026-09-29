@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="MR 40주년 후원 안내 — KAIST 발전기금과 사단법인 계좌, 두 가지 방법" /><title>40주년 후원 — MR 40</title>
+  <meta property="og:title" content="40주년 후원 — MR 40" /><meta property="og:description" content="기부금영수증이 필요하시면 발전기금, 간편하게 하시려면 사단법인 계좌로." />
+  <meta property="og:image" content="https://kaistmr.github.io/mr40-website/assets/og-image.png" /><meta property="og:url" content="https://kaistmr.github.io/mr40-website/donate.html" />
+  <meta property="og:type" content="website" /><meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="assets/favicon.png" /><link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <script src="config.js"></script><script src="assets/common.js"></script><script src="assets/i18n.js"></script>
+  <style>
+    .dn-main { max-width: 860px; margin: auto; padding: 3rem 1.25rem 5rem; font-size: 1.05rem; line-height: 1.85; }
+    .dn-head { text-align:center; margin-bottom:1.6rem; } .dn-head h1 { font-size:clamp(1.8rem,6vw,3rem); }
+    .dn-main p { line-height:1.85; }
+    .dn-pick { border-left:4px solid var(--accent); }
+    .dn-pick p { margin:0; font-weight:700; }
+    .dn-pick strong { color:var(--accent); }
+    .dn-compare { width:100%; table-layout:fixed; border-collapse:collapse; margin:1.5rem 0; font-size:.95rem; }
+    .dn-compare th, .dn-compare td { border:1px solid rgba(125,141,181,.25); padding:.75rem .8rem; text-align:left; vertical-align:top; line-height:1.7; }
+    .dn-compare thead th { color:var(--accent); }
+    .dn-compare tbody th { width:24%; color:var(--muted); font-weight:700; word-break:keep-all; }
+    @media (max-width:560px) { .dn-compare { font-size:.85rem; } .dn-compare th, .dn-compare td { padding:.55rem .45rem; } }
+    .dn-way { margin-bottom:1.25rem; }
+    .dn-way h2 { color:var(--accent); font-size:1.3rem; line-height:1.5; margin-bottom:.3rem; }
+    .dn-tag { display:inline-block; margin-bottom:.9rem; padding:.25rem .7rem; border-radius:9999px; font-size:.85rem; font-weight:700;
+      border:1px solid rgba(125,141,181,.4); color:var(--muted); }
+    .dn-steps { list-style:none; counter-reset:step; display:grid; gap:1.1rem; margin:1.2rem 0; }
+    .dn-steps li { display:grid; grid-template-columns:2rem 1fr; gap:.75rem; }
+    .dn-steps li::before { counter-increment:step; content:counter(step); display:grid; place-items:center;
+      width:2rem; height:2rem; border-radius:50%; background:var(--accent); color:#0b1020; font-weight:800; font-size:.95rem; }
+    .dn-steps b { display:block; font-size:1.05rem; margin-bottom:.15rem; }
+    .dn-box { display:block; margin:.6rem 0 .1rem; padding:.8rem 1rem; border-radius:.7rem;
+      background:rgba(91,140,255,.1); border:1px solid rgba(91,140,255,.28); font-weight:700; font-size:1.05rem; word-break:keep-all; }
+    .dn-links { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; }
+    .dn-links a { min-height:48px; display:inline-flex; align-items:center; padding:.75rem 1.2rem; border:1px solid var(--accent);
+      border-radius:9999px; color:var(--accent); font-weight:700; }
+    .dn-links a.primary { background:var(--accent); color:#0b1020; }
+    .dn-note { color:var(--muted); font-size:.92rem; line-height:1.8; }
+    .dn-ask { text-align:center; }
+    .dn-ask .dn-contact { display:block; margin-top:.4rem; font-weight:700; font-size:1.05rem; }
+    .site-footer { border-top:1px solid rgba(91,140,255,.12); padding:2rem 1.25rem; text-align:center; }
+    .site-footer .footer-name { font-size:.875rem; font-weight:700; color:var(--muted); letter-spacing:.02em; margin-bottom:.4rem; }
+    .site-footer .footer-note { font-size:.75rem; color:rgba(125,141,181,.55); }
+  </style>
+</head>
+<body>
+  <script>injectNav("donate.html");</script>
+  <main class="dn-main">
+    <header class="dn-head">
+      <h1>40주년 후원</h1>
+      <p class="text-muted">참가비와 별도로 40주년 행사를 후원해 주실 수 있습니다. 방법은 두 가지이고, 어느 쪽으로 보내주셔도 모두 40주년 행사 준비에 쓰입니다.</p>
+    </header>
+
+    <section class="card dn-pick">
+      <p>연말정산에서 세액공제를 받고 싶으시면 ①번, 복잡한 절차 없이 빠르게 하시려면 ②번을 택해 주시면 됩니다.</p>
+    </section>
+
+    <table class="dn-compare">
+      <thead>
+        <tr><th scope="col">구분</th><th scope="col">① KAIST 발전기금</th><th scope="col">② 사단법인 계좌</th></tr>
+      </thead>
+      <tbody>
+        <tr><th scope="row">기부금영수증</th><td>받으실 수 있습니다 (연말정산 세액공제)</td><td>발급이 어렵습니다</td></tr>
+        <tr><th scope="row">준비하실 것</th><td>약정서 1장 작성 + 계좌이체</td><td>인터넷 설문 작성 + 계좌이체</td></tr>
+        <tr><th scope="row">돈이 들어가는 곳</th><td>KAIST 학교 계좌 (‘MR 발전기금’)</td><td>동아리 사단법인 계좌</td></tr>
+        <tr><th scope="row">걸리는 시간</th><td>서류 작성이 있어 조금 더 걸립니다</td><td>가장 빠릅니다</td></tr>
+      </tbody>
+    </table>
+
+    <section class="dn-way card">
+      <h2>① KAIST 발전기금으로 후원하기</h2>
+      <p class="dn-tag">기부금영수증을 받으실 수 있습니다</p>
+      <p>KAIST 발전재단에 ‘MR 발전기금’이라는 이름으로 기부하시는 방법입니다. 기계공학과가 관리하는 학교 계정에 모이고, 40주년 행사 준비에 씁니다. 학교에서 기부금영수증을 발급해 드리므로 연말정산 때 세액공제를 받으실 수 있습니다.</p>
+      <ol class="dn-steps">
+        <li>
+          <div>
+            <b>약정서를 작성해 주세요</b>
+          아래 버튼으로 약정서 1장을 내려받으시면 됩니다. 워드와 한글 중 편하신 파일로 받으세요. 기금 이름(MR 발전기금)은 미리 적혀 있으니, 성함과 연락처, 금액만 채워 주시면 됩니다.
+          <div class="dn-links">
+            <a href="assets/forms/mr40-kaist-fund-pledge.docx" download="MR_발전기금_약정서.docx">약정서 내려받기 (워드)</a>
+            <a href="assets/forms/mr40-kaist-fund-pledge.hwp" download="MR_발전기금_약정서.hwp">약정서 내려받기 (한글)</a>
+          </div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <b>아래 학교 계좌로 보내주세요</b>
+          보내는 분 이름을 약정서에 쓰신 성함과 같게 해주시면 확인이 빠릅니다.
+          <span class="dn-box">우리은행 270-003359-01-005 (예금주: 한국과학기술원)</span>
+          </div>
+        </li>
+        <li>
+          <div>
+            <b>작성하신 약정서를 보내주세요</b>
+          41대 회장 안연수에게 이메일로 보내주시면 접수됩니다. 손으로 쓰신 뒤 사진으로 찍어 보내주셔도 괜찮습니다.
+          <span class="dn-box">ys.an@kaist.ac.kr</span>
+          </div>
+        </li>
+      </ol>
+      <p class="dn-note">약정서에는 기부금영수증 발급을 위해 주민등록번호를 적게 되어 있습니다. 파일에 암호를 걸어 보내시거나, 번거로우시면 안연수에게 연락 주시면 다른 방법으로 받겠습니다.<br>
+      기부금영수증은 행사가 끝난 뒤 접수된 건을 모아 한 번에 발급해 드립니다.<br>
+      발전기금 제도 자체에 대한 문의는 KAIST 발전재단(042-350-4500)으로 하셔도 됩니다.</p>
+    </section>
+
+    <section class="dn-way card">
+      <h2>② 사단법인 계좌로 후원하기</h2>
+      <p class="dn-tag">서류 없이 가장 간단합니다</p>
+      <p>인터넷 설문 한 장만 작성하시면 됩니다. 계좌번호는 그 설문 안에 안내되어 있습니다. 다만 이 방법은 기부금영수증 발급이 어렵습니다. 설문에 적어주신 주소로 감사 선물을 보내드립니다.</p>
+      <ol class="dn-steps">
+        <li>
+          <div>
+            <b>후원 설문을 작성해 주세요</b>
+          아래 버튼을 누르면 설문이 열립니다. 성함과 연락처, 보내실 금액을 적어 주시면 됩니다.
+          <div class="dn-links"><a class="primary" href="survey.html?id=donate">후원 설문 열기</a></div>
+          </div>
+        </li>
+        <li>
+          <div>
+            <b>설문에 안내된 사단법인 계좌로 보내주세요</b>
+          보내는 분 이름을 설문에 쓰신 성함과 같게 해주시면 확인이 빠릅니다.
+          </div>
+        </li>
+      </ol>
+    </section>
+
+    <aside class="card">
+      <p>후원해 주신 분들은 홈페이지 첫 화면의 ‘함께하는 분들’에 성함이나 회사 로고로 모십니다. 이름이 드러나는 것을 원치 않으시면 말씀해 주세요.</p>
+      <p class="dn-note">경품이나 기념품으로 쓸 수 있는 물품 기부도 똑같이 환영합니다.</p>
+    </aside>
+
+    <aside class="card dn-ask">
+      <p>어느 쪽으로 하실지 망설여지시거나 서류가 번거로우시면 편하게 연락 주세요. 대신 처리해 드리겠습니다.</p>
+      <span class="dn-contact">41대 회장 · 40주년 프로그램위원장 안연수 · ys.an@kaist.ac.kr · 010-6351-6533</span>
+    </aside>
+  </main>
+  <footer class="site-footer"><p class="footer-name">KAIST MR · Microrobot Research · Since 1986</p><p class="footer-note">© 2026 MR 40주년 준비위원회</p></footer>
+</body>
+</html>

@@ -139,11 +139,6 @@
     "행사 당일(11월 28일)부터 이 채널에서 생중계됩니다.": "Live streaming starts on this channel on the day of the event (November 28).",
     "MR40 온라인 중계": "MR40 live stream",
 
-    /* 배포 중인 구버전 event/survey 문구 — 후원 안내 페이지가 공개되면 지운다 */
-    "참가비와 별도로 40주년 행사를 후원하실 수 있습니다. 사단법인 계좌로 이체하신 뒤 후원 설문을 남겨 주시면 사은품을 보내드립니다.": "Beyond the fee, you can also sponsor the 40th anniversary event. Transfer to the association account, fill in the sponsorship survey, and we'll send you a gift.",
-    "후원 안내 · 설문 열기": "Sponsorship info · open survey",
-    "이미 주소록에 정보가 있으신 분도 새로 작성해 주세요 — 새 내용이 기존 데이터 위에 갱신됩니다.": "Even if you're already in the directory, please fill it in again. What you write now replaces the old entry.",
-
     /* ── survey ── */
     "MR 40주년 행사 설문 참여 안내": "MR 40th anniversary surveys", "설문 참여 — MR 40": "Surveys — MR 40",
     "MR 40주년 준비를 위한 설문에 참여해 주세요.": "Please take part in the surveys for MR's 40th anniversary.",
@@ -214,8 +209,8 @@
     "보내는 분 이름을 약정서에 쓰신 성함과 같게 해주시면 확인이 빠릅니다.": "Sending it under the same name as on the form makes it quicker to match.",
     "우리은행 270-003359-01-005 (예금주: 한국과학기술원)": "Woori Bank 270-003359-01-005 (account holder: KAIST)",
     "작성하신 약정서를 보내주세요": "Send us the completed form",
-    "회장 안연수에게 이메일로 보내주시면 접수됩니다. 손으로 쓰신 뒤 사진으로 찍어 보내주셔도 괜찮습니다.": "Email it to An Yeonsu, club president, and you're done. A photo of a handwritten form is fine too.",
-    "약정서에는 기부금영수증 발급을 위해 주민등록번호를 적게 되어 있습니다. 파일에 암호를 걸어 보내시거나, 번거로우시면 회장에게 연락 주시면 다른 방법으로 받겠습니다.": "The form asks for your resident registration number, which KAIST needs to issue the receipt. Please password-protect the file, or just contact the president and we'll arrange another way.",
+    "41대 회장 안연수에게 이메일로 보내주시면 접수됩니다. 손으로 쓰신 뒤 사진으로 찍어 보내주셔도 괜찮습니다.": "Email it to An Yeonsu, 41st club president, and you're done. A photo of a handwritten form is fine too.",
+    "약정서에는 기부금영수증 발급을 위해 주민등록번호를 적게 되어 있습니다. 파일에 암호를 걸어 보내시거나, 번거로우시면 안연수에게 연락 주시면 다른 방법으로 받겠습니다.": "The form asks for your resident registration number, which KAIST needs to issue the receipt. Please password-protect the file, or just contact An Yeonsu and we'll arrange another way.",
     "기부금영수증은 행사가 끝난 뒤 접수된 건을 모아 한 번에 발급해 드립니다.": "Donation receipts are issued in one batch after the event.",
     "발전기금 제도 자체에 대한 문의는 KAIST 발전재단(042-350-4500)으로 하셔도 됩니다.": "For questions about the fund itself, you can also call the KAIST Development Foundation at +82-42-350-4500.",
     "② 사단법인 계좌로 후원하기": "② Donate to the association account",
@@ -229,7 +224,7 @@
     "후원해 주신 분들은 홈페이지 첫 화면의 ‘함께하는 분들’에 성함이나 회사 로고로 모십니다. 이름이 드러나는 것을 원치 않으시면 말씀해 주세요.": "Supporters are listed by name or company logo under 'Our Supporters' on the home page. Tell us if you'd rather not be named.",
     "경품이나 기념품으로 쓸 수 있는 물품 기부도 똑같이 환영합니다.": "Gifts in kind for prizes and souvenirs are just as welcome.",
     "어느 쪽으로 하실지 망설여지시거나 서류가 번거로우시면 편하게 연락 주세요. 대신 처리해 드리겠습니다.": "If you're unsure which route to take, or the paperwork is a nuisance, just get in touch and we'll handle it for you.",
-    "회장 안연수 · ys.an@kaist.ac.kr · 010-6351-6533": "An Yeonsu, club president · ys.an@kaist.ac.kr · +82-10-6351-6533",
+    "41대 회장 · 40주년 프로그램위원장 안연수 · ys.an@kaist.ac.kr · 010-6351-6533": "An Yeonsu, 41st club president and 40th anniversary program chair · ys.an@kaist.ac.kr · +82-10-6351-6533",
 
     /* ── gallery ── */
     "MR 40년의 활동 사진과 영상 아카이브": "Forty years of MR photos and videos", "사진관 — MR 40": "Gallery — MR 40",

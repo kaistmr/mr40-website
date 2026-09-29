@@ -153,6 +153,8 @@
     "이며, 입금은 주문 수합 후 별도로 안내드립니다.": "; payment details will follow once orders are collected.",
     "제작 기간 관계로 주문은": "Due to production time, orders are accepted only",
     "9월 20일(일)까지": "until Sunday, September 20", "만 받습니다.": ".",
+    "주문은 9월 20일(일)로 마감되었습니다.": "Orders closed on Sunday, September 20.",
+    "추가 주문이 필요하시면 준비위원회로 문의해 주세요.": "If you still need one, please contact the organizing committee.",
     "수집한 정보는 40주년 행사 운영 목적에 한해 사용하며, 행사 종료 후 파기합니다.": "Collected information is used only to run the 40th anniversary event and is deleted afterwards.",
     "후원은 사단법인 계좌로 이체하신 뒤 이 설문을 작성해 주시면 완료됩니다.": "To sponsor, transfer to the association account and then fill in this survey.",
     "설문에 남겨 주신 주소로 사은품을 보내드립니다.": "We'll send a gift to the address you leave in the survey.",

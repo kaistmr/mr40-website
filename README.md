@@ -19,6 +19,7 @@ KAIST 동아리 **MR**(Microrobot Research, 1986~) 창립 40주년 기념 사이
 | `event.html` | 행사 안내·참가 신청 | `config.js` + 페이지 상단 상수 |
 | `survey.html` | 구글폼 임베드·대체 접수 | 운영 시트 또는 `config.js` |
 | `donate.html` | 후원 안내(발전기금·사단법인 2가지) | 페이지 직접 수정, 약정서는 `assets/forms/` |
+| `archive-view.html` | 옛 홈페이지 뷰어(돌아가기·당시 배경음악) | 연도 목록은 페이지 안 `SITES` 상수 |
 | `stats.html` | 공개 집계 통계 | 운영 시트 + 로컬 JSON 자동 집계 |
 | `day.html` | 행사 당일 안내 | 운영 시트 |
 

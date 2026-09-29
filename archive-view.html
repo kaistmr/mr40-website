@@ -11,9 +11,12 @@
     html, body { height: 100%; margin: 0; overflow: hidden; }
     .tv-bar { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; padding: .6rem .9rem;
       background: #0e1838; border-bottom: 1px solid rgba(91,140,255,.3); }
+    .tv-logo { color: var(--text); font-size: 1.15rem; text-decoration: none; padding-right: .9rem;
+      margin-right: .9rem; border-right: 1px solid rgba(125,141,181,.3); }
+    .tv-logo span { color: var(--accent); }
     .tv-year { font-weight: 800; font-size: 1.05rem; margin-right: auto; }
     .tv-year small { display: block; font-weight: 500; font-size: .8rem; color: var(--muted); }
-    .tv-bar a, .tv-bar button { display: inline-flex; align-items: center; gap: .35rem; min-height: 44px;
+    .tv-bar a:not(.tv-logo), .tv-bar button { display: inline-flex; align-items: center; gap: .35rem; min-height: 44px;
       padding: .5rem 1rem; border-radius: 9999px; border: 1px solid var(--accent); background: none;
       color: var(--accent); font-family: inherit; font-size: .95rem; font-weight: 700; cursor: pointer; }
     .tv-bar a.home { background: var(--accent); color: #0b1020; border-color: var(--accent); }
@@ -25,8 +28,9 @@
     .music-fab { display: none !important; }
     .tv-bar .new-window-note { display: none; }
     @media (max-width: 700px) {
-      .tv-year { width: 100%; margin-right: 0; }
-      .tv-bar a, .tv-bar button { flex: 1 1 auto; justify-content: center; }
+      .tv-logo { border-right: 0; padding-right: 0; margin-right: auto; }
+      .tv-year { width: 100%; margin-right: 0; margin-top: .3rem; }
+      .tv-bar a:not(.tv-logo), .tv-bar button { flex: 1 1 auto; justify-content: center; }
       .tv-hint { display: block; }
       .tv-frame { height: calc(100% - 8.4rem); }
     }
@@ -34,6 +38,7 @@
 </head>
 <body>
   <div class="tv-bar">
+    <a class="logo tv-logo" href="index.html" aria-label="MR40 처음으로"><img class="logo-mark" src="assets/logos/mr_logo_2026.png" alt="" />MR<span>40</span></a>
     <div class="tv-year" id="tv-year">옛 홈페이지<small>그때 그 화면 그대로입니다</small></div>
     <a class="home" href="archive.html">← 목록으로</a>
     <button type="button" id="tv-bgm" aria-pressed="false" hidden>♪ 배경음악 켜기</button>

@@ -57,14 +57,6 @@
 </head>
 <body>
   <script>injectNav("donate.html");</script>
-  <script>
-    document.getElementById("copy-pledge-mail").addEventListener("click", function (e) {
-      e.preventDefault();
-      var text = document.getElementById("pledge-mail").textContent;
-      navigator.clipboard.writeText(text).then(function () { showToast("메일 양식 복사됨"); },
-        function () { window.prompt("메일 양식을 복사해 주세요.", text); });
-    });
-  </script>
   <main class="dn-main">
     <header class="dn-head">
       <h1>40주년 후원</h1>
@@ -167,5 +159,18 @@
     </aside>
   </main>
   <footer class="site-footer"><p class="footer-name">KAIST MR · Microrobot Research · Since 1986</p><p class="footer-note">© 2026 MR 40주년 준비위원회</p></footer>
+  <script>
+    document.getElementById("copy-pledge-mail").addEventListener("click", function (e) {
+      e.preventDefault();
+      var box = document.getElementById("pledge-mail");
+      function fallback() { // 복사가 막힌 환경: 양식을 선택해 두고 직접 복사하게 안내
+        var r = document.createRange(); r.selectNodeContents(box);
+        var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+        showToast("양식을 선택해 두었습니다. 직접 복사해 주세요.");
+      }
+      if (!navigator.clipboard) return fallback();
+      navigator.clipboard.writeText(box.textContent).then(function () { showToast("메일 양식 복사됨"); }, fallback);
+    });
+  </script>
 </body>
 </html>

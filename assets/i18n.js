@@ -214,7 +214,7 @@
     "41대 회장 안연수에게 이메일로 보내주시면 접수됩니다. 손으로 쓰신 뒤 사진으로 찍어 보내주셔도 괜찮습니다.": "Email it to An Yeonsu, 41st club president, and you're done. A photo of a handwritten form is fine too.",
     "약정서에는 기부금영수증 발급을 위해 주민등록번호를 적게 되어 있습니다. 파일에 암호를 걸어 보내시면 암호는 문자로 따로 알려 주세요. 번거로우시면 안연수에게 연락 주시면 다른 방법으로 받겠습니다.": "The form asks for your resident registration number, which KAIST needs to issue the receipt. If you password-protect the file, please text us the password separately. Or just contact An Yeonsu and we'll arrange another way.",
     "메일 본문에는 아래 양식을 복사해 붙여 넣고 채워 주세요.": "In the email itself, copy the template below and fill it in (attendance on Nov 28, how to list you on the homepage, an optional message).",
-    "메일 양식 복사": "Copy email template", "메일 양식": "Email template", "메일 양식을 복사해 주세요.": "Please copy the email template.",
+    "메일 양식 복사": "Copy email template", "메일 양식": "Email template", "양식을 선택해 두었습니다. 직접 복사해 주세요.": "The template is selected. Please copy it yourself.",
     "기부금영수증은 행사가 끝난 뒤 접수된 건을 모아 한 번에 발급해 드립니다.": "Donation receipts are issued in one batch after the event.",
     "발전기금 제도 자체에 대한 문의는 KAIST 발전재단(042-350-4500)으로 하셔도 됩니다.": "For questions about the fund itself, you can also call the KAIST Development Foundation at +82-42-350-4500.",
     "② 사단법인 계좌로 후원하기": "② Donate to the association account",

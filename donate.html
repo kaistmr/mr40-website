@@ -38,7 +38,8 @@
     .dn-steps > li { display:grid; grid-template-columns:2rem 1fr; gap:.75rem; }
     .dn-steps > li::before { counter-increment:step; content:counter(step); display:grid; place-items:center;
       width:2rem; height:2rem; border-radius:50%; background:var(--accent); color:#0b1020; font-weight:800; font-size:.95rem; }
-    .dn-ask-list { margin:.6rem 0 0; padding-left:1.1rem; display:grid; gap:.35rem; }
+    .dn-mail { margin:.6rem 0 0; padding:.9rem 1rem; border-radius:.7rem; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12);
+      font:inherit; font-size:.9rem; line-height:1.7; white-space:pre-wrap; word-break:keep-all; }
     .dn-steps b { display:block; font-size:1.05rem; margin-bottom:.15rem; }
     .dn-box { display:block; margin:.6rem 0 .1rem; padding:.8rem 1rem; border-radius:.7rem;
       background:rgba(91,140,255,.1); border:1px solid rgba(91,140,255,.28); font-weight:700; font-size:1.05rem; word-break:keep-all; }
@@ -56,6 +57,14 @@
 </head>
 <body>
   <script>injectNav("donate.html");</script>
+  <script>
+    document.getElementById("copy-pledge-mail").addEventListener("click", function (e) {
+      e.preventDefault();
+      var text = document.getElementById("pledge-mail").textContent;
+      navigator.clipboard.writeText(text).then(function () { showToast("메일 양식 복사됨"); },
+        function () { window.prompt("메일 양식을 복사해 주세요.", text); });
+    });
+  </script>
   <main class="dn-main">
     <header class="dn-head">
       <h1>40주년 후원</h1>
@@ -105,12 +114,19 @@
             <b>작성하신 약정서를 보내주세요</b>
           41대 회장 안연수에게 이메일로 보내주시면 접수됩니다. 손으로 쓰신 뒤 사진으로 찍어 보내주셔도 괜찮습니다.
           <span class="dn-box">ys.an@kaist.ac.kr</span>
-          메일 본문에는 약정서에 없는 것만 적어 주세요.
-          <ul class="dn-ask-list">
-            <li>11월 28일(토) 40주년 기념총회에 오시는지. 못 오시면 약정서에 적으신 주소로 감사 선물을 보내 드립니다. 다른 곳으로 받으시려면 그 주소를 적어 주세요.</li>
-            <li>홈페이지 ‘함께하는 분들’에 실명으로 모실지, 익명으로 할지, 싣지 않을지. 단체는 로고 파일(AI·SVG·PDF 같은 벡터 파일이면 좋습니다)도 함께 보내 주세요.</li>
-            <li>(선택) 후배들이나 행사에 전하고 싶은 한마디</li>
-          </ul>
+          메일 본문에는 아래 양식을 복사해 붙여 넣고 채워 주세요.
+<pre class="dn-mail" id="pledge-mail" translate="no">[MR 40주년 발전기금 약정 회신]
+
+1. 11월 28일(토) 40주년 기념총회 참석 여부: 참석 / 불참
+   (불참 시 약정서 주소로 감사 선물을 보내 드립니다. 다른 곳으로 받으시려면 주소:            )
+
+2. 홈페이지 '함께하는 분들' 표기: 실명 / 익명 / 표기 안 함
+   (단체는 로고 파일 첨부 — AI·SVG·PDF 같은 벡터 파일이면 좋습니다)
+
+3. (선택) 후배들이나 행사에 전하고 싶은 한마디:
+
+※ 약정서 파일에 암호를 거셨다면 암호는 문자로 따로 알려 주세요.</pre>
+          <div class="dn-links"><a href="#" class="primary" id="copy-pledge-mail">메일 양식 복사</a></div>
           </div>
         </li>
       </ol>

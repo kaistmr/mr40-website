@@ -1,0 +1,24 @@
+.supporter-wall { background:#fff; color:#141a2e; border-radius:1.2rem; padding:1.6rem 1.2rem; display:grid; gap:1.4rem; }
+.sw-tier { display:grid; gap:.8rem; }
+.sw-label { margin:0; font-size:.75rem; font-weight:800; letter-spacing:.14em; display:flex; align-items:center; gap:.7rem; }
+.sw-label::after { content:""; flex:1; height:1px; background:#e3e6ef; }
+.sw-platinum .sw-label { color:#5b6b8c; }
+.sw-gold .sw-label { color:#b8892b; }
+.sw-silver .sw-label { color:#8a93a6; }
+.sw-people .sw-label { color:#5b8cff; }
+.sw-row { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:1rem 2.2rem; }
+.sw-logo { display:flex; align-items:center; justify-content:center; min-height:64px; }
+.sw-logo img { display:block; height:52px; max-width:200px; object-fit:contain; }
+.sw-platinum .sw-logo img { height:72px; max-width:260px; }
+.sw-silver .sw-logo img { height:38px; max-width:160px; }
+.sw-text { font-weight:800; font-size:1.35rem; letter-spacing:-.01em; }
+.sw-silver .sw-text { font-size:1.05rem; }
+.sw-names { margin:0; display:flex; flex-wrap:wrap; justify-content:center; gap:.45rem .5rem; }
+.sw-names span { background:#f1f4fb; border-radius:9999px; padding:.35rem .8rem; font-size:.9rem; font-weight:600; word-break:keep-all; }
+.sw-anon { margin:0; text-align:center; font-size:.82rem; color:#6b7590; }
+.sw-empty { margin:0; text-align:center; color:#6b7590; }
+@media (max-width:480px) {
+  .sw-row { gap:.8rem 1.4rem; }
+  .sw-logo img { height:40px; max-width:150px; }
+  .sw-silver .sw-logo img { height:30px; max-width:120px; }
+}

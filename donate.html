@@ -9,7 +9,8 @@
   <link rel="icon" href="assets/favicon.png" /><link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
   <link rel="stylesheet" href="assets/style.css" />
-  <script src="config.js"></script><script src="assets/common.js"></script><script src="assets/i18n.js"></script>
+  <script src="config.js"></script><script src="assets/common.js"></script><script src="assets/i18n.js"></script><script src="assets/ops.js"></script><script src="assets/supporters.js"></script>
+  <link rel="stylesheet" href="assets/supporters.css" />
   <style>
     .dn-main { max-width: 860px; margin: auto; padding: 3rem 1.25rem 5rem; font-size: 1.05rem; line-height: 1.85; }
     .dn-head { text-align:center; margin-bottom:1.6rem; } .dn-head h1 { font-size:clamp(1.8rem,6vw,3rem); }
@@ -52,6 +53,14 @@
     .dn-tiers th { white-space:nowrap; padding-right:1rem; }
     .dn-faq p b { display:block; margin-bottom:.2rem; }
     .dn-faq p { margin:0 0 1rem; line-height:1.75; }
+    .dn-more { margin-top:1.4rem; }
+    .dn-more > summary { list-style:none; cursor:pointer; display:flex; justify-content:center; align-items:center; gap:.5rem; min-height:52px;
+      border:1px solid var(--accent); border-radius:9999px; color:var(--accent); font-weight:800; font-size:1.05rem; }
+    .dn-more > summary::-webkit-details-marker { display:none; }
+    .dn-more > summary::after { content:"▾"; transition:transform .2s; }
+    .dn-more[open] > summary::after { transform:rotate(180deg); }
+    .dn-more[open] > summary { margin-bottom:1.2rem; }
+    .dn-more-lead { margin:0 0 1rem; }
     .dn-note { color:var(--muted); font-size:.92rem; line-height:1.8; }
     .dn-ask { text-align:center; }
     .dn-ask .dn-contact { display:block; margin-top:.4rem; font-weight:700; font-size:1.05rem; }
@@ -65,8 +74,28 @@
   <main class="dn-main">
     <header class="dn-head">
       <h1>40주년 후원</h1>
-      <p class="text-muted">참가비와 별도로 40주년 행사를 후원해 주실 수 있습니다. 방법은 두 가지이고, 어느 쪽으로 보내주셔도 모두 40주년 행사 준비에 쓰입니다.</p>
+      <p class="text-muted">40주년 행사를 함께 만들어 주신 분들입니다. 진심으로 감사드립니다.</p>
     </header>
+
+    <section class="supporter-wall" id="supporter-wall" aria-label="후원해 주신 분들"></section>
+
+    <details class="dn-more" id="how">
+      <summary>후원하는 방법 보기</summary>
+      <p class="text-muted dn-more-lead">참가비와 별도로 40주년 행사를 후원해 주실 수 있습니다. 방법은 두 가지이고, 어느 쪽으로 보내주셔도 모두 40주년 행사 준비에 쓰입니다.</p>
+
+    <section class="card dn-guide">
+      <h2>얼마나 하시나요?</h2>
+      <p>금액은 자유입니다. 같은 학번대끼리 모아서 하셔도 됩니다. 아래는 기준으로 드리는 예우입니다.</p>
+      <table class="dn-tiers">
+        <tbody>
+          <tr><th scope="row">개인 100만 원</th><td>행사 참가권 4장 + 팜플렛 후원자 명단</td></tr>
+          <tr><th scope="row">개인 50만 원</th><td>행사 참가권 2장 + 팜플렛 후원자 명단</td></tr>
+          <tr><th scope="row">개인 30만 원</th><td>행사 참가권 1장 + 팜플렛 후원자 명단</td></tr>
+          <tr><th scope="row">기업 100만 원 이상</th><td>팜플렛·행사장 화면·홈페이지에 회사 로고 (300만 원 이상 PLATINUM, 200만 원 이상 GOLD, 100만 원 이상 SILVER)</td></tr>
+        </tbody>
+      </table>
+      <p class="dn-note">회사 이름으로 후원하실 때는 안연수에게 연락 주시면 제안서를 보내 드립니다.</p>
+    </section>
 
     <section class="card dn-pick">
       <p>연말정산에서 세액공제를 받고 싶으시면 ①번, 복잡한 절차 없이 빠르게 하시려면 ②번을 택해 주시면 됩니다.</p>
@@ -83,20 +112,6 @@
         <tr><th scope="row">걸리는 시간</th><td data-l="①">서류 작성이 있어 조금 더 걸립니다</td><td data-l="②">가장 빠릅니다</td></tr>
       </tbody>
     </table>
-
-    <section class="card dn-guide">
-      <h2>얼마나 하시나요?</h2>
-      <p>금액은 자유입니다. 같은 학번대끼리 모아서 하셔도 됩니다. 아래는 기준으로 드리는 예우입니다.</p>
-      <table class="dn-tiers">
-        <tbody>
-          <tr><th scope="row">개인 100만 원</th><td>행사 참가권 4장 + 팜플렛 후원자 명단</td></tr>
-          <tr><th scope="row">개인 50만 원</th><td>행사 참가권 2장 + 팜플렛 후원자 명단</td></tr>
-          <tr><th scope="row">개인 30만 원</th><td>행사 참가권 1장 + 팜플렛 후원자 명단</td></tr>
-          <tr><th scope="row">기업 100만 원 이상</th><td>팜플렛·행사장 화면·홈페이지에 회사 로고 (300만 원 이상 PLATINUM, 200만 원 이상 GOLD, 100만 원 이상 SILVER)</td></tr>
-        </tbody>
-      </table>
-      <p class="dn-note">회사 이름으로 후원하실 때는 안연수에게 연락 주시면 제안서를 보내 드립니다.</p>
-    </section>
 
     <section class="dn-way card">
       <h2>① KAIST 발전기금으로 후원하기</h2>
@@ -181,6 +196,7 @@
       <p><b>후원하면 참가 신청은 따로 안 해도 되나요?</b>
       참가 신청은 해 주셔야 명찰·좌석·만찬 인원에 들어갑니다. 결제 단계에서 막히시면 안연수에게 연락 주세요.</p>
     </section>
+    </details>
 
     <aside class="card dn-ask">
       <p>어느 쪽으로 하실지 망설여지시거나 서류가 번거로우시면 편하게 연락 주세요. 대신 처리해 드리겠습니다.</p>
@@ -200,6 +216,10 @@
       if (!navigator.clipboard) return fallback();
       navigator.clipboard.writeText(box.textContent).then(function () { showToast("메일 양식 복사됨"); }, fallback);
     });
+  </script>
+  <script>
+    renderSponsorWall(document.getElementById("supporter-wall"));
+    if (location.hash === "#how") document.getElementById("how").open = true;
   </script>
 </body>
 </html>

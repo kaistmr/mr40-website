@@ -476,8 +476,24 @@
 
     .sponsor-card img {
       height: 36px;
+      max-width: 160px;
       object-fit: contain;
+      background: #fff;
+      border-radius: 0.4rem;
+      padding: 0.25rem 0.5rem;
     }
+
+    .sponsor-people {
+      flex-basis: 100%;
+      text-align: center;
+      font-size: 0.92rem;
+      line-height: 1.9;
+      margin: 0.6rem 0 0;
+      word-break: keep-all;
+    }
+
+    .sponsor-people b { display: block; font-size: 0.85rem; color: var(--muted); }
+    .sponsor-people span { font-size: 0.82rem; color: var(--muted); }
 
     .sponsor-card .sp-name {
       font-size: 0.9rem;
@@ -530,13 +546,18 @@
           listEl.innerHTML = '<div class="sponsor-empty">후원사를 모시고 있습니다.<br>동문 개인 후원과 기업 후원 모두 환영해요. 문의는 동아리 메일로 부탁드립니다.</div>';
           return;
         }
+        var people = items.filter(function (s) { return s.kind === "person"; });
+        items = items.filter(function (s) { return s.kind !== "person"; });
         listEl.innerHTML = items.map(function (s) {
           var inner = (s.logo ? '<img src="' + escapeHtml(s.logo) + '" alt="' + escapeHtml(s.name || "") + '" loading="lazy" />' : "") +
             '<span class="sp-name">' + escapeHtml(s.name || "") + "</span>";
           return s.url
             ? '<a class="sponsor-card" href="' + escapeHtml(s.url) + '" target="_blank" rel="noopener">' + inner + "</a>"
             : '<div class="sponsor-card">' + inner + "</div>";
-        }).join("");
+        }).join("") + (people.length
+          ? '<p class="sponsor-people"><b>동문 후원</b>' + people.map(function (s) { return escapeHtml(s.name); }).join(" · ") +
+            '<br><span>이름을 밝히지 않고 후원해 주신 선배님들께도 감사드립니다.</span></p>'
+          : "");
       }
 
       function loadFallbackSponsors() {

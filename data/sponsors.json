@@ -1,2 +1,19 @@
 [
+  { "name": "WIRobotics", "logo": "assets/logos/sp_wirobotics.png", "url": "" },
+  { "name": "씨메스로보틱스", "logo": "assets/logos/sp_cmes.png", "url": "" },
+  { "name": "디든로보틱스", "logo": "assets/logos/sp_diden.png", "url": "" },
+  { "name": "노비텍", "logo": "", "url": "" },
+  { "name": "컴퍼니케이파트너스", "logo": "assets/logos/sp_ckp.png", "url": "" },
+  { "name": "싸이로드", "logo": "assets/logos/sp_cylod.png", "url": "" },
+  { "kind": "person", "name": "86 오상준" },
+  { "kind": "person", "name": "87 심현식" },
+  { "kind": "person", "name": "88 김진하" },
+  { "kind": "person", "name": "88 이경철" },
+  { "kind": "person", "name": "90 김태호" },
+  { "kind": "person", "name": "96 김태홍" },
+  { "kind": "person", "name": "96 나상찬" },
+  { "kind": "person", "name": "98 이훈성" },
+  { "kind": "person", "name": "99 임우철" },
+  { "kind": "person", "name": "01 서창섭·김건령" },
+  { "kind": "person", "name": "01 이소라" }
 ]

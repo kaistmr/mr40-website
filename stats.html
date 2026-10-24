@@ -35,7 +35,7 @@
   <main class="stats-main">
     <header class="stats-head"><h1>숫자로 보는 <span class="text-accent">MR</span></h1><p>공개 가능한 집계 수치만 표시합니다.</p></header>
     <section class="stats-grid" id="site-stats" aria-label="사이트 보유 자료" data-stagger></section>
-    <div id="people-stats"><p class="pending card">동문 통계를 준비하고 있습니다.</p></div>
+    <div id="people-stats"></div>
   </main>
   <footer class="site-footer"><p class="footer-name">KAIST MR · Microrobot Research · Since 1986</p><p class="footer-note">© 2026 MR 40주년 준비위원회</p></footer>
   <script>
@@ -45,6 +45,7 @@
     })).then(function (sets) {
       var labels = ["사진", "영상", "회지", "연혁"];
       document.getElementById("site-stats").innerHTML = sets.map(function (set, i) {
+        if (!set.length) return ""; // 아직 비어 있는 자료(예: 영상)는 0으로 보이지 않게 숨김
         return '<div class="stat-card card"><span class="stat-value">' + set.length.toLocaleString("ko-KR") +
           '</span><span class="stat-label">보유 ' + labels[i] + '</span></div>';
       }).join("");

@@ -1,4 +1,5 @@
 [
+  { "tier": "PLATINUM", "name": "하이퍼그램", "logo": "assets/logos/sp_hypergram.png", "url": "" },
   { "tier": "GOLD", "name": "WIRobotics", "logo": "assets/logos/sp_wirobotics.png", "url": "" },
   { "tier": "GOLD", "name": "씨메스로보틱스", "logo": "assets/logos/sp_cmes.png", "url": "" },
   { "tier": "GOLD", "name": "디든로보틱스", "logo": "assets/logos/sp_diden.png", "url": "" },

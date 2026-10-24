@@ -51,7 +51,7 @@
     "후원사 전체 보기 · 후원하는 방법 →": "All supporters · how to give →",
     "후원해 주실 분들을 기다리고 있습니다.": "We are welcoming supporters.",
     "이름을 밝히지 않고 후원해 주신 선배님들께도 감사드립니다.": "Our thanks also go to the alumni who gave anonymously.",
-    "씨메스로보틱스": "CMES Robotics", "디든로보틱스": "Diden Robotics", "노비텍": "Novitec", "컴퍼니케이파트너스": "Company K Partners", "싸이로드": "CYLOD",
+    "씨메스로보틱스": "CMES Robotics", "디든로보틱스": "Diden Robotics", "노비텍": "Novitec", "컴퍼니케이파트너스": "Company K Partners", "싸이로드": "CYLOD", "하이퍼그램": "HYPERGRAM",
     "후원사를 모시고 있습니다.": "We are welcoming sponsors.",
     "동문 개인 후원과 기업 후원 모두 환영해요. 문의는 동아리 메일로 부탁드립니다.": "Individual alumni and corporate sponsorships are both welcome. Please contact us by club email.",
     "함께해 주셔서 감사합니다 ❤️": "Thank you for being with us ❤️",

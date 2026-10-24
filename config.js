@@ -90,10 +90,11 @@ const CONFIG = {
     ],
     // 행사 당일 안내(day.html) 정적 폴백 — 운영시트(parking/seating/emergency)가 있으면 그쪽이 우선
     parking: "호텔 지하 주차장 이용 가능",
-    seating: "선착순 배정 예정",
+    seating: "좌석은 준비위원회가 미리 배정해 둡니다. 접수에서 명찰과 함께 자리를 안내해 드립니다.",
     emergency: "010-6351-6533 (안연수 회장)",
     refundPolicy: "취소·환불은 이벤터스 기본 규정을 따릅니다. 이벤터스 마이페이지의 ‘신청 행사’에서 직접 취소할 수 있고, 기한이 지난 뒤에는 준비위원회로 연락 주세요.",
-    attendanceCount: "",
+    attendanceCount: "78", // 10/22 이벤터스 참가자리스트 기준(동반 가족 포함). 후원 시트 「참석자 명단」 탭
+    attendanceAsOf: "10월 22일",
     liveUrl: "https://youtube.com/live/WvAlIzlu9p4?feature=share",
     replayUrl: "",
     photoUploadUrl: "",

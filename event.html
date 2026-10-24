@@ -484,7 +484,8 @@
       var refund = data.refund_policy || CONFIG.EVENT_DETAILS.refundPolicy;
       if (refund) document.getElementById("refund-copy").textContent = refund;
       var attendance = data.attendance_count || CONFIG.EVENT_DETAILS.attendanceCount;
-      if (attendance) document.getElementById("attendance-copy").textContent = "현재까지 " + attendance + "명 참석 예정입니다.";
+      var asOf = data.attendance_as_of || CONFIG.EVENT_DETAILS.attendanceAsOf;
+      if (attendance) document.getElementById("attendance-copy").textContent = (asOf ? asOf + " 기준 " : "현재까지 ") + attendance + "명이 참석 신청을 하셨습니다.";
       var live = safeUrl(data.live_url || CONFIG.EVENT_DETAILS.liveUrl);
       var replay = safeUrl(data.replay_url || CONFIG.EVENT_DETAILS.replayUrl);
       var started = Date.now() >= target.getTime();

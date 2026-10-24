@@ -17,7 +17,7 @@
     .stats-head { text-align: center; margin-bottom: 2rem; }
     .stats-head h1 { font-size: clamp(1.8rem, 6vw, 3rem); margin-bottom: .6rem; }
     .stats-head p { color: var(--muted); }
-    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap: 1rem; margin-bottom: 3rem; }
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: .8rem; margin-bottom: 1rem; }
     .stat-card { text-align: center; }
     .stat-value { display: block; color: var(--accent); font-size: 2.2rem; font-weight: 900; font-variant-numeric: tabular-nums; }
     .stat-label { color: var(--muted); line-height: 1.5; }
@@ -28,6 +28,7 @@
     .bar-track { height: 18px; background: rgba(255,255,255,.08); border-radius: 9999px; overflow: hidden; }
     .bar-fill { height: 100%; background: var(--accent); border-radius: inherit; }
     .pending { color: var(--muted); text-align: center; padding: 2rem; }
+    #people-stats { margin-top: 2.2rem; }
   </style>
 </head>
 <body>
@@ -44,13 +45,23 @@
       return fetch("data/" + name + ".json").then(function (r) { return r.ok ? r.json() : []; }).catch(function () { return []; });
     })).then(function (sets) {
       var labels = ["사진", "영상", "회지", "연혁"];
-      document.getElementById("site-stats").innerHTML = sets.map(function (set, i) {
+      document.getElementById("site-stats").insertAdjacentHTML("beforeend", sets.map(function (set, i) {
         if (!set.length) return ""; // 아직 비어 있는 자료(예: 영상)는 0으로 보이지 않게 숨김
         return '<div class="stat-card card"><span class="stat-value">' + set.length.toLocaleString("ko-KR") +
           '</span><span class="stat-label">보유 ' + labels[i] + '</span></div>';
-      }).join("");
+      }).join(""));
     });
+    // 운영 시트 stats 탭이 비어 있으면 data/stats.json(주소록 DB·후원 시트 참석자 탭 집계, 손으로 갱신)을 쓴다
     MR40Ops.rows("stats").then(function (rows) {
+      if (rows.length) return { rows: rows };
+      return fetch("data/stats.json").then(function (r) { return r.ok ? r.json() : {}; }).catch(function () { return {}; });
+    }).then(function (data) {
+      var rows = data.rows || [];
+      var cards = (data.cards || []).map(function (c) {
+        return '<div class="stat-card card"><span class="stat-value">' + MR40Ops.number(c.value, 0).toLocaleString("ko-KR") +
+          '</span><span class="stat-label">' + escapeHtml(c.label) + '</span></div>';
+      }).join("");
+      if (cards) document.getElementById("site-stats").insertAdjacentHTML("afterbegin", cards);
       rows = rows.filter(function (r) { return MR40Ops.active({ active: r.public }); })
         .sort(function (a,b) { return MR40Ops.number(a.sort, 0) - MR40Ops.number(b.sort, 0); });
       if (!rows.length) return;

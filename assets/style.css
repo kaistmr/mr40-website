@@ -46,6 +46,9 @@ body {
   -webkit-font-smoothing: antialiased;
   /* 본문 단락의 외톨이 줄(orphan)을 줄인다 */
   text-wrap: pretty;
+  /* 한국어가 단어 중간에서 줄바꿈되지 않게. 긴 주소·이메일만 예외로 끊는다 */
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 /* 제목은 줄 길이를 고르게 분배해 어색한 줄바꿈을 막는다 */

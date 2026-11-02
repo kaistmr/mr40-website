@@ -68,7 +68,8 @@ const CONFIG = {
       url: "https://docs.google.com/forms/d/e/1FAIpQLSdqSTzf-gZvq2JPLxGkXQVHg-x0IhI2pvBC2Alx5RQbqFTDKg/viewform",
       // page가 있으면 설문 iframe 대신 이 페이지로 보냅니다 (후원은 방법이 둘이라 별도 안내 페이지).
       page: "donate.html",
-      active: true,
+      // 10월 말 팜플렛 마감으로 후원 종료 — 첫 화면 배지·팝업에서 내림 (상단 메뉴 「후원」은 유지)
+      active: false,
       prefill_generation_key: "",
     },
   ],

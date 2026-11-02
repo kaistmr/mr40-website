@@ -47,6 +47,7 @@
     "동문 후원": "Alumni supporters",
     "팜플렛 제작 일정 때문에 40주년 후원은 부득이하게 마감했습니다.": "Donations for the 40th anniversary have had to close because of the pamphlet printing schedule.",
     "후원 마감": "Closed",
+    "📺 온라인 중계": "📺 Live stream",
     "많은 관심과 성원을 보내 주신 모든 선배님과 기업에 진심으로 감사드립니다.": "We are deeply grateful to every alumnus and company who supported us.",
     "보내 주신 마음에 걸맞은 행사로 보답하겠습니다.": "We will repay your kindness with an event worthy of it.",
     "팜플렛 제작 일정 때문에 40주년 후원은 부득이하게 마감했습니다. 함께해 주신 모든 분께 진심으로 감사드립니다.": "Donations for the 40th anniversary have had to close because of the pamphlet printing schedule. Thank you to everyone who joined us.",

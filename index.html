@@ -221,12 +221,8 @@
       .cards-grid { grid-template-columns: repeat(2, 1fr); }
     }
 
-    /* 좁은 화면: 손가락으로 누르기 쉽게 세로로 쌓고, 팝업은 화면을 넘지 않게 */
+    /* 좁은 화면: 손가락으로 누르기 쉽게 세로로 쌓는다 */
     @media (max-width: 600px) {
-      .welcome-modal { padding: 0.9rem; align-items: flex-start; overflow-y: auto; }
-      .welcome-card { margin: 0.9rem auto; padding: 1.7rem 1.1rem 1.2rem; max-height: calc(100vh - 1.8rem); overflow-y: auto; }
-      .hero-apply { display: flex; width: 100%; max-width: 340px; margin: 0 auto; justify-content: center;
-        padding: 1rem 1.2rem; font-size: 1.05rem; text-align: center; }
       .hero-surveys { flex-direction: column; align-items: center; }
       .hero-survey-pill { width: 100%; max-width: 340px; justify-content: center; }
       .scroll-cue { margin-top: 1.4rem; }
@@ -304,7 +300,6 @@
       .hero-eyebrow  { opacity: 0; animation: mr-rise 0.55s cubic-bezier(0.2, 0, 0, 1) both 0.05s; }
       .hero-headline { opacity: 0; animation: mr-rise 0.55s cubic-bezier(0.2, 0, 0, 1) both 0.15s; }
       .hero-sub      { opacity: 0; animation: mr-rise 0.55s cubic-bezier(0.2, 0, 0, 1) both 0.25s; }
-      #hero-cta      { opacity: 0; animation: mr-rise 0.55s cubic-bezier(0.2, 0, 0, 1) both 0.35s; }
       #hero-surveys  { opacity: 0; animation: mr-rise 0.55s cubic-bezier(0.2, 0, 0, 1) both 0.45s; }
     }
     .supporter-more { text-align:center; margin-top:1rem; }
@@ -316,14 +311,13 @@
 
   <!-- ══ 히어로 ══ -->
   <section class="hero">
-    <p class="hero-eyebrow">KAIST MICROROBOT RESEARCH · 1986 → 2026</p>
+    <p class="hero-eyebrow">KAIST MICROROBOT RESEARCH · <span style="white-space:nowrap">1986 → 2026</span></p>
     <h1 class="hero-headline">
       로봇과 함께한<br><span class="highlight">40년</span>
     </h1>
     <p class="hero-sub">
       1986년 창단부터 2026년 오늘까지, 40년의 기록과 사람들을<br class="hidden-xs"> 한 자리에 모았습니다.
     </p>
-    <div class="hero-cta" id="hero-cta"></div>
     <div class="hero-surveys" id="hero-surveys"></div>
     <a class="scroll-cue" href="#dday">
       <span>아래로 보기</span>
@@ -533,179 +527,30 @@
     })();
   </script>
 
-  <!-- ══ 참가 신청 안내 팝업 (방문 시 1회) ══ -->
+  <!-- ══ 히어로 바로가기 (연락처 업데이트 · 온라인 중계) ══ -->
   <style>
-    .welcome-modal {
-      position: fixed;
-      inset: 0;
-      z-index: 3000;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      background: rgba(4, 8, 20, 0.8);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      padding: 1.25rem;
-    }
-
-    .welcome-modal.open { display: flex; }
-
-    .welcome-card {
-      background: linear-gradient(160deg, #13204a 0%, #0e1838 100%);
-      border: 1px solid rgba(91, 140, 255, 0.3);
-      border-radius: 1.2rem;
-      max-width: 420px;
-      width: 100%;
-      padding: 2.2rem 1.8rem 1.8rem;
-      text-align: center;
-      box-shadow: 0 20px 80px rgba(0, 0, 0, 0.5);
-    }
-
-    .welcome-card .wm-emoji { font-size: 2.4rem; }
-
-    .welcome-card h2 {
-      font-size: 1.35rem;
-      font-weight: 900;
-      letter-spacing: -0.02em;
-      margin: 0.7rem 0 0.4rem;
-    }
-
-    .welcome-card .wm-date {
-      font-size: 0.92rem;
-      color: var(--accent);
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-    }
-
-    .welcome-card p.wm-copy {
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.7;
-      margin-bottom: 1.4rem;
-    }
-
+    /* 행사 당일 D-day 칸의 라이브/다시보기 버튼 */
     .wm-apply {
       display: block;
       width: 100%;
       background: var(--accent);
       color: #fff;
-      border: none;
       border-radius: 9999px;
       padding: 1rem;
       min-height: 54px;
       font-size: 1.08rem;
       font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
+      text-align: center;
       box-shadow: 0 6px 24px rgba(91, 140, 255, 0.35);
-      transition: opacity 0.2s, transform 0.2s;
     }
+    .wm-apply .new-window-note { display: none; }
 
-    .wm-apply:hover { opacity: 0.9; transform: scale(1.02); }
-    #wm-pay-cta { margin-bottom: 1.1rem; }
-
-    .wm-later {
-      display: block;
-      width: 100%;
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-size: 0.95rem;
-      font-family: inherit;
-      cursor: pointer;
-      margin-top: 0.8rem;
-      min-height: 44px;
-      padding: 0.6rem;
-    }
-
-    .wm-later:hover { color: var(--text); }
-
-    .wm-payments {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.55rem;
-      margin-top: 0.9rem;
-    }
-
-    .wm-payment {
-      display: inline-flex;
-      min-height: 44px;
-      align-items: center;
-      justify-content: center;
-      padding: 0.65rem;
-      border: 1px solid rgba(91, 140, 255, 0.45);
-      border-radius: 0.7rem;
-      color: var(--accent);
-      font-size: 0.86rem;
-      font-weight: 700;
-      text-decoration: none;
-    }
-
-    .wm-payment.disabled {
-      color: var(--muted);
-      border-color: rgba(255,255,255,.15);
-      opacity: .65;
-      pointer-events: none;
-    }
-
-    /* 설문 목록 버튼 */
-    .wm-survey {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      width: 100%;
-      text-align: left;
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(91, 140, 255, 0.25);
-      border-radius: 0.9rem;
-      padding: 1rem;
-      min-height: 60px;
-      margin-bottom: 0.7rem;
-      font-family: inherit;
-      color: var(--text);
-      cursor: pointer;
-      transition: background 0.2s, border-color 0.2s, transform 0.2s;
-    }
-
-    .wm-survey:hover {
-      background: rgba(91, 140, 255, 0.15);
-      border-color: var(--accent);
-      transform: scale(1.015);
-    }
-
-    .wm-survey .ws-icon { font-size: 1.4rem; }
-
-    .wm-survey .ws-title {
-      font-size: 1.05rem;
-      font-weight: 700;
-      display: block;
-    }
-
-    .wm-survey .ws-desc {
-      font-size: 0.88rem;
-      color: var(--muted);
-      display: block;
-      margin-top: 0.15rem;
-      line-height: 1.55;
-    }
-
-    .wm-survey .ws-soon {
-      margin-left: auto;
-      font-size: 0.68rem;
-      color: var(--muted);
-      border: 1px solid rgba(125, 141, 181, 0.4);
-      border-radius: 9999px;
-      padding: 0.15rem 0.55rem;
-      white-space: nowrap;
-    }
-
-    /* 히어로 설문 링크 (상시 노출) */
     .hero-surveys {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 0.5rem;
-      margin-top: 1.1rem;
+      margin-top: 1.8rem;
     }
 
     .hero-survey-pill {
@@ -720,8 +565,6 @@
       min-height: 48px;
       font-size: 1rem;
       font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
       transition: background 0.2s, transform 0.2s;
     }
 
@@ -729,182 +572,26 @@
       background: rgba(91, 140, 255, 0.3);
       transform: scale(1.04);
     }
-
-    .hero-survey-pill .hp-soon {
-      font-size: 0.66rem;
-      color: var(--muted);
-      border: 1px solid rgba(125, 141, 181, 0.4);
-      border-radius: 9999px;
-      padding: 0.1rem 0.45rem;
-    }
-
-    /* 팝업 다시 열기 버튼 */
-    .survey-fab {
-      position: fixed;
-      bottom: 1.4rem;
-      right: 1.4rem;
-      z-index: 1500;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      border-radius: 9999px;
-      padding: 0.7rem 1.2rem;
-      font-size: 0.88rem;
-      font-weight: 700;
-      font-family: inherit;
-      cursor: pointer;
-      box-shadow: 0 6px 24px rgba(91, 140, 255, 0.4);
-      transition: transform 0.2s, opacity 0.2s;
-    }
-
-    .survey-fab:hover { transform: scale(1.05); opacity: 0.92; }
-
-    /* 히어로 메인 CTA — 참가 신청(이벤터스) */
-    .hero-cta { margin-top: 1.8rem; }
-
-    .hero-apply {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.55rem;
-      background: var(--accent);
-      color: #fff;
-      border-radius: 9999px;
-      padding: 1rem 2.4rem;
-      font-size: 1.18rem;
-      font-weight: 800;
-      font-family: inherit;
-      text-decoration: none;
-      box-shadow: 0 10px 34px rgba(91, 140, 255, 0.45);
-      transition: transform 0.2s, opacity 0.2s;
-    }
-
-    .hero-apply:hover { transform: scale(1.04); opacity: 0.94; }
-    .hero-apply .new-window-note, .wm-apply .new-window-note { display: none; }
-
-    .hero-apply-note {
-      margin-top: 0.6rem;
-      font-size: 0.88rem;
-      color: var(--muted);
-    }
   </style>
-
-  <div class="welcome-modal" id="welcome-modal" role="dialog" aria-modal="true" aria-labelledby="wm-title">
-    <div class="welcome-card">
-      <div class="wm-emoji">🎉</div>
-      <h2 id="wm-title">40주년, 함께 준비해요</h2>
-      <p class="wm-date">2026년 11월 28일 (토) 기념행사</p>
-      <p class="wm-copy">잠깐 시간 내어 참여해 주시면 준비에 큰 힘이 됩니다.</p>
-      <div id="wm-pay-cta"></div>
-      <div id="wm-surveys"></div>
-      <button class="wm-later" id="wm-later" type="button">다음에 할게요</button>
-    </div>
-  </div>
-
-  <button class="survey-fab" id="survey-fab" type="button">📋 참여하기</button>
 
   <script>
     (function () {
       "use strict";
-      var modal = document.getElementById("welcome-modal");
-      var listEl = document.getElementById("wm-surveys");
-
-      // 활성 설문 목록 렌더 (url 없으면 "준비 중" 배지로 표시만)
-      var surveys = (CONFIG.SURVEYS || []).filter(function (s) { return s.active; });
-
-      function renderSurveys() {
-        if (surveys.length === 0) {
-          listEl.innerHTML = '<button class="wm-apply" id="wm-apply" type="button">행사 안내 보기</button>';
-          document.getElementById("wm-apply").addEventListener("click", function () {
-            location.href = "event.html";
-          });
-          return;
-        }
-        listEl.innerHTML = surveys.map(function (s, i) {
-          return '<button class="wm-survey" data-idx="' + i + '" type="button">' +
-            '<span class="ws-icon">' + escapeHtml(s.icon || "📋") + "</span>" +
-            "<span><span class='ws-title'>" + escapeHtml(s.title) + "</span>" +
-            "<span class='ws-desc'>" + escapeHtml(s.desc || "") + "</span></span>" +
-            (s.url ? "" : '<span class="ws-soon">준비 중</span>') +
-            "</button>";
-        }).join("");
-      }
-
-      listEl.addEventListener("click", function (e) {
-        var btn = e.target.closest(".wm-survey");
-        if (!btn) return;
-        openSurvey(surveys[parseInt(btn.getAttribute("data-idx"), 10)]);
-      });
-
-      function openSurvey(s) {
-        if (!s) return;
-        location.href = s.page || ("survey.html?id=" + encodeURIComponent(s.id || "attend"));
-      }
-
-      // 히어로 하단 상시 노출 링크 ("다음에 할게요" 이후에도 계속 접근 가능)
       var heroEl = document.getElementById("hero-surveys");
-      function renderHeroSurveys() {
-        if (surveys.length === 0) { heroEl.innerHTML = ""; return; }
-        heroEl.innerHTML = surveys.map(function (s, i) {
-          return '<button class="hero-survey-pill" data-idx="' + i + '" type="button">' +
-            escapeHtml(s.icon || "📋") + " " + escapeHtml(s.title) +
-            (s.url ? "" : ' <span class="hp-soon">준비 중</span>') +
-            "</button>";
-        }).join("");
+      function renderHero(surveys) {
+        heroEl.innerHTML = surveys.map(function (s) {
+          var href = s.page || ("survey.html?id=" + encodeURIComponent(s.id));
+          return '<a class="hero-survey-pill" href="' + escapeHtml(href) + '">' +
+            escapeHtml(s.icon || "📋") + " " + escapeHtml(s.title) + "</a>";
+        }).join("") + '<a class="hero-survey-pill" href="event.html#live-box">📺 온라인 중계</a>';
       }
-      heroEl.addEventListener("click", function (e) {
-        var btn = e.target.closest(".hero-survey-pill");
-        if (!btn) return;
-        openSurvey(surveys[parseInt(btn.getAttribute("data-idx"), 10)]);
-      });
-
-      // 히어로 메인 CTA — 이벤터스 참가 신청 (가장 크게 노출)
-      var ctaEl = document.getElementById("hero-cta");
-      function renderHeroApply(provider, url) {
-        var u = safeUrl(url);
-        var over = new Date(CONFIG.EVENT_DATE).getTime() <= Date.now();
-        if (!over && provider === "eventus" && u) {
-          ctaEl.innerHTML =
-            '<a class="hero-apply" href="' + escapeHtml(u) + '" target="_blank" rel="noopener">🎉 40주년 행사 참가 신청</a>' +
-            '<p class="hero-apply-note">신청과 참가비 결제를 이벤터스에서 한 번에 진행합니다.</p>';
-        } else {
-          ctaEl.innerHTML = "";
-        }
-      }
-      renderHeroApply((CONFIG.PAYMENTS || {}).provider, (CONFIG.PAYMENTS || {}).eventusUrl);
-
-      // 모달 메인 CTA — 이벤터스 참가 신청 (신청·결제 일원화)
-      var payCtaEl = document.getElementById("wm-pay-cta");
-      function renderModalApply(provider, url) {
-        var u = safeUrl(url);
-        var over = new Date(CONFIG.EVENT_DATE).getTime() <= Date.now();
-        if (!over && provider === "eventus" && u) {
-          payCtaEl.innerHTML =
-            '<a class="wm-apply" href="' + escapeHtml(u) + '" target="_blank" rel="noopener">🎉 40주년 행사 참가 신청</a>' +
-            '<p class="hero-apply-note">신청과 참가비 결제를 이벤터스에서 한 번에 진행합니다.</p>';
-        } else {
-          payCtaEl.innerHTML = "";
-        }
-      }
-      renderModalApply((CONFIG.PAYMENTS || {}).provider, (CONFIG.PAYMENTS || {}).eventusUrl);
-
-      renderSurveys();
-      renderHeroSurveys();
+      renderHero((CONFIG.SURVEYS || []).filter(function (s) { return s.active; }));
       MR40Ops.rows("surveys").then(function (sheetSurveys) {
         sheetSurveys = sheetSurveys.filter(MR40Ops.active);
-        if (!sheetSurveys.length) return;
-        surveys = sheetSurveys;
-        renderSurveys();
-        renderHeroSurveys();
+        if (sheetSurveys.length) renderHero(sheetSurveys);
       });
       MR40Ops.rows("event").then(function (eventRows) {
         var data = MR40Ops.eventMap(eventRows);
-        var liveProvider = data.payment_provider || CONFIG.PAYMENTS.provider;
-        var liveEventus = data.eventus_url || CONFIG.PAYMENTS.eventusUrl;
-        renderHeroApply(liveProvider, liveEventus);
-        renderModalApply(liveProvider, liveEventus);
         var eventTime = new Date(CONFIG.EVENT_DATE).getTime();
         var live = safeUrl(data.live_url || CONFIG.EVENT_DETAILS.liveUrl);
         var replay = safeUrl(data.replay_url || CONFIG.EVENT_DETAILS.replayUrl);
@@ -915,25 +602,6 @@
             (featured === replay ? "행사 다시보기" : "지금 라이브로 보기") + "</a>";
         }
         enhanceCommonContent();
-      });
-
-      // 세션당 1회 자동 표시 (행사 종료 후에는 자동으로 안 뜸)
-      var eventOver = new Date(CONFIG.EVENT_DATE).getTime() <= Date.now();
-      if (!sessionStorage.getItem("mr40_welcome_shown") && !eventOver) {
-        modal.classList.add("open");
-        sessionStorage.setItem("mr40_welcome_shown", "1");
-      }
-
-      function close() { modal.classList.remove("open"); }
-
-      // 닫은 뒤에도 우하단 버튼으로 언제든 다시 열기
-      document.getElementById("survey-fab").addEventListener("click", function () {
-        modal.classList.add("open");
-      });
-      document.getElementById("wm-later").addEventListener("click", close);
-      modal.addEventListener("click", function (e) { if (e.target === modal) close(); });
-      document.addEventListener("keydown", function (e) {
-        if (e.key === "Escape" && modal.classList.contains("open")) close();
       });
     })();
   </script>

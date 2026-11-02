@@ -15,55 +15,17 @@
     .dn-main { max-width: 860px; margin: auto; padding: 3rem 1.25rem 5rem; font-size: 1.05rem; line-height: 1.85; }
     .dn-head { text-align:center; margin-bottom:1.6rem; word-break:keep-all; } .dn-head h1 { font-size:clamp(1.8rem,6vw,3rem); }
     .dn-main p { line-height:1.85; }
-    .dn-pick { border-left:4px solid var(--accent); }
-    .dn-pick p { margin:0; font-weight:700; }
-    .dn-pick strong { color:var(--accent); }
-    .dn-compare { width:100%; table-layout:fixed; border-collapse:collapse; margin:1.5rem 0; font-size:.95rem; }
-    .dn-compare th, .dn-compare td { border:1px solid rgba(125,141,181,.25); padding:.75rem .8rem; text-align:left; vertical-align:top; line-height:1.7; }
-    .dn-compare thead th { color:var(--accent); }
-    .dn-compare tbody th { width:24%; color:var(--muted); font-weight:700; word-break:keep-all; }
-    /* 좁은 화면: 3열 표를 항목별 카드로 쌓아 글자가 잘게 쪼개지지 않게 */
-    @media (max-width:560px) {
-      .dn-compare, .dn-compare tbody, .dn-compare tr, .dn-compare th, .dn-compare td { display:block; width:auto; }
-      .dn-compare thead { display:none; }
-      .dn-compare tr { border:1px solid rgba(125,141,181,.25); border-radius:.8rem; margin-bottom:.7rem; padding:.7rem .95rem; }
-      .dn-compare tbody th { border:0; padding:0 0 .35rem; color:var(--accent); font-size:1rem; }
-      .dn-compare td { border:0; padding:.2rem 0; }
-      .dn-compare td::before { content:attr(data-l) " "; font-weight:800; color:var(--muted); }
-    }
-    .dn-way { margin-bottom:1.25rem; }
-    .dn-way h2 { color:var(--accent); font-size:1.3rem; line-height:1.5; margin-bottom:.3rem; }
-    .dn-tag { display:inline-block; margin-bottom:.9rem; padding:.25rem .7rem; border-radius:9999px; font-size:.85rem; font-weight:700;
-      border:1px solid rgba(125,141,181,.4); color:var(--muted); }
-    .dn-steps { list-style:none; counter-reset:step; display:grid; gap:1.1rem; margin:1.2rem 0; }
-    .dn-steps > li { display:grid; grid-template-columns:2rem 1fr; gap:.75rem; }
-    .dn-steps > li::before { counter-increment:step; content:counter(step); display:grid; place-items:center;
-      width:2rem; height:2rem; border-radius:50%; background:var(--accent); color:#0b1020; font-weight:800; font-size:.95rem; }
-    .dn-mail { margin:.6rem 0 0; padding:.9rem 1rem; border-radius:.7rem; background:rgba(255,255,255,.04); border:1px solid rgba(255,255,255,.12);
-      font:inherit; font-size:.9rem; line-height:1.7; white-space:pre-wrap; word-break:keep-all; }
-    .dn-steps b { display:block; font-size:1.05rem; margin-bottom:.15rem; }
-    .dn-box { display:block; margin:.6rem 0 .1rem; padding:.8rem 1rem; border-radius:.7rem;
-      background:rgba(91,140,255,.1); border:1px solid rgba(91,140,255,.28); font-weight:700; font-size:1.05rem; word-break:keep-all; }
     .dn-links { display:flex; flex-wrap:wrap; gap:.6rem; margin-top:1rem; }
     .dn-links a { min-height:48px; display:inline-flex; align-items:center; padding:.75rem 1.2rem; border:1px solid var(--accent);
       border-radius:9999px; color:var(--accent); font-weight:700; }
     .dn-links a.primary { background:var(--accent); color:#0b1020; }
-    .dn-tiers { width:100%; border-collapse:collapse; margin:.8rem 0; font-size:.95rem; }
-    .dn-tiers th, .dn-tiers td { padding:.6rem .4rem; border-bottom:1px solid rgba(255,255,255,.1); text-align:left; vertical-align:top; word-break:keep-all; }
-    .dn-tiers th { white-space:nowrap; padding-right:1rem; }
-    .dn-faq p b { display:block; margin-bottom:.2rem; }
-    .dn-faq p { margin:0 0 1rem; line-height:1.75; }
-    .dn-more { margin-top:1.4rem; }
-    .dn-more > summary { list-style:none; cursor:pointer; display:flex; justify-content:center; align-items:center; gap:.5rem; min-height:52px;
-      border:1px solid var(--accent); border-radius:9999px; color:var(--accent); font-weight:800; font-size:1.05rem; }
-    .dn-more > summary::-webkit-details-marker { display:none; }
-    .dn-more > summary::after { content:"▾"; transition:transform .2s; }
-    .dn-more[open] > summary::after { transform:rotate(180deg); }
-    .dn-more[open] > summary { margin-bottom:1.2rem; }
-    .dn-more-lead { margin:0 0 1rem; }
-    .dn-note { color:var(--muted); font-size:.92rem; line-height:1.8; }
-    .dn-ask { text-align:center; }
-    .dn-ask .dn-contact { display:block; margin-top:.4rem; font-weight:700; font-size:1.05rem; }
+    .dn-ask { text-align:center; margin-top:1.6rem; word-break:keep-all; }
+    .dn-ask p { margin:0; }
+    .dn-ask .dn-links { justify-content:center; }
+    .dn-closed { display:inline-block; margin-bottom:.8rem; padding:.3rem .9rem; border-radius:9999px; font-size:.85rem; font-weight:800;
+      letter-spacing:.04em; color:var(--accent); background:rgba(91,140,255,.12); border:1px solid rgba(91,140,255,.35); }
+    .dn-lead { font-size:1.15rem; font-weight:600; margin:.6rem 0 .4rem; }
+    .dn-sub { color:var(--muted); font-size:.95rem; margin:0; }
     .site-footer { border-top:1px solid rgba(91,140,255,.12); padding:2rem 1.25rem; text-align:center; }
     .site-footer .footer-name { font-size:.875rem; font-weight:700; color:var(--muted); letter-spacing:.02em; margin-bottom:.4rem; }
     .site-footer .footer-note { font-size:.75rem; color:rgba(125,141,181,.55); }
@@ -73,12 +35,18 @@
   <script>injectNav("donate.html");</script>
   <main class="dn-main">
     <header class="dn-head">
+      <span class="dn-closed">후원 마감</span>
       <h1>40주년 후원</h1>
-      <p class="text-muted">팜플렛 제작 일정 때문에 40주년 후원은 부득이하게 마감했습니다.<br>많은 관심과 성원을 보내 주신 모든 선배님과 기업에 진심으로 감사드립니다. 보내 주신 마음에 걸맞은 행사로 보답하겠습니다.</p>
-      <p class="text-muted">팜플렛 제작과 관계없이 동아리 후원을 원하시는 선배님은 사단법인으로 부탁드립니다. <a href="https://mr.or.kr/" target="_blank" rel="noopener">사단법인 MR 홈페이지</a></p>
+      <p class="dn-lead">많은 관심과 성원을 보내 주신 모든 선배님과 기업에 진심으로 감사드립니다.<br>보내 주신 마음에 걸맞은 행사로 보답하겠습니다.</p>
+      <p class="dn-sub">팜플렛 제작 일정 때문에 40주년 후원은 부득이하게 마감했습니다.</p>
     </header>
 
     <section class="supporter-wall" id="supporter-wall" aria-label="후원해 주신 분들"></section>
+
+    <aside class="card dn-ask">
+      <p>팜플렛 제작과 관계없이 동아리 후원을 원하시는 선배님은 사단법인으로 부탁드립니다.</p>
+      <div class="dn-links"><a class="primary" href="https://mr.or.kr/" target="_blank" rel="noopener">사단법인 MR 홈페이지</a></div>
+    </aside>
 
   </main>
   <footer class="site-footer"><p class="footer-name">KAIST MR · Microrobot Research · Since 1986</p><p class="footer-note">© 2026 MR 40주년 준비위원회</p></footer>

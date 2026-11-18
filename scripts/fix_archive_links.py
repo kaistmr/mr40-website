@@ -33,11 +33,12 @@ def fix_value(raw: bytes) -> bytes:
         decoded = raw
     if all(b < 0x80 for b in decoded):
         return raw  # 순수 ASCII 링크는 손대지 않는다
+    # UTF-8 먼저: UTF-8 바이트가 우연히 cp949로도 디코딩돼 한글이 깨지는 경우가 있음(2007 Puzzle)
     try:
-        text = decoded.decode("cp949")
+        text = decoded.decode("utf-8")
     except UnicodeDecodeError:
         try:
-            text = decoded.decode("utf-8")
+            text = decoded.decode("cp949")
         except UnicodeDecodeError:
             return raw
     text = unicodedata.normalize("NFC", text).replace("\\", "/")

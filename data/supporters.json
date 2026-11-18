@@ -3,7 +3,7 @@
   "tier": "PLATINUM",
   "name": "하이퍼그램",
   "logo": "assets/logos/sp_hypergram.png",
-  "url": ""
+  "url": "https://www.hypergraminc.com/"
  },
  {
   "tier": "PLATINUM",
@@ -15,43 +15,43 @@
   "tier": "GOLD",
   "name": "노비텍",
   "logo": "assets/logos/sp_novitec.png",
-  "url": ""
+  "url": "https://novitec.co.kr/"
  },
  {
   "tier": "GOLD",
   "name": "씨메스로보틱스",
   "logo": "assets/logos/sp_cmes.png",
-  "url": ""
+  "url": "https://www.cmesrobotics.com/"
  },
  {
   "tier": "GOLD",
   "name": "신성델타테크",
   "logo": "assets/logos/sp_shinsung.png",
-  "url": ""
+  "url": "http://www.ssdelta.co.kr/"
  },
  {
   "tier": "GOLD",
   "name": "디든로보틱스",
   "logo": "assets/logos/sp_diden.png",
-  "url": ""
+  "url": "https://www.didenrobotics.com/"
  },
  {
   "tier": "GOLD",
   "name": "WIRobotics",
   "logo": "assets/logos/sp_wirobotics.png",
-  "url": ""
+  "url": "https://www.wirobotics.com/"
  },
  {
   "tier": "GOLD",
   "name": "Raion Robotics",
   "logo": "assets/logos/sp_raion.png",
-  "url": ""
+  "url": "https://raionrobotics.com/"
  },
  {
   "tier": "SILVER",
   "name": "컴퍼니케이파트너스",
   "logo": "assets/logos/sp_ckp.png",
-  "url": ""
+  "url": "https://kpartners.co.kr/"
  },
  {
   "tier": "SILVER",
@@ -63,19 +63,19 @@
   "tier": "SILVER",
   "name": "싸이로드",
   "logo": "assets/logos/sp_cylod.png",
-  "url": ""
+  "url": "https://cylod.com/"
  },
  {
   "tier": "PARTNER",
   "name": "엔젤로보틱스",
   "logo": "assets/logos/sp_angel.png",
-  "url": ""
+  "url": "https://www.angel-robotics.com/"
  },
  {
   "tier": "PARTNER",
   "name": "태진기술",
   "logo": "assets/logos/sp_taejin.png",
-  "url": ""
+  "url": "https://htckorea.co.kr/"
  },
  {
   "tier": "PARTNER",
@@ -87,19 +87,19 @@
   "tier": "PARTNER",
   "name": "현대모비스",
   "logo": "assets/logos/sp_mobis.png",
-  "url": ""
+  "url": "https://www.mobis.com/"
  },
  {
   "tier": "PARTNER",
   "name": "모토마인드",
   "logo": "assets/logos/sp_motomind.png",
-  "url": ""
+  "url": "https://motomind.co.kr/"
  },
  {
   "tier": "PARTNER",
   "name": "eSUN",
   "logo": "assets/logos/sp_esun.png",
-  "url": ""
+  "url": "https://www.esun3d.com/"
  },
  {
   "kind": "person",

@@ -957,7 +957,7 @@
     // 내보내기 전용 비밀번호. 평문 대신 SHA-256 해시를 둔다(레포가 공개라 평문은 그대로 노출됨).
     // ponytail: 클라이언트 측 관문이라 소스를 열면 우회된다 — 실제 차단이 필요하면
     //           CSV 생성을 Edge Function으로 옮기고 거기서 비번을 검증해야 한다.
-    var EXPORT_PW_SHA256 = "1d4bbc4e775c9690e12d9d136e62e0d7d0ee15bdcccf785bb70439b951f357ec";
+    var EXPORT_PW_SHA256 = "45f7d708c6065fb41cb28e41d03b81d6303a7bff61d66303a1ea4f6e8ff577df";
 
     async function sha256Hex(text) {
       var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));

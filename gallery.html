@@ -243,7 +243,7 @@
     .video-frame {
       position: relative;
       aspect-ratio: 16 / 9;
-      background: #000;
+      background: linear-gradient(135deg, #12204a, #0a1020);
       cursor: pointer;
       border: none;
       padding: 0;
@@ -679,7 +679,8 @@
         var id = encodeURIComponent(String(v.id || ""));
         html += '<div class="video-card">' +
           '<button class="video-frame" data-id="' + id + '" type="button" aria-label="영상 재생">' +
-          '<img src="https://i.ytimg.com/vi/' + id + '/hqdefault.jpg" loading="lazy" alt="' + escapeHtml(v.title || "영상") + '" />' +
+          '<img src="https://i.ytimg.com/vi/' + id + '/hqdefault.jpg" loading="lazy" alt="' + escapeHtml(v.title || "영상") + '"' +
+          ' onerror="if(this.dataset.fb){this.remove();}else{this.dataset.fb=1;this.src=this.src.replace(\'hqdefault\',\'mqdefault\');}" />' +
           '<span class="play-overlay">▶</span>' +
           "</button>" +
           '<div class="video-meta">' +

@@ -15,6 +15,8 @@ import json
 import re
 import sys
 import hashlib
+import subprocess
+import tempfile
 from pathlib import Path
 
 from PIL import Image, ImageOps
@@ -23,7 +25,7 @@ WS = Path(__file__).resolve().parents[2]      # MR_ws
 SITE = Path(__file__).resolve().parents[1]    # 40th_website
 PHOTOS = WS / "photos"
 THUMB_LONG, FULL_LONG, THUMB_Q, FULL_Q = 480, 1920, 70, 82
-IMG_EXTS = {".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp"}
+IMG_EXTS = {".jpg", ".jpeg", ".png", ".gif", ".bmp", ".webp", ".heic"}
 
 
 YEAR = r"(?:19[8-9]\d|20[0-2]\d)"
@@ -57,6 +59,19 @@ def year_slug(year):
     return re.sub(r"[–~]", "-", str(year))
 
 
+def open_image(src):
+    """PIL이 못 읽는 HEIC(아이폰)는 macOS sips로 임시 JPEG 변환 후 연다."""
+    if src.suffix.lower() != ".heic":
+        return Image.open(src)
+    with tempfile.TemporaryDirectory() as tmp:
+        out = Path(tmp) / "x.jpg"
+        subprocess.run(["sips", "-s", "format", "jpeg", str(src), "--out", str(out)],
+                       check=True, capture_output=True)
+        img = Image.open(out)
+        img.load()
+        return img
+
+
 def process_image(src, thumb_dir, base, full_dir=None):
     key = hashlib.md5(str(src.relative_to(base)).encode()).hexdigest()[:12]
     thumb_path = thumb_dir / f"{key}.webp"
@@ -65,7 +80,7 @@ def process_image(src, thumb_dir, base, full_dir=None):
     need_full = bool(full_path) and not full_path.exists()
     # 이미 만들어진 썸네일은 재인코딩하지 않음 (사진 추가 시 증분 실행)
     if need_thumb or need_full:
-        img = ImageOps.exif_transpose(Image.open(src)).convert("RGB")
+        img = ImageOps.exif_transpose(open_image(src)).convert("RGB")
         if need_thumb:
             thumb_dir.mkdir(parents=True, exist_ok=True)
             t = img.copy()

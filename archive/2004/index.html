@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>2004년 MR 회지</title>
+  <style>
+    html, body { margin: 0; height: 100%; background: #0b1020; color: #cdd6f4;
+      font-family: "Pretendard", system-ui, sans-serif; }
+    .wrap { min-height: 100%; display: flex; flex-direction: column; align-items: center; }
+    .stage { width: 100%; max-width: 800px; aspect-ratio: 4 / 3; background: #000; }
+    #player { width: 100%; height: 100%; }
+    .note { font-size: .85rem; color: #9aa6c6; padding: .8rem 1rem; text-align: center; line-height: 1.6; }
+    .vid { width: 100%; max-width: 800px; padding: 0 0 2rem; }
+    .vid h2 { font-size: 1rem; margin: 1.4rem 1rem .6rem; }
+    .vid video { width: 100%; display: block; background: #000; }
+    .start { margin: 1rem; padding: .8rem 1.6rem; border: 0; border-radius: 9999px;
+      background: #5b8cff; color: #0b1020; font: inherit; font-weight: 700; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="note">2004년에 플래시(Flash)로 만든 회지입니다. 지금 브라우저는 플래시를 지원하지 않아,
+      <a href="https://ruffle.rs" target="_blank" rel="noopener" style="color:#7ea2ff">Ruffle</a> 에뮬레이터로 되살려 보여 드립니다.
+      로딩에 시간이 걸릴 수 있습니다(약 70MB).</p>
+    <div class="stage"><div id="player"></div></div>
+    <button class="start" id="start" type="button" hidden>▶ 회지 다시 시작</button>
+    <div class="vid">
+      <h2>2004 회지 수록 영상</h2>
+      <video controls preload="metadata" src="show.mp4" playsinline></video>
+    </div>
+  </div>
+  <script src="https://unpkg.com/@ruffle-rs/ruffle@0.1.0-nightly.2024.10.6"></script>
+  <script>
+    (function () {
+      var ruffle = window.RufflePlayer.newest();
+      var player = ruffle.createPlayer();
+      document.getElementById("player").appendChild(player);
+      function load() {
+        player.load({ url: "mr_magazine.swf", autoplay: "on", backgroundColor: "#000000",
+          letterbox: "on", wmode: "transparent" }).catch(function () {});
+      }
+      load();
+      var btn = document.getElementById("start");
+      btn.hidden = false;
+      btn.addEventListener("click", load);
+    })();
+  </script>
+</body>
+</html>

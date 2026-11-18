@@ -55,6 +55,7 @@
     var SITES = {
       "2001": { src: "archive/2001/index.htm",    label: "2001년 홈페이지" },
       "2002": { src: "archive/2002/main.htm",     label: "2002년 홈페이지", bgm: "archive/2002/music/MR_bysemi.mid" },
+      "2004": { src: "archive/2004/index.html",   label: "2004년 회지 (플래시)", bgm: "archive/2004/MR_bysemi.mid", responsive: true },
       "2005": { src: "archive/2005/index.html",   label: "2005년 홈페이지" },
       "2007": { src: "archive/2007/index.html",   label: "2007년 홈페이지" },
       "2008": { src: "archive/2008/MR/index.htm", label: "2008년 홈페이지", bgm: "archive/2008/MR/music/MR_bysemi.mid" },
@@ -70,7 +71,7 @@
     frame.src = site.src;
 
     // ── 휴대폰: 1024px 옛 화면을 폭에 맞춰 축소 (좌우로 밀 필요 없게). 버튼으로 원래 크기 전환 ──
-    var PAGE_W = 1024, fit = true;
+    var PAGE_W = 1024, fit = !site.responsive;   // 2004 뷰어는 반응형이라 축소하지 않음
     function layout() {
       var w = window.innerWidth;
       if (!fit || w >= PAGE_W) {
@@ -87,6 +88,7 @@
       this.textContent = fit ? "원래 크기로 보기" : "화면에 맞추기";
       layout();
     });
+    if (site.responsive) { var h = document.querySelector(".tv-hint"); if (h) h.style.display = "none"; }
     window.addEventListener("resize", layout);
     layout();
     document.getElementById("tv-raw").href = site.src;

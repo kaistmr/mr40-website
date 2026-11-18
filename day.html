@@ -43,6 +43,7 @@
       : '<p>준비 중</p>';
     var cards = [
       ["오시는 길", data.address || CONFIG.EVENT_DETAILS.address],
+      ["접수", data.reception || CONFIG.EVENT_DETAILS.reception],
       ["주차", data.parking || CONFIG.EVENT_DETAILS.parking],
       ["좌석 안내", data.seating || CONFIG.EVENT_DETAILS.seating],
       ["비상 연락처", data.emergency || CONFIG.EVENT_DETAILS.emergency || CONFIG.CONTACT.phone],
@@ -51,7 +52,8 @@
       '<section class="day-card card"><h2>식순</h2>' + programHtml + '</section>' +
       cards.map(function (card) {
       return '<section class="day-card card"><h2>' + card[0] + '</h2><p>' + escapeHtml(card[1] || "준비 중") + '</p></section>';
-    }).join("") + '<section class="day-card card"><h2>지도 앱</h2><p>지도 앱으로 행사장(롯데시티호텔 대전)까지 바로 길을 찾을 수 있습니다.</p><div class="day-links">' +
+    }).join("") + '<section class="day-card card"><h2>행사장 배치</h2><img src="assets/pamphlet/venue_map.png" alt="행사장 배치도 — 정문에서 복도를 따라 로비 등록 데스크로" style="width:100%;height:auto;border-radius:.5rem;background:#fff"><p class="day-links"><a href="assets/pamphlet/MR40_pamphlet.pdf" download="MR40_팜플렛.pdf">팜플렛 PDF 받기</a></p></section>' +
+      '<section class="day-card card"><h2>지도 앱</h2><p>지도 앱으로 행사장(롯데시티호텔 대전)까지 바로 길을 찾을 수 있습니다.</p><div class="day-links">' +
       (safeUrl(data.kakao_map || CONFIG.MAP_LINKS.kakao) ? '<a href="' + safeUrl(data.kakao_map || CONFIG.MAP_LINKS.kakao) + '" target="_blank" rel="noopener">카카오맵</a>' : '<span>카카오맵 준비 중</span>') +
       (safeUrl(data.naver_map || CONFIG.MAP_LINKS.naver) ? '<a href="' + safeUrl(data.naver_map || CONFIG.MAP_LINKS.naver) + '" target="_blank" rel="noopener">네이버지도</a>' : '<span>네이버지도 준비 중</span>') +
       '</div></section>';

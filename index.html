@@ -615,7 +615,8 @@
           var href = s.page || ("survey.html?id=" + encodeURIComponent(s.id));
           return '<a class="hero-survey-pill" href="' + escapeHtml(href) + '">' +
             escapeHtml(s.icon || "📋") + " " + escapeHtml(s.title) + "</a>";
-        }).join("") + '<a class="hero-survey-pill" href="event.html#live-box">📺 온라인 중계</a>';
+        }).join("") + '<a class="hero-survey-pill" href="event.html#live-box">📺 온라인 중계</a>' +
+          '<a class="hero-survey-pill" href="assets/pamphlet/MR40_pamphlet.pdf" download="MR40_팜플렛.pdf">📄 팜플렛</a>';
       }
       renderHero((CONFIG.SURVEYS || []).filter(function (s) { return s.active; }));
 

@@ -1,8 +1,9 @@
 // 후원사 벽 — 첫 화면(index)과 후원 페이지(donate)가 함께 쓴다.
 // 데이터: 운영 시트 sponsors 탭 → 없으면 data/supporters.json
-// 항목: { tier: "PLATINUM"|"GOLD"|"SILVER", name, logo, url } / 동문: { kind: "person", name }
+// 항목: { tier: "PLATINUM"|"GOLD"|"SILVER"|"PARTNER"(후원 외 협력), name, logo, url } / 동문: { kind: "person", name }
 (function () {
-  var TIERS = ["PLATINUM", "GOLD", "SILVER"];
+  var TIERS = ["PLATINUM", "GOLD", "SILVER", "PARTNER"];
+  var LABELS = { PARTNER: "올해 MR을 도와주신 곳" };
 
   function load() {
     var fromSheet = window.MR40Ops ? MR40Ops.rows("sponsors").then(function (items) {
@@ -33,7 +34,7 @@
     var html = TIERS.map(function (t) {
       var list = orgs.filter(function (s) { return String(s.tier || "SILVER").toUpperCase() === t; });
       return list.length
-        ? '<div class="sw-tier sw-' + t.toLowerCase() + '"><p class="sw-label">' + t + '</p><div class="sw-row">' + list.map(card).join("") + "</div></div>"
+        ? '<div class="sw-tier sw-' + t.toLowerCase() + '"><p class="sw-label">' + (LABELS[t] || t) + '</p><div class="sw-row">' + list.map(card).join("") + "</div></div>"
         : "";
     }).join("");
     if (people.length) {

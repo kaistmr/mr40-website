@@ -6,12 +6,13 @@
 .sw-gold .sw-label { color:#e0b65a; }
 .sw-silver .sw-label { color:#a9b2c6; }
 .sw-people .sw-label { color:#7ea2ff; }
+.sw-partner .sw-label { color:#a9b2c6; letter-spacing:.04em; }
 .sw-row { display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:1rem 2.2rem; }
 .sw-logo { display:flex; align-items:center; justify-content:center; min-height:64px; }
 /* 어두운 바탕에서 읽히도록 로고를 흰색 단색으로 */
 .sw-logo img { display:block; height:52px; max-width:200px; object-fit:contain; filter:brightness(0) invert(1); opacity:.92; }
 .sw-platinum .sw-logo img { height:72px; max-width:260px; }
-.sw-silver .sw-logo img { height:38px; max-width:160px; }
+.sw-silver .sw-logo img, .sw-partner .sw-logo img { height:38px; max-width:160px; }
 .sw-text { font-weight:800; font-size:1.35rem; letter-spacing:-.01em; }
 .sw-silver .sw-text { font-size:1.05rem; }
 .sw-names { margin:0; display:flex; flex-wrap:wrap; justify-content:center; gap:.45rem .5rem; }

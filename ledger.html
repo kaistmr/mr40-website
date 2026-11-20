@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>지출 결산 — MR 40</title>
+  <link rel="icon" href="assets/favicon.png" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+  <link rel="stylesheet" href="assets/style.css" />
+  <script src="config.js"></script><script src="assets/common.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <style>
+    .lg-main { max-width: 960px; margin: auto; padding: 3rem 1.25rem 5rem; }
+    .gate { max-width: 420px; margin: 12vh auto 0; text-align: center; }
+    .gate h1 { font-size: 1.6rem; margin: .5rem 0; } .gate p { color: var(--muted); margin-bottom: 1.5rem; line-height: 1.7; }
+    .gate-row { display: flex; gap: .5rem; }
+    .gate-row input { flex: 1; min-width: 0; background: rgba(255,255,255,.07); border: 1px solid rgba(91,140,255,.25); border-radius: .6rem;
+      padding: .7rem 1rem; color: var(--text); font: inherit; letter-spacing: .05em; text-transform: uppercase; }
+    .btn { background: var(--accent); color: #fff; border: 0; border-radius: .6rem; padding: .7rem 1.1rem; font: inherit; font-weight: 700;
+      cursor: pointer; min-height: 44px; white-space: nowrap; }
+    .btn.ghost { background: transparent; border: 1px solid rgba(91,140,255,.5); color: var(--text); }
+    .btn:disabled { opacity: .5; cursor: wait; }
+    .err { color: #ff8a80; margin-top: .8rem; min-height: 1.4em; }
+    .lg-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 1rem; flex-wrap: wrap; margin-bottom: 1.5rem; }
+    .lg-head h1 { font-size: clamp(1.7rem, 5vw, 2.4rem); } .lg-head p { color: var(--muted); }
+    .lg-actions { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: .75rem; margin-bottom: 2.5rem; }
+    .tile b { display: block; font-size: 1.35rem; font-variant-numeric: tabular-nums; } .tile span { color: var(--muted); font-size: .85rem; }
+    h2.sec { font-size: 1.3rem; margin: 2.5rem 0 1rem; }
+    .fund { margin-bottom: 1.25rem; }
+    .fund-top { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: .25rem 1rem; }
+    .fund-top h3 { color: var(--accent); font-size: 1.15rem; } .fund-top p, .fund-note { color: var(--muted); font-size: .9rem; }
+    .meter { height: 8px; background: rgba(255,255,255,.08); border-radius: 99px; margin: .75rem 0 1rem; overflow: hidden; }
+    .meter i { display: block; height: 100%; background: var(--accent); border-radius: 99px; }
+    table.bud { width: 100%; border-collapse: collapse; font-size: .9rem; }
+    table.bud th { text-align: left; color: var(--muted); font-weight: 600; padding: .4rem .3rem; border-bottom: 1px solid rgba(255,255,255,.25); }
+    table.bud td { padding: .45rem .3rem; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .n { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .bar { display: inline-block; width: 70px; height: 6px; background: rgba(255,255,255,.08); border-radius: 9px; vertical-align: middle; margin-right: .4rem; }
+    .bar i { display: block; height: 100%; background: var(--accent); border-radius: 9px; } .bar.over i { background: #ff8a80; }
+    .filters { display: flex; gap: .4rem; flex-wrap: wrap; margin-bottom: 1rem; }
+    .chip { border: 1px solid rgba(255,255,255,.2); background: transparent; color: var(--text); border-radius: 99px; padding: .45rem .9rem; font: inherit; cursor: pointer; min-height: 40px; }
+    .chip.on { background: var(--accent); border-color: var(--accent); }
+    .item { margin-bottom: 1rem; }
+    .item-top { display: flex; flex-wrap: wrap; gap: .35rem .7rem; align-items: center; color: var(--muted); font-size: .85rem; }
+    .item-top .no { color: var(--text); font-weight: 800; } .tag { background: rgba(91,140,255,.15); color: var(--text); padding: .1rem .55rem; border-radius: 99px; }
+    .tag.warn { background: rgba(255,138,128,.15); color: #ff8a80; }
+    .item-title { display: flex; justify-content: space-between; gap: 1rem; align-items: baseline; margin: .4rem 0; }
+    .item-title h4 { font-size: 1.1rem; } .item-title b { font-size: 1.2rem; white-space: nowrap; font-variant-numeric: tabular-nums; }
+    .meta { color: var(--muted); font-size: .9rem; margin-bottom: .5rem; }
+    .why p { line-height: 1.7; } .why em { font-style: normal; color: var(--accent); font-weight: 700; display: inline-block; min-width: 3.5rem; }
+    .ev { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: .6rem; margin: .9rem 0; }
+    .ev button { all: unset; cursor: zoom-in; display: block; }
+    .ev .ph { aspect-ratio: 3/4; background: rgba(255,255,255,.06); border-radius: .5rem; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+    .ev img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
+    .ev small { display: block; color: var(--muted); font-size: .78rem; margin-top: .25rem; }
+    .item-dl { display: flex; gap: .4rem; flex-wrap: wrap; }
+    .item-dl .btn { font-size: .85rem; padding: .5rem .85rem; }
+    #viewer { position: fixed; inset: 0; background: rgba(0,0,0,.92); display: none; align-items: center; justify-content: center; z-index: 50; padding: 1rem; }
+    #viewer.on { display: flex; } #viewer img { max-width: 100%; max-height: 100%; background: #fff; }
+    #viewer button { position: absolute; top: 1rem; right: 1rem; }
+    .progress { color: var(--muted); font-size: .9rem; }
+    @media (max-width: 560px) { .hide-sm { display: none; } }
+  </style>
+</head>
+<body>
+  <script>injectNav("");</script>
+  <main class="lg-main">
+    <section class="gate card" id="gate">
+      <div aria-hidden="true" style="font-size:2rem">🔒</div>
+      <h1>40주년 지출 결산</h1>
+      <p>받으신 접속 코드를 입력하세요.<br>영수증에 개인정보가 있어 잠가 두었습니다.</p>
+      <form class="gate-row" id="gate-form">
+        <input id="code" type="password" autocomplete="current-password" placeholder="MR40-XXXX-XXXX" aria-label="접속 코드" />
+        <button class="btn" id="go">열기</button>
+      </form>
+      <p class="err" id="err" role="alert"></p>
+    </section>
+    <div id="app" hidden></div>
+  </main>
+  <div id="viewer" role="dialog" aria-label="증빙 크게 보기"><button class="btn ghost" id="close">닫기</button><img alt="" /></div>
+  <footer class="site-footer"><p class="footer-name">KAIST MR · Microrobot Research · Since 1986</p><p class="footer-note">© 2026 MR 40주년 준비위원회</p></footer>
+<script>
+(function () {
+  var BASE = "data/ledger/", key = null, M = null, cache = {};
+  var $ = function (s) { return document.querySelector(s); };
+  var won = function (n) { return Number(n).toLocaleString("ko-KR") + "원"; };
+  var b64 = function (s) { return Uint8Array.from(atob(s), function (c) { return c.charCodeAt(0); }); };
+
+  async function deriveKey(code, salt, iter) {
+    var base = await crypto.subtle.importKey("raw", new TextEncoder().encode(code), "PBKDF2", false, ["deriveKey"]);
+    return crypto.subtle.deriveKey({ name: "PBKDF2", salt: salt, iterations: iter, hash: "SHA-256" }, base,
+      { name: "AES-GCM", length: 256 }, false, ["decrypt"]);
+  }
+  async function blob(id) {  // data/ledger/<id>.bin = iv(12) || ct || tag
+    if (cache[id]) return cache[id];
+    var buf = new Uint8Array(await (await fetch(BASE + id + ".bin")).arrayBuffer());
+    cache[id] = await crypto.subtle.decrypt({ name: "AES-GCM", iv: buf.slice(0, 12) }, key, buf.slice(12));
+    return cache[id];
+  }
+  async function save(id, name, mime) {
+    var url = URL.createObjectURL(new Blob([await blob(id)], { type: mime || "application/octet-stream" }));
+    var a = document.createElement("a"); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
+  }
+
+  $("#gate-form").addEventListener("submit", async function (ev) {
+    ev.preventDefault();
+    var code = $("#code").value.trim().toUpperCase(); if (!code) return;
+    $("#go").disabled = true; $("#err").textContent = "여는 중…";
+    try {
+      var env = await (await fetch(BASE + "index.json", { cache: "no-store" })).json();
+      key = await deriveKey(code, b64(env.salt), env.iter);
+      var plain = await crypto.subtle.decrypt({ name: "AES-GCM", iv: b64(env.iv) }, key, b64(env.ct));
+      M = JSON.parse(new TextDecoder().decode(plain));
+      $("#gate").hidden = true; render();
+    } catch (e) { key = null; $("#err").textContent = "코드가 맞지 않습니다."; }
+    $("#go").disabled = false;
+  });
+
+  function budKey(b) { return b["세부"] ? b["항목"] + "/" + b["세부"] : b["항목"]; }
+
+  function render() {
+    var items = M.items, total = items.reduce(function (s, x) { return s + x["금액"]; }, 0);
+    var have = M.funds.reduce(function (s, f) { return s + Number(f["확보액"]); }, 0);
+    var used = {}; items.forEach(function (x) { var k = x["재원"] + "|" + x["예산항목"]; used[k] = (used[k] || 0) + x["금액"]; });
+    var h = '<div class="lg-head"><div><p class="text-muted">KAIST MR 40주년 기념행사</p><h1>지출 결산</h1><p>' +
+      escapeHtml(M.built) + ' 기준 · 결제 ' + items.length + '건</p></div><div class="lg-actions">' +
+      '<button class="btn" data-dl="report">결산보고 PDF</button><button class="btn ghost" id="zip">전체 다운로드 (ZIP)</button></div></div>' +
+      '<p class="progress" id="zipmsg" aria-live="polite"></p>' +
+      '<div class="tiles"><div class="tile card"><b>' + won(have) + '</b><span>확보한 재원</span></div>' +
+      '<div class="tile card"><b>' + won(total) + '</b><span>집행</span></div>' +
+      '<div class="tile card"><b>' + won(have - total) + '</b><span>남은 금액</span></div>' +
+      '<div class="tile card"><b>' + items.length + '건</b><span>결제 · 모두 증빙 첨부</span></div></div>';
+
+    h += '<h2 class="sec">재원별 예산과 집행</h2>';
+    M.funds.forEach(function (f) {
+      var src = f["재원"], bs = M.budget.filter(function (b) { return b["재원"] === src; });
+      var u = items.filter(function (x) { return x["재원"] === src; }).reduce(function (s, x) { return s + x["금액"]; }, 0);
+      var cap = Number(f["확보액"]);
+      h += '<section class="fund card"><div class="fund-top"><h3>' + escapeHtml(src) + '</h3><p>확보 ' + won(cap) + ' · 집행 <b>' + won(u) +
+        '</b> · 남음 ' + won(cap - u) + '</p></div>' + (f["비고"] && f["비고"].indexOf("시트") < 0 ? '<p class="fund-note">' + escapeHtml(f["비고"]) + '</p>' : '') +
+        '<div class="meter"><i style="width:' + Math.min(100, u / cap * 100).toFixed(1) + '%"></i></div>' +
+        '<table class="bud"><thead><tr><th>항목</th><th class="n hide-sm">예산</th><th class="n">집행</th><th class="n">집행률</th></tr></thead><tbody>' +
+        bs.map(function (b) {
+          var x = used[src + "|" + budKey(b)] || 0, p = x / Number(b["예산"]) * 100;
+          return '<tr><td>' + escapeHtml(budKey(b)) + '</td><td class="n hide-sm">' + won(b["예산"]) + '</td><td class="n">' + (x ? won(x) : "-") +
+            '</td><td class="n"><span class="bar' + (p > 100 ? " over" : "") + '"><i style="width:' + Math.min(100, p) + '%"></i></span>' + p.toFixed(0) + '%</td></tr>';
+        }).join("") + '</tbody></table></section>';
+    });
+
+    h += '<h2 class="sec">결제 건별 증빙</h2><div class="filters" id="filters">' +
+      ["전체"].concat(M.funds.map(function (f) { return f["재원"]; })).map(function (s, i) {
+        return '<button class="chip' + (i ? "" : " on") + '" data-f="' + escapeHtml(s) + '">' + escapeHtml(s) + '</button>';
+      }).join("") + '</div><div id="items">';
+    items.slice().sort(function (a, b) { return (a["날짜"] + a["번호"]).localeCompare(b["날짜"] + b["번호"]); }).forEach(function (x) {
+      var pending = x["비고"].indexOf("확인:") === 0;
+      var meta = [x["거래처"], x["결제수단"], x["수량"] && "수량 " + x["수량"]].filter(Boolean).map(escapeHtml).join(" · ");
+      h += '<article class="item card" data-src="' + escapeHtml(x["재원"]) + '"><div class="item-top"><span class="no">' + escapeHtml(x["번호"]) + '</span><span>' +
+        escapeHtml(x["날짜"]) + '</span><span class="tag">' + escapeHtml(x["예산항목"]) + '</span>' + (pending ? '<span class="tag warn">진행 중</span>' : '') +
+        '</div><div class="item-title"><h4>' + escapeHtml(x["품목"]) + '</h4><b>' + won(x["금액"]) + '</b></div><p class="meta">' + meta + '</p><div class="why">' +
+        [["왜", "목적"], ["어디에", "사용처"]].filter(function (p) { return x[p[1]]; }).map(function (p) {
+          return '<p><em>' + p[0] + '</em>' + escapeHtml(x[p[1]]) + '</p>'; }).join("") +
+        '</div><div class="ev">' + x.files.map(function (f) {
+          return '<div><button data-view="' + (f.thumb || "") + '" aria-label="' + escapeHtml(f.kind) + ' 크게 보기"><div class="ph" data-thumb="' + (f.thumb || "") + '">' +
+            escapeHtml(f.kind) + '</div></button><small>' + escapeHtml(f.kind) + ' · <a href="#" data-dl="' + f.id + '" data-name="' + escapeHtml(x["번호"] + "_" + f.name) +
+            '" data-mime="' + f.mime + '">원본</a></small></div>';
+        }).join("") + '</div><div class="item-dl"><button class="btn ghost" data-dl="' + x.pdf + '" data-name="' + escapeHtml(x["번호"] + "_" + x["품목"].slice(0, 30)) +
+        '.pdf" data-mime="application/pdf">증빙 PDF 받기</button></div></article>';
+    });
+    $("#app").innerHTML = h + '</div>'; $("#app").hidden = false;
+    lazyThumbs(); wire();
+  }
+
+  function lazyThumbs() {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (en) {
+        if (!en.isIntersecting) return; io.unobserve(en.target);
+        var id = en.target.dataset.thumb; if (!id) return;
+        blob(id).then(function (buf) {
+          en.target.innerHTML = '<img alt="" src="' + URL.createObjectURL(new Blob([buf], { type: "image/jpeg" })) + '">';
+        });
+      });
+    }, { rootMargin: "300px" });
+    document.querySelectorAll("[data-thumb]").forEach(function (el) { io.observe(el); });
+  }
+
+  function wire() {
+    $("#app").addEventListener("click", function (ev) {
+      var d = ev.target.closest("[data-dl]"), v = ev.target.closest("[data-view]"), c = ev.target.closest(".chip");
+      if (d) {
+        ev.preventDefault();
+        if (d.dataset.dl === "report") return save(M.report, "MR40_결산보고.pdf", "application/pdf");
+        return save(d.dataset.dl, d.dataset.name, d.dataset.mime);
+      }
+      if (v && v.dataset.view) {
+        blob(v.dataset.view).then(function (buf) {
+          $("#viewer img").src = URL.createObjectURL(new Blob([buf], { type: "image/jpeg" })); $("#viewer").classList.add("on");
+        });
+      }
+      if (c) {
+        document.querySelectorAll(".chip").forEach(function (x) { x.classList.toggle("on", x === c); });
+        document.querySelectorAll(".item").forEach(function (it) { it.hidden = c.dataset.f !== "전체" && it.dataset.src !== c.dataset.f; });
+      }
+    });
+    $("#zip").addEventListener("click", async function () {
+      var btn = this, msg = $("#zipmsg"), zip = new JSZip(), jobs = [];
+      jobs.push([M.report, "MR40_결산보고.pdf"], [M.csv, "지출.csv"]);
+      M.items.forEach(function (x) {
+        jobs.push([x.pdf, x.folder + "/" + x["번호"] + "_증빙.pdf"]);
+        x.files.forEach(function (f) { jobs.push([f.id, x.folder + "/" + f.name]); });
+      });
+      btn.disabled = true;
+      try {
+        for (var i = 0; i < jobs.length; i++) {
+          msg.textContent = "파일 모으는 중 " + (i + 1) + " / " + jobs.length;
+          zip.file(jobs[i][1], await blob(jobs[i][0]));
+        }
+        msg.textContent = "압축 중…";
+        var out = await zip.generateAsync({ type: "blob" });
+        var a = document.createElement("a"); a.href = URL.createObjectURL(out); a.download = "MR40_지출증빙_" + M.built.slice(0, 10) + ".zip"; a.click();
+        msg.textContent = "다운로드를 시작했습니다.";
+      } catch (e) { msg.textContent = "다운로드에 실패했습니다. 다시 시도해 주세요."; }
+      btn.disabled = false;
+    });
+    $("#close").onclick = function () { $("#viewer").classList.remove("on"); };
+    $("#viewer").onclick = function (e) { if (e.target.id === "viewer") this.classList.remove("on"); };
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") $("#viewer").classList.remove("on"); });
+  }
+})();
+</script>
+</body>
+</html>

@@ -443,6 +443,13 @@ iframe:focus-visible {
   margin-bottom: 0.75rem;
 }
 
+/* 꼬리말 기본값 — 페이지에 따로 정의가 없을 때. 아래 여백은 왼쪽 아래 주제가 버튼과 겹치지 않게. */
+.site-footer {
+  border-top: 1px solid rgba(91, 140, 255, 0.12);
+  padding: 2rem 1.25rem 5.5rem;
+  text-align: center;
+}
+
 .footer-home a,
 .footer-contact a {
   color: var(--accent);

@@ -60,6 +60,14 @@
     #viewer.on { display: flex; } #viewer img { max-width: 100%; max-height: 100%; background: #fff; }
     #viewer button { position: absolute; top: 1rem; right: 1rem; }
     .progress { color: var(--muted); font-size: .9rem; }
+    .missing { border: 2px solid #ff8a80; background: rgba(255,138,128,.08); border-radius: var(--radius); padding: 1.1rem 1.25rem; margin-bottom: 2rem; }
+    .missing h2 { color: #ff8a80; font-size: 1.15rem; margin-bottom: .6rem; }
+    .missing li { margin: .35rem 0 .35rem 1.1rem; line-height: 1.6; } .missing strong { color: #ff8a80; }
+    .missing a { color: var(--text); font-weight: 800; }
+    .need { list-style: none; display: flex; flex-wrap: wrap; gap: .4rem; margin: .2rem 0 .8rem; font-size: .88rem; }
+    .need li { padding: .3rem .75rem; border-radius: 99px; border: 1px solid rgba(255,255,255,.15); color: var(--muted); }
+    .need li.no { border: 2px solid #ff8a80; color: #ff8a80; font-weight: 800; background: rgba(255,138,128,.1); }
+    .need li span { font-weight: 400; }
     @media (max-width: 560px) { .hide-sm { display: none; } }
   </style>
 </head>
@@ -131,7 +139,15 @@
       '<div class="tiles"><div class="tile card"><b>' + won(have) + '</b><span>확보한 재원</span></div>' +
       '<div class="tile card"><b>' + won(total) + '</b><span>집행</span></div>' +
       '<div class="tile card"><b>' + won(have - total) + '</b><span>남은 금액</span></div>' +
-      '<div class="tile card"><b>' + items.length + '건</b><span>결제 · 모두 증빙 첨부</span></div></div>';
+      '<div class="tile card"><b>' + items.filter(function (x) { return x.needs.every(function (n) { return n.ok; }); }).length + ' / ' + items.length +
+      '</b><span>서류 다 갖춘 결제</span></div></div>';
+    var miss = [];
+    items.slice().sort(function (a, b) { return (a["재원"] !== "발전기금") - (b["재원"] !== "발전기금") || a["번호"].localeCompare(b["번호"]); })
+      .forEach(function (x) { x.needs.forEach(function (n) { if (!n.ok) miss.push([x, n]); }); });
+    if (miss.length) h += '<section class="missing"><h2>아직 없는 서류 ' + miss.length + '개</h2><ul>' + miss.map(function (m) {
+      return '<li><a href="#item-' + escapeHtml(m[0]["번호"]) + '">' + escapeHtml(m[0]["번호"]) + '</a> ' + escapeHtml(m[0]["품목"]) +
+        ' — <strong>' + escapeHtml(m[1].doc) + '</strong>' + (m[1].note ? ' · ' + escapeHtml(m[1].note) : '') + '</li>';
+    }).join("") + '</ul></section>';
 
     h += '<h2 class="sec">재원별 예산과 집행</h2>';
     M.funds.forEach(function (f) {
@@ -154,11 +170,12 @@
         return '<button class="chip' + (i ? "" : " on") + '" data-f="' + escapeHtml(s) + '">' + escapeHtml(s) + '</button>';
       }).join("") + '</div><div id="items">';
     items.slice().sort(function (a, b) { return (a["날짜"] + a["번호"]).localeCompare(b["날짜"] + b["번호"]); }).forEach(function (x) {
-      var pending = x["비고"].indexOf("확인:") === 0;
       var meta = [x["거래처"], x["결제수단"], x["수량"] && "수량 " + x["수량"]].filter(Boolean).map(escapeHtml).join(" · ");
-      h += '<article class="item card" data-src="' + escapeHtml(x["재원"]) + '"><div class="item-top"><span class="no">' + escapeHtml(x["번호"]) + '</span><span>' +
-        escapeHtml(x["날짜"]) + '</span><span class="tag">' + escapeHtml(x["예산항목"]) + '</span>' + (pending ? '<span class="tag warn">진행 중</span>' : '') +
-        '</div><div class="item-title"><h4>' + escapeHtml(x["품목"]) + '</h4><b>' + won(x["금액"]) + '</b></div><p class="meta">' + meta + '</p><div class="why">' +
+      h += '<article class="item card" id="item-' + escapeHtml(x["번호"]) + '" data-src="' + escapeHtml(x["재원"]) + '"><div class="item-top"><span class="no">' + escapeHtml(x["번호"]) + '</span><span>' +
+        escapeHtml(x["날짜"]) + '</span><span class="tag">' + escapeHtml(x["예산항목"]) + '</span>' + "" +
+        '</div><div class="item-title"><h4>' + escapeHtml(x["품목"]) + '</h4><b>' + won(x["금액"]) + '</b></div><p class="meta">' + meta + '</p><ul class="need">' + x.needs.map(function (n) {
+          return '<li class="' + (n.ok ? "ok" : "no") + '">' + (n.ok ? "✓ " : "✗ 필요 ") + escapeHtml(n.doc) + (!n.ok && n.note ? ' <span>' + escapeHtml(n.note) + '</span>' : '') + '</li>';
+        }).join("") + '</ul><div class="why">' +
         [["왜", "목적"], ["어디에", "사용처"]].filter(function (p) { return x[p[1]]; }).map(function (p) {
           return '<p><em>' + p[0] + '</em>' + escapeHtml(x[p[1]]) + '</p>'; }).join("") +
         '</div><div class="ev">' + x.files.map(function (f) {

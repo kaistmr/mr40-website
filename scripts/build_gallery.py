@@ -15,6 +15,7 @@ import json
 import re
 import sys
 import hashlib
+import unicodedata
 import subprocess
 import tempfile
 from pathlib import Path
@@ -106,11 +107,15 @@ def collect_sources(listfile):
         return srcs
     # 옛 CD 사이트 미리보기 썸네일(thumb_*, 100x75 저화질)은 제외 — 같은 폴더에
     # 풀해상도 원본이 함께 있으므로 갤러리엔 원본만 싣는다.
+    # '영상제작'은 40주년 기념영상 작업 폴더(프레임 스틸 등 수천 장) — 아카이브 사진이
+    # 아니므로 갤러리 스캔에서 제외한다.
     return sorted(
         p for p in PHOTOS.rglob("*")
         if p.is_file() and p.suffix.lower() in IMG_EXTS
         and not p.name.startswith("._")
         and not p.name.lower().startswith("thumb_")
+        # macOS 파일명은 NFD라 리터럴(NFC)과 직접 비교하면 안 맞는다 → 정규화 후 비교
+        and not any(unicodedata.normalize("NFC", part) == "영상제작" for part in p.parts)
     )
 
 

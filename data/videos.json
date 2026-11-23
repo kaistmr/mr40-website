@@ -1,5 +1,21 @@
 [
  {
+  "id": "ctonxBTpIZE",
+  "title": "40주년 기념 영상 — 불이 꺼지지 않는 방",
+  "desc": "KAIST MR 창립 40주년(1986–2026) 기념 영상",
+  "active": true,
+  "year": 2026,
+  "featured": true
+ },
+ {
+  "id": "7W_x5wNRegk",
+  "title": "40주년 동아리 노래",
+  "desc": "KAIST MR 창립 40주년 기념 동아리 노래",
+  "active": true,
+  "year": 2026,
+  "featured": true
+ },
+ {
   "id": "ucgGNFQsvz0",
   "title": "91 T.MIT 로봇 콘테스트",
   "desc": "1991년 로봇 경진대회 출전 기록",

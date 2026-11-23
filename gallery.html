@@ -240,6 +240,12 @@
       border: 1px solid rgba(255, 255, 255, 0.1);
     }
 
+    /* 40주년 기념 영상 — 아코디언 강조 */
+    .video-card.video-featured {
+      border-color: rgba(45, 212, 167, 0.55);
+      box-shadow: 0 0 0 1px rgba(45, 212, 167, 0.35), 0 8px 28px rgba(45, 212, 167, 0.12);
+    }
+
     .video-frame {
       position: relative;
       aspect-ratio: 16 / 9;
@@ -673,11 +679,16 @@
         videoListEl.innerHTML = '<p class="gal-status" style="grid-column:1/-1;">영상은 디지털로 옮기는 중이에요 🎞️</p>';
         return;
       }
-      videos.sort(function (a, b) { return (a.year || 0) - (b.year || 0); });
+      // 40주년 기념 영상(featured)을 맨 위로, 그다음 연도 오름차순
+      videos.sort(function (a, b) {
+        if (!!a.featured !== !!b.featured) return a.featured ? -1 : 1;
+        return (a.year || 0) - (b.year || 0);
+      });
       var html = "";
       videos.forEach(function (v) {
         var id = encodeURIComponent(String(v.id || ""));
-        html += '<div class="video-card">' +
+        var yearTag = v.featured ? "✨ 40주년 기념" : (v.year ? String(v.year) : "");
+        html += '<div class="video-card' + (v.featured ? ' video-featured' : '') + '">' +
           '<button class="video-frame" data-id="' + id + '" type="button" aria-label="영상 재생">' +
           '<img src="https://i.ytimg.com/vi/' + id + '/hqdefault.jpg" loading="lazy" alt="' + escapeHtml(v.title || "영상") + '"' +
           ' onerror="if(this.dataset.fb){this.remove();}else{this.dataset.fb=1;this.src=this.src.replace(\'hqdefault\',\'mqdefault\');}" />' +
@@ -685,7 +696,7 @@
           "</button>" +
           '<div class="video-meta">' +
           "<h3>" + escapeHtml(v.title || "제목 없음") + "</h3>" +
-          '<p><span class="video-year">' + escapeHtml(v.year ? String(v.year) : "") + "</span>" +
+          '<p><span class="video-year">' + escapeHtml(yearTag) + "</span>" +
           escapeHtml(v.desc || "") + "</p>" +
           "</div></div>";
       });

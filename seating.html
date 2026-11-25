@@ -58,7 +58,6 @@
 <script>
 // 데이터는 구글시트(주소 # 뒤의 시트 ID)에서 실시간으로 읽는다. 페이지에는 명단이 없다.
 const id = location.hash.slice(1);
-const HALAL = '10';
 function parseCSV(s) {
   const rows = []; let row = [], cur = '', q = false;
   for (let i = 0; i < s.length; i++) {
@@ -90,11 +89,16 @@ async function load() {
     rows = parseCSV(await r.text());
   } catch { msg.innerHTML = '시트를 읽지 못했습니다.<br>시트 공유가 "링크가 있는 모든 사용자"로 되어 있는지 확인해 주세요.'; return; }
   const tables = {}; let total = 0, over = 0;
+  // 열 위치는 머리줄 이름으로 찾는다 (선배님들이 열을 끼워 넣어도 안 깨지게)
+  const head = rows[0].map(s => s.trim());
+  const cT = head.indexOf('테이블'), cS = head.findIndex(s => s.startsWith('자리')), cM = head.findIndex(s => /테마|목적|컨셉/.test(s));
+  const themes = {};
   for (const r of rows.slice(1)) {
-    const ppl = r.slice(3).map(s => s.trim()).filter(Boolean).map(person);
+    const ppl = r.slice(cS).map(s => s.trim()).filter(Boolean).map(person);
     // 구글 CSV는 숫자 열의 글자("미배정")를 빈칸으로 내보낸다 → 번호 없는 줄 = 미배정
-    const key = (r[0] || '').trim().replace(/\.0$/, '') || (ppl.length ? '미배정' : '');
+    const key = (r[cT] || '').trim().replace(/\.0$/, '') || (ppl.length ? '미배정' : '');
     if (!key || key === '전체') continue;
+    if (cM >= 0 && (r[cM] || '').trim()) themes[key] = r[cM].trim();
     if (tables[key]) { tables[key].push(...ppl); total += ppl.reduce((a, p) => a + p.n, 0); continue; }
     tables[key] = ppl;
     total += ppl.reduce((a, p) => a + p.n, 0);
@@ -107,7 +111,7 @@ async function load() {
     const cnt = ppl.reduce((a, p) => a + p.n, 0);
     if (cnt > 10) over++;
     html += `<div class="t${cnt > 10 ? ' over' : ''}" style="grid-column:${col + 2};grid-row:${row + 1};order:${no}">
-      <div class="no">${no}번${no === HALAL ? '<i class="tag">할랄</i>' : ''}</div>
+      <div class="no">${no}번${themes[no] ? `<i class="tag">${esc(themes[no])}</i>` : ''}</div>
       <div class="cnt">${cnt}명</div><ul>${ppl.map(p => `<li>${p.html}</li>`).join('')}</ul></div>`;
   }
   room.innerHTML = html;

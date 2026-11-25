@@ -25,7 +25,10 @@
   .t .cnt { font-weight:800; font-size:.95rem; margin-bottom:4px; }
   .t.over .cnt { color:var(--warn); }
   .t ul { list-style:none; padding:0; text-align:center; font-size:clamp(.62rem, .85vw, .85rem); line-height:1.35; overflow:hidden; }
-  .t li span { color:var(--accent); font-weight:700; font-size:.85em; margin-left:2px; }
+  .t li span:not(.hl) { color:var(--accent); font-weight:700; font-size:.85em; margin-left:2px; }
+  .legend { display:flex; flex-wrap:wrap; gap:6px 12px; max-width:1400px; margin:-6px auto 14px; font-size:.85rem; }
+  .legend:empty { display:none; }
+  .hl { padding:0 2px; border-radius:2px; }
   .tag { display:inline-block; font-size:.7rem; background:#fff1f1; color:var(--warn); border-radius:4px; padding:0 4px; margin-left:4px; }
   .extra { max-width:1400px; margin:18px auto 0; background:#fff; border:2px dashed var(--warn); border-radius:12px; padding:12px 16px; }
   .extra h2 { font-size:1rem; color:var(--warn); margin-bottom:6px; }
@@ -51,6 +54,7 @@
   <div class="meta" id="meta"></div>
   <div class="tools"><a id="edit" target="_blank" rel="noopener">시트에서 고치기</a><button onclick="load()">새로고침</button><button onclick="print()">인쇄</button></div>
 </header>
+<div class="legend" id="legend"></div>
 <div id="msg">불러오는 중…</div>
 <div class="room" id="room" hidden></div>
 <div class="extra" id="extra" hidden><h2>미배정</h2><div id="extraList"></div></div>
@@ -76,7 +80,31 @@ function person(raw) {
   const m = raw.match(/(\d+)\)\s*$/);
   const n = m ? +m[1] : 1;
   const name = raw.replace(/\((\d+)\)\s*$/, '').replace(/,\s*\d+\)\s*$/, ')').trim();
-  return { n, html: esc(name) + (n > 1 ? `<span>${n}명</span>` : '') };
+  return { n, raw: name, html: esc(name) + (n > 1 ? `<span>${n}명</span>` : '') };
+}
+// 같은 시트의 '특이사항' 탭: 구분 | 이름(일부만 적어도 됨) | 색(선택)
+const COLORS = { 노랑:'#fff176', 초록:'#b9f6ca', 분홍:'#ffc1e3', 파랑:'#b3e5fc', 주황:'#ffd59e', 보라:'#e1bee7' };
+const DEFAULT = { 임원진:'노랑', 후원사:'초록', 귀빈:'분홍' };
+let marks = [];
+async function loadMarks() {
+  try {
+    const r = await fetch(`https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent('특이사항')}&t=${Date.now()}`);
+    if (!r.ok) return [];
+    const rows = parseCSV(await r.text()), head = rows[0].map(s => s.trim());
+    // 탭이 없으면 구글이 첫 탭을 돌려주므로 머리줄로 확인
+    const cG = head.indexOf('구분'), cN = head.indexOf('이름'), cC = head.indexOf('색');
+    if (cG < 0 || cN < 0) return [];
+    return rows.slice(1).map(r => {
+      const g = (r[cG] || '').trim(), c = (cC >= 0 && r[cC] || '').trim() || DEFAULT[g] || '파랑';
+      return { g, key: (r[cN] || '').trim(), color: COLORS[c] || c };
+    }).filter(m => m.g && m.key);
+  } catch { return []; }
+}
+function mark(p) {
+  // 사람 이름(3글자 이하)은 정확히, 회사명처럼 긴 키워드는 포함 여부로 찾는다 → '안연수'가 '안연수 부모님'에 안 걸리게
+  const name = p.raw.replace(/\(.*\)/, '').trim(), bare = name.replace(/^\d+\s*/, '');
+  const m = marks.find(m => m.key.length >= 4 ? p.raw.includes(m.key) : (name === m.key || bare === m.key));
+  return m ? `<span class="hl" style="background:${esc(m.color)}" title="${esc(m.g)}">${p.html}</span>` : p.html;
 }
 async function load() {
   const msg = document.getElementById('msg');
@@ -87,6 +115,7 @@ async function load() {
     const r = await fetch(`https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&t=${Date.now()}`);
     if (!r.ok) throw 0;
     rows = parseCSV(await r.text());
+    marks = await loadMarks();
   } catch { msg.innerHTML = '시트를 읽지 못했습니다.<br>시트 공유가 "링크가 있는 모든 사용자"로 되어 있는지 확인해 주세요.'; return; }
   const tables = {}; let total = 0, over = 0;
   // 열 위치는 머리줄 이름으로 찾는다 (선배님들이 열을 끼워 넣어도 안 깨지게)
@@ -112,12 +141,15 @@ async function load() {
     if (cnt > 10) over++;
     html += `<div class="t${cnt > 10 ? ' over' : ''}" style="grid-column:${col + 2};grid-row:${row + 1};order:${no}">
       <div class="no">${no}번${themes[no] ? `<i class="tag">${esc(themes[no])}</i>` : ''}</div>
-      <div class="cnt">${cnt}명</div><ul>${ppl.map(p => `<li>${p.html}</li>`).join('')}</ul></div>`;
+      <div class="cnt">${cnt}명</div><ul>${ppl.map(p => `<li>${mark(p)}</li>`).join('')}</ul></div>`;
   }
   room.innerHTML = html;
   const extra = tables['미배정'] || [];
   document.getElementById('extra').hidden = !extra.length;
-  document.getElementById('extraList').innerHTML = extra.map(p => p.html).join(' · ');
+  document.getElementById('extraList').innerHTML = extra.map(mark).join(' · ');
+  const seen = {};
+  marks.forEach(m => seen[m.g] = m.color);
+  document.getElementById('legend').innerHTML = Object.entries(seen).map(([g, c]) => `<span><span class="hl" style="background:${esc(c)}">${esc(g)}</span></span>`).join('');
   document.getElementById('meta').innerHTML = `전체 <b>${total}명</b> · 15테이블` +
     (over ? ` · <span class="bad">10명 초과 ${over}곳</span>` : '') +
     (extra.length ? ` · <span class="bad">미배정 ${extra.length}</span>` : '') +

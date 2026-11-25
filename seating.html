@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex" />
+<title>좌석 배치도 — MR 40</title>
+<link rel="icon" href="assets/favicon.png" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+<style>
+  :root { --ink:#16223f; --muted:#6b7794; --line:#d9dfec; --accent:#3b6cf6; --warn:#e5484d; --bg:#f5f7fb; }
+  * { box-sizing:border-box; margin:0; }
+  body { font-family:'Pretendard',sans-serif; background:var(--bg); color:var(--ink); word-break:keep-all; padding:20px 16px 40px; }
+  header { display:flex; flex-wrap:wrap; align-items:baseline; gap:8px 16px; max-width:1400px; margin:0 auto 16px; }
+  h1 { font-size:1.4rem; }
+  .meta { color:var(--muted); font-size:.9rem; }
+  .meta b { color:var(--ink); }
+  .meta .bad { color:var(--warn); font-weight:700; }
+  .tools { margin-left:auto; display:flex; gap:8px; }
+  .tools a, .tools button { font:inherit; font-size:.85rem; padding:6px 12px; border:1px solid var(--line); border-radius:999px; background:#fff; color:var(--ink); text-decoration:none; cursor:pointer; }
+  .room { display:grid; grid-template-columns:56px repeat(5, minmax(0,1fr)); gap:14px; max-width:1400px; margin:0 auto; }
+  .stage { grid-row:1 / span 3; background:var(--ink); color:#fff; border-radius:10px; writing-mode:vertical-rl; display:flex; align-items:center; justify-content:center; font-weight:700; letter-spacing:.4em; }
+  .t { background:#fff; border:2px solid var(--line); border-radius:50%; aspect-ratio:1; padding:14% 10% 10%; display:flex; flex-direction:column; align-items:center; position:relative; min-width:0; }
+  .t.over { border-color:var(--warn); }
+  .t .no { position:absolute; top:6%; left:50%; transform:translateX(-50%); font-size:.8rem; color:var(--muted); font-weight:700; white-space:nowrap; }
+  .t .cnt { font-weight:800; font-size:.95rem; margin-bottom:4px; }
+  .t.over .cnt { color:var(--warn); }
+  .t ul { list-style:none; padding:0; text-align:center; font-size:clamp(.62rem, .85vw, .85rem); line-height:1.35; overflow:hidden; }
+  .t li span { color:var(--accent); font-weight:700; font-size:.85em; margin-left:2px; }
+  .tag { display:inline-block; font-size:.7rem; background:#fff1f1; color:var(--warn); border-radius:4px; padding:0 4px; margin-left:4px; }
+  .extra { max-width:1400px; margin:18px auto 0; background:#fff; border:2px dashed var(--warn); border-radius:12px; padding:12px 16px; }
+  .extra h2 { font-size:1rem; color:var(--warn); margin-bottom:6px; }
+  .back { max-width:1400px; margin:10px auto 0; text-align:right; color:var(--muted); font-size:.85rem; }
+  #msg { max-width:640px; margin:60px auto; text-align:center; color:var(--muted); line-height:1.8; }
+  @media (max-width:820px) {
+    .room { grid-template-columns:repeat(2, minmax(0,1fr)); }
+    .stage { grid-row:auto; grid-column:1 / -1; writing-mode:horizontal-tb; padding:8px; }
+    .t { grid-column:auto !important; grid-row:auto !important; aspect-ratio:auto; border-radius:16px; padding:28px 8px 12px; }
+    .t ul { font-size:.8rem; }
+    .tools { margin-left:0; flex-wrap:wrap; }
+  }
+  @media print {
+    body { background:#fff; padding:0; } .tools, .back { display:none; }
+    @page { size:A4 landscape; margin:8mm; }
+    .t ul { font-size:8.5pt; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>MR 40주년 좌석 배치도</h1>
+  <div class="meta" id="meta"></div>
+  <div class="tools"><a id="edit" target="_blank" rel="noopener">시트에서 고치기</a><button onclick="load()">새로고침</button><button onclick="print()">인쇄</button></div>
+</header>
+<div id="msg">불러오는 중…</div>
+<div class="room" id="room" hidden></div>
+<div class="extra" id="extra" hidden><h2>미배정</h2><div id="extraList"></div></div>
+<div class="back">입구(등록데스크) 쪽 →</div>
+<script>
+// 데이터는 구글시트(주소 # 뒤의 시트 ID)에서 실시간으로 읽는다. 페이지에는 명단이 없다.
+const id = location.hash.slice(1);
+const HALAL = '10';
+function parseCSV(s) {
+  const rows = []; let row = [], cur = '', q = false;
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i];
+    if (q) { if (c === '"' && s[i+1] === '"') { cur += '"'; i++; } else if (c === '"') q = false; else cur += c; }
+    else if (c === '"') q = true;
+    else if (c === ',') { row.push(cur); cur = ''; }
+    else if (c === '\n') { row.push(cur); rows.push(row); row = []; cur = ''; }
+    else if (c !== '\r') cur += c;
+  }
+  if (cur || row.length) { row.push(cur); rows.push(row); }
+  return rows;
+}
+const esc = s => s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function person(raw) {
+  const m = raw.match(/(\d+)\)\s*$/);
+  const n = m ? +m[1] : 1;
+  const name = raw.replace(/\((\d+)\)\s*$/, '').replace(/,\s*\d+\)\s*$/, ')').trim();
+  return { n, html: esc(name) + (n > 1 ? `<span>${n}명</span>` : '') };
+}
+async function load() {
+  const msg = document.getElementById('msg');
+  if (!id) { msg.textContent = '링크가 잘못되었습니다. 단톡방에 공유된 링크로 열어 주세요.'; return; }
+  document.getElementById('edit').href = `https://docs.google.com/spreadsheets/d/${id}/edit`;
+  let rows;
+  try {
+    const r = await fetch(`https://docs.google.com/spreadsheets/d/${id}/gviz/tq?tqx=out:csv&t=${Date.now()}`);
+    if (!r.ok) throw 0;
+    rows = parseCSV(await r.text());
+  } catch { msg.innerHTML = '시트를 읽지 못했습니다.<br>시트 공유가 "링크가 있는 모든 사용자"로 되어 있는지 확인해 주세요.'; return; }
+  const tables = {}; let total = 0, over = 0;
+  for (const r of rows.slice(1)) {
+    const key = (r[0] || '').trim();
+    if (!key || key === '전체') continue;
+    const ppl = r.slice(3).map(s => s.trim()).filter(Boolean).map(person);
+    tables[key] = ppl;
+    total += ppl.reduce((a, p) => a + p.n, 0);
+  }
+  const room = document.getElementById('room');
+  let html = '<div class="stage">무대</div>';
+  // 호텔 배치도: 무대에서 가까운 열부터 위→아래 1~15번 (5열 × 3행)
+  for (let row = 0; row < 3; row++) for (let col = 0; col < 5; col++) {
+    const no = String(col * 3 + row + 1), ppl = tables[no] || [];
+    const cnt = ppl.reduce((a, p) => a + p.n, 0);
+    if (cnt > 10) over++;
+    html += `<div class="t${cnt > 10 ? ' over' : ''}" style="grid-column:${col + 2};grid-row:${row + 1};order:${no}">
+      <div class="no">${no}번${no === HALAL ? '<i class="tag">할랄</i>' : ''}</div>
+      <div class="cnt">${cnt}명</div><ul>${ppl.map(p => `<li>${p.html}</li>`).join('')}</ul></div>`;
+  }
+  room.innerHTML = html;
+  const extra = tables['미배정'] || [];
+  document.getElementById('extra').hidden = !extra.length;
+  document.getElementById('extraList').innerHTML = extra.map(p => p.html).join(' · ');
+  document.getElementById('meta').innerHTML = `전체 <b>${total}명</b> · 15테이블` +
+    (over ? ` · <span class="bad">10명 초과 ${over}곳</span>` : '') +
+    (extra.length ? ` · <span class="bad">미배정 ${extra.length}</span>` : '') +
+    ` · ${new Date().toLocaleTimeString('ko-KR', {hour:'2-digit', minute:'2-digit'})} 기준`;
+  msg.hidden = true; room.hidden = false;
+}
+load();
+</script>
+</body>
+</html>

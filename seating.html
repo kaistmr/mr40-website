@@ -28,6 +28,7 @@
   .t li span:not(.hl) { color:var(--accent); font-weight:700; font-size:.85em; margin-left:2px; }
   .legend { display:flex; flex-wrap:wrap; gap:6px 12px; max-width:1400px; margin:-6px auto 14px; font-size:.85rem; }
   .legend:empty { display:none; }
+  .extra.nomeal { border-color:var(--muted); } .extra.nomeal h2 { color:var(--muted); }
   .hl { padding:0 2px; border-radius:2px; }
   .tag { display:inline-block; font-size:.7rem; background:#fff1f1; color:var(--warn); border-radius:4px; padding:0 4px; margin-left:4px; }
   .extra { max-width:1400px; margin:18px auto 0; background:#fff; border:2px dashed var(--warn); border-radius:12px; padding:12px 16px; }
@@ -58,6 +59,7 @@
 <div id="msg">불러오는 중…</div>
 <div class="room" id="room" hidden></div>
 <div class="extra" id="extra" hidden><h2>미배정</h2><div id="extraList"></div></div>
+<div class="extra nomeal" id="nomeal" hidden><h2>식사 안 하심</h2><div id="nomealList"></div></div>
 <div class="back">입구(등록데스크) 쪽 →</div>
 <script>
 // 데이터는 구글시트(주소 # 뒤의 시트 ID)에서 실시간으로 읽는다. 페이지에는 명단이 없다.
@@ -122,8 +124,10 @@ async function load() {
   const head = rows[0].map(s => s.trim());
   const cT = head.indexOf('테이블'), cS = head.findIndex(s => s.startsWith('자리')), cM = head.findIndex(s => /테마|목적|컨셉/.test(s));
   const themes = {};
+  const loose = []; // 번호 없는 줄: 미배정 또는 식사 안함
   for (const r of rows.slice(1)) {
     const ppl = r.slice(cS).map(s => s.trim()).filter(Boolean).map(person);
+    if (!(r[cT] || '').trim() && ppl.length) { loose.push({ ppl, label: (cM >= 0 && r[cM] || '').trim() }); continue; }
     // 구글 CSV는 숫자 열의 글자("미배정")를 빈칸으로 내보낸다 → 번호 없는 줄 = 미배정
     const key = (r[cT] || '').trim().replace(/\.0$/, '') || (ppl.length ? '미배정' : '');
     if (!key || key === '전체') continue;
@@ -132,6 +136,15 @@ async function load() {
     tables[key] = ppl;
     total += ppl.reduce((a, p) => a + p.n, 0);
   }
+  // 번호 없는 줄은 A열에 '식사'가 들어 있거나, 이미 테이블에 앉은 사람만 있으면 '식사 안함'으로 본다
+  const seated = new Set(Object.values(tables).flat().map(p => p.raw));
+  const noMeal = [];
+  for (const { ppl, label } of loose) {
+    if (/식사/.test(label) || ppl.every(p => seated.has(p.raw))) noMeal.push(...ppl);
+    else { (tables['미배정'] ||= []).push(...ppl); total += ppl.reduce((a, p) => a + p.n, 0); }
+  }
+  // 식사 인원 = 자리 인원 − 식사 안함(테이블에 앉은 사람만 뺀다)
+  const meal = total - noMeal.filter(p => seated.has(p.raw)).reduce((a, p) => a + p.n, 0);
   const room = document.getElementById('room');
   let html = '<div class="stage">무대</div>';
   // 호텔 배치도: 무대에서 가까운 열부터 위→아래 1~15번 (5열 × 3행)
@@ -147,10 +160,12 @@ async function load() {
   const extra = tables['미배정'] || [];
   document.getElementById('extra').hidden = !extra.length;
   document.getElementById('extraList').innerHTML = extra.map(mark).join(' · ');
+  document.getElementById('nomeal').hidden = !noMeal.length;
+  document.getElementById('nomealList').innerHTML = noMeal.map(mark).join(' · ');
   const seen = {};
   marks.forEach(m => seen[m.g] = m.color);
   document.getElementById('legend').innerHTML = Object.entries(seen).map(([g, c]) => `<span><span class="hl" style="background:${esc(c)}">${esc(g)}</span></span>`).join('');
-  document.getElementById('meta').innerHTML = `전체 <b>${total}명</b> · 15테이블` +
+  document.getElementById('meta').innerHTML = `전체 <b>${total}명</b>` + (noMeal.length ? ` · 식사 <b>${meal}명</b>` : '') + ` · 15테이블` +
     (over ? ` · <span class="bad">10명 초과 ${over}곳</span>` : '') +
     (extra.length ? ` · <span class="bad">미배정 ${extra.length}</span>` : '') +
     ` · ${new Date().toLocaleTimeString('ko-KR', {hour:'2-digit', minute:'2-digit'})} 기준`;

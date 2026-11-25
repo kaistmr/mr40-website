@@ -91,9 +91,11 @@ async function load() {
   } catch { msg.innerHTML = '시트를 읽지 못했습니다.<br>시트 공유가 "링크가 있는 모든 사용자"로 되어 있는지 확인해 주세요.'; return; }
   const tables = {}; let total = 0, over = 0;
   for (const r of rows.slice(1)) {
-    const key = (r[0] || '').trim();
-    if (!key || key === '전체') continue;
     const ppl = r.slice(3).map(s => s.trim()).filter(Boolean).map(person);
+    // 구글 CSV는 숫자 열의 글자("미배정")를 빈칸으로 내보낸다 → 번호 없는 줄 = 미배정
+    const key = (r[0] || '').trim().replace(/\.0$/, '') || (ppl.length ? '미배정' : '');
+    if (!key || key === '전체') continue;
+    if (tables[key]) { tables[key].push(...ppl); total += ppl.reduce((a, p) => a + p.n, 0); continue; }
     tables[key] = ppl;
     total += ppl.reduce((a, p) => a + p.n, 0);
   }

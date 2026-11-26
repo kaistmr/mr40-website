@@ -66,6 +66,12 @@
   "url": "https://cylod.com/"
  },
  {
+  "tier": "SILVER",
+  "name": "엠시스로보틱스",
+  "logo": "assets/logos/sp_msis.svg",
+  "url": ""
+ },
+ {
   "tier": "PARTNER",
   "name": "엔젤로보틱스",
   "logo": "assets/logos/sp_angel.png",
